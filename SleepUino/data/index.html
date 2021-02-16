@@ -1,0 +1,139 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>SleepUino</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/TestTheme.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile.struc.min.css" />
+    <link rel="stylesheet" href="css/sleepUino.css" />
+    <script src="./jquery-2.2.4.min.js"></script>
+    <script src="./jquery.mobile-1.4.5.min.js"></script>
+    
+</head>
+<body> 
+    <div class="su-base" data-role="page" class="ui-responsive-panel" id="page">
+        <div class="su-header ui-bar-inherit" data-role="header" role="banner">
+            <h2 class="ui-title" role="heading" aria-level="1">
+                <img src="./Logo.png" alt="SleepUINO">
+            </h2>
+            <a data-role="none" class="ui-btn-right">
+                <select name="select-lang" id="select-lang" class="lang-selector" data-iconpos="left" data-inline="true" onchange="LangSupport.changeLang()">
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ru">Pусский</option>
+                </select>
+            </a>
+        </div>
+        <div data-role="tabs" id="tabs">
+            <div data-role="listview" id="navbar">
+                <ul>
+                <li><a href="#time" id="tabTime" class="ui-btn-active" onclick="UiFunc.setDescriptionText('timeDescription')">Time</a></li>
+                <li><a href="#brightness" id="tabLED" onclick="UiFunc.setDescriptionText('ledDescription')">LED/Alarm</a></li>
+                <li><a href="#wakeup" id="tabWakeTime" onclick="UiFunc.setDescriptionText('wakeTimeDescription')">Wake up</a></li>
+                <!-- <li><a href="#tests" id="tabTests">Tests</a></li> -->
+                </ul>
+            </div>
+            <div id="time">                
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <h3 id="headerTimeSetup" class="ui-bar ui-bar-a ui-corner-all">Uhrzeit einstellen</h3>
+                    <label id="labelTimeBrowser" for="timeBrowser">Browser Time:</label>
+                    <input type="text" name="timeBrowser" id="timeBrowser" value="" style="text-align: center;" readonly>
+                    <label id="labelTimeESP" for="timeESP">SleepUino Time:</label>
+                    <input type="text" name="timeESP" id="timeESP" value="" style="text-align: center;" readonly>                
+                    <button id="syncButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.syncTime()">Sync</button> 
+                </div>
+            </div>
+            <div id="brightness">
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <h3 id="headerLED" class="ui-bar ui-bar-a ui-corner-all">LED Settings</h3>
+                    <form>
+                        <label id="labelSliderMoon" for="sliderMoon">Brightness LED Moon:</label>
+                        <input type="range" name="sliderMoon" id="sliderMoon" data-highlight="true" min="10" max="100" value="50" onchange="SleepUinoCom.sendDataMoon(this.value)">
+                        <label id="labelSliderSun" for="sliderSun">Brightness LED Sun:</label>
+                        <input type="range" name="sliderSun" id="sliderSun" data-highlight="true" min="10" max="100" value="50" onchange="SleepUinoCom.sendDataSun(this.value)">
+                    </form>
+                </div>
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <h3 id="headerAlarm" class="ui-bar ui-bar-a ui-corner-all">Alarm Settings</h3>
+                    <label id="labelSliderGain" for="sliderGain">Volume:</label>
+                    <input type="range" name="sliderGain" id="sliderGain" data-highlight="true" min="2" max="100" value="25" onchange="SleepUinoCom.setAlarmVolume(this.value)">
+                    <button id="playButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.playSound()">Play</button>
+                                           
+                    <label id="labelFlipAlarm" for="flipAlarm">Flip toggle:</label>
+                    <input type="checkbox" data-role="flipswitch" id="flipAlarm" data-on-text="On" data-off-text="Off" checked="true" onchange="UiFunc.handleFlipAlarm()">
+                    <label class="ui-disabled" id="labelAlarmReplays" for="alarmReplays">Number of Replays for Alarm:</label>
+                    <input class="ui-disabled" type="number" min="1" max="10" id="alarmReplays" value="1" onchange="UiFunc.handleAlarmReplays()">
+                </div>
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <h3 id="headerDisplay" class="ui-bar ui-bar-a ui-corner-all">Display Settings</h3>
+                    <select name="select-display-mode" id="select-display-mode" onchange="UiFunc.handleChangeDisplayMode()">
+                        <option value="0">Display-On</option>
+                        <option value="1">Display-Off</option>
+                        <option value="2">Display-On at bedtime</option>
+                        <option value="3">Display-On at daytime</option>
+                    </select>
+                </div>
+            </div>
+            <div id="wakeup">
+                <div class="ui-body ui-body-a ui-corner-all">
+                <h3 id="headerSetWakeTimes" class="ui-bar ui-bar-a ui-corner-all">Set wake up times here</h3>
+                    <div class="ui-grid-a ui-responsive">   
+                        <div class="ui-block-a">
+                            <label id="labelWakeUpTime" for="wakeUpTime">&#127774; Weckzeit:</label>
+                            <input id="wakeUpTime" type="time">
+                        </div>
+                        <div class="ui-block-b">
+                            <label id="labelGoBedTime" for="wakeUpTime">&#127772; Schlafenszeit:</label>
+                            <input id="goToBedTime" type="time">
+                        </div>               
+                    </div>
+                    <div class="ui-grid-solo">
+                        <div class="ui-block-a">
+                            <div>
+                                <input type="button" id="addTimeBtn" data-icon="plus" value="Add Time" onclick="UiWakeList.appendToWakeList()">      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-body ui-body-a ui-corner-all">
+                    <h3 id="headerTimeList" class="ui-bar ui-bar-a ui-corner-all">Time List</h3>
+                    <div>
+                        <ol data-role="listview" data-inset="true" id="list" data-split-icon="delete" data-split-theme="d">
+                        </ol>
+                    </div>       
+                </div>           
+            </div>
+        </div>
+        <!-- data-position="fixed" -->
+        <div data-role="footer" id="myFooter" class="ui-corner-all">
+            <h3 id="footerHeadline">Description</h3>
+            <div class="ui-body ui-body-a ui-corner-all">
+                <p id="description-text"></p>
+            </div>
+        </div>
+</body>
+<script src="./myFunctions.js"></script>
+<script src="./SleepUinoCom.js"></script>
+<script src="./multiLangSupport.js"></script>
+<script>
+    'use strict';
+    //For test without SleepUINO use SleepUinoCom.enableServerCom = false
+    //SleepUinoCom.enableServerCom = false;
+    //UiFunc.enableTestTab = true;
+
+    window.onload = function() {
+        UiFunc.addTestTab();
+
+        //Set Browswer Language
+        LangSupport.createLangResources();
+        LangSupport.setLanguage(navigator.language || navigator.userLanguage);
+        $("#select-lang").change();
+
+        //read an set values
+        SleepUinoCom.getTime();
+        SleepUinoCom.getValues();
+        SleepUinoCom.getWakeUpArray();    
+    };
+</script>
+</html>

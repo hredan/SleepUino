@@ -1,0 +1,26 @@
+.su-base .su-header h2 {
+	padding: .4em 0 .1em;
+	margin: 0 3em;
+}
+
+.su-base .su-header h2 img {
+	display: block;
+	width: 140px;
+	height: auto;
+}
+.su-base .su-header h2 > img {
+	display: inline-block;
+}
+
+@media (min-width: 60em) {
+    .su-base .su-header h2 {
+        padding: 1em 0 .7em;
+        margin: 0 1em 0 3%;
+        text-align: left;
+    }
+
+    .su-base .su-header h2 img {
+        width: 275px;
+        height: 78px;
+    }
+}
