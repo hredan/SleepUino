@@ -4,7 +4,7 @@ The SleepUino is a Alarm-Clock with a webinterface based on a ESP8266. It is usi
 
 # Hardware needed
 
-#Disclaimer
+# Disclaimer
 All this code is released under the GPL, and all of it is to be used at your own risk. If you find any bugs, please let me know via the GitHub issue tracker or drop me an email (hredan@sourcecode3d.de).
 
 
