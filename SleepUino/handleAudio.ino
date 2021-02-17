@@ -90,12 +90,13 @@ bool HandleAudio::isSoundPlaying()
 
 void HandleAudio::playSound()
 {
-    if(LittleFS.exists("/AlarmSound.wav"))
+    const char *soundFile = "/AlarmSound.wav";
+    if(LittleFS.exists(soundFile))
     {
         Serial.println("initialize all instances, needed for sound");
         #ifdef USE_I2S_DAC
-            //max gain value < 4
-            float gain = (_gainSound - 1) * 0.04;
+            //max gain value < 1
+            float gain = (_gainSound - 1) * 0.01;
             _out->SetGain(gain);
             Serial.println("use gain to play sound: " + String(gain));
             
@@ -105,11 +106,15 @@ void HandleAudio::playSound()
         #endif
         
         Serial.println("load file");
-        _file = new AudioFileSourceLittleFS("/Kikeriki.wav");
+        _file = new AudioFileSourceLittleFS(soundFile);
         Serial.println("play sound");
         if (_wav->begin(_file, _out))
         {
             _soundIsPlaying = true;
         }
+    }
+    else
+    {
+      Serial.println("Sound File does not exists!");
     }
 }
