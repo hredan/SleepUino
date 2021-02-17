@@ -1,15 +1,11 @@
 ![SleepUino DIY Alarm-Clock with webinterface](/SleepUino/data/Logo_en.png)
 # SleepUino the DIY Alarm-Clock with Web-Interface
-The SleepUino is a DIY Alarm-Clock with a Web-Interface based on a ESP8266. It is using jQuery Mobile as Web UI. From this point of view it can be configured by any WiFi device, link Android/iOS mobile phones or a PC and Notebook with WLAN. The SleepUino is using the WLAN only for configuration (Nobody will have an access point beside the bed, I hope it!). It is generating his own WLAN access point, which you can use to connect with you mobile phone or PC. Because the SleepUino is using a Single Web Application and a Captive Portal it is very easy to connecting with it. More details you can find on my German Web Page: https://www.sleepuino.sourcecode3d.de/
+The SleepUino is a DIY Alarm-Clock with a Web-Interface based on a ESP8266. It is using jQuery Mobile as Web UI. From this point of view it can be configured by any WiFi device, link Android/iOS mobile phones or a PC and Notebook with WLAN. The SleepUino is using the WLAN only for configuration (Nobody will have an access point beside the bed, I hope it!). It is generating his own WLAN access point, which you can use to connect with you mobile phone or PC. Because the SleepUino is using a Single Web Application and a Captive Portal it is very easy to connecting with it. More details you can find on my German Web Page: [SleepUino](https://www.sleepuino.sourcecode3d.de/){:target="_blank"}
 
 # Why a Web-Interface for a Alarm-Clock
 The Web-Interface give me the possibility to get a lot of different configurations (this is also true for many other devices). And a Web-Interface can be used by any WLAN device independently of the operating system. The ESP8266 is a low cost micro controller, so the Web-Interface is bargain at that price! It is very easy to configure a Alarm-Clock by a Web-Interface as with many buttons on the device self. The SleepUino has only one button and this is fully enough to use it.
 
 # A video said more than milles of words
-
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/enMumwvLAug" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
 
 # Currently Features
 - The Display can be enabled or disabled in the configuration. Flowing option are available:
