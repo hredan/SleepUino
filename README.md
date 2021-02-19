@@ -23,7 +23,7 @@ The Web-Interface give me the possibility to get a lot of different configuratio
 * so, yes there is a little chance, that any other is connecting with the SleepUino at the time when it is in configuration mode
 * It is also possible to set a password for the Sleep Uino access point in the code, currently a password is not used. I see no dire necessity to do this because a password complicates the currently easy connecting process. If you have an other opinion share the arguments with me or change the code local for you.
 
-# Required Hardware
+# Required Hardware and Circuit Diagrams
 1. ESP8266 Board with 4MB Flash Memory
 2. DAC [MAX98357A](https://www.adafruit.com/product/3006)
 3. Speaker 4 Ω or 8 Ω (Tip: have a look if you have an old device like a radio or an old notebook which you do not need anymore, then you can use the speaker from it)
@@ -34,6 +34,20 @@ The Web-Interface give me the possibility to get a lot of different configuratio
 8. 2x 220 Ω resistor
 9. some cable
 10. Breadboard
+
+## Circuit Diagrams
+![SleepUino D1 mini Circuit Diagram](/CircuitDiagram/Images/SleepUino_ESP_Mini_Schaltplan.jpg)
+
+[SleepUino D1 mini Circuit Diagram as pdf](/CircuitDiagram/SleepUino_ESP_D1_Mini_CircuitDiagram.pdf)
+
+[SleepUino NodeMCU Circuit Diagram as pdf](/CircuitDiagram/SleepUino_ESP_NodeMCU_V3_CircuitDiagram.pdf)
+
+## Breadboard Connecting
+![SleepUino ESP WeMos D1 mini](/CircuitDiagram/Images/SleepUino_ESP_Mini_Breadboard.jpg)
+
+[SleepUino D1 mini Breadboard Overview as pdf](/CircuitDiagram/SleepUino_ESP_D1_Mini_MiniBreadboard.pdf)
+
+[SleepUino NodeMCU Breadboard Overview as pdf](/CircuitDiagram/SleepUino_ESP_NodeMCU_V3_Breadboard.pdf)
 
 # Disclaimer
 All this code is released under the GPL, and all of it is to be used at your own risk. If you find any bugs, please let me know via the GitHub issue tracker or drop me an email ([hredan@sourcecode3d.de](mailto:hredan@sourcecode3d.de)).
