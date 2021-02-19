@@ -1,6 +1,6 @@
 ![SleepUino DIY Alarm-Clock with webinterface](/SleepUino/data/Logo_en.png)
 # SleepUino the DIY Alarm-Clock with Web-Interface based on ESP8266
-The SleepUino is a DIY Alarm-Clock with a Web-Interface based on a ESP8266. It is using jQuery Mobile as Web UI. From this point of view it can be configured by any WiFi device, like Android/iOS mobile phones or a PC and Notebook with WLAN. The SleepUino is using the WLAN only for configuration (Nobody will have an access point beside the bed, I hope it!). It is generating his own WLAN access point, which you can use to connect with you mobile phone or PC. Because the SleepUino is using a Single Web Application and a Captive Portal it is very easy to connecting with it. More details you can find on my German Web Page: 
+The SleepUino is a DIY Alarm-Clock with a Web-Interface based on a ESP8266. It is using jQuery Mobile as Web UI. From this point of view it can be configured by any WiFi device, like Android/iOS mobile phones or a PC and Notebook with WLAN. The SleepUino is using the WLAN only for configuration (Nobody will have an access point beside the bed, I hope so!). It is generating its own WLAN access point, which you can use to connect with you smartphone or PC. Because the SleepUino is using a Single Web Application and a Captive Portal it is very easy to connecting with it. More details you can find on my German Web Page: 
 <a href="https://www.sleepuino.sourcecode3d.de/" target="_blank">SleepUino</a>
 
 # Why a Web-Interface and jQuery Mobile for a Alarm-Clock?
