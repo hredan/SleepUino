@@ -68,6 +68,8 @@ In case of the housing I have used some things from the waste. Seems to be it is
 For the housing itself I have used a container for olive from the market. And for the LED reflectors I have used two yogurt pots.
 
 ![ConfigMode GarbageCollection](/HousingExample/GarbageCollection/ConfigMode.png)
+![GarbageCollection Open](/HousingExample/GarbageCollection/GC_Open.png)
+![GarbageCollection Build Up Front](/HousingExample/GarbageCollection/BuildUpFront.png)
 
 # Installation of Arduino and flashing of ESP8266
 After you have buildup the hardware according the circuit diagram you can flash the ESP8266 to use the SleepUino.
