@@ -49,7 +49,7 @@ enum TimeTypes {TT_UNKNOWN, TT_MOON, TT_SUN, TT_SUN_ALARM};
 
 enum DisplayMode {DM_ON, DM_OFF, DM_ON_AT_BEDTIME, DM_ON_AT_DAYTIME};
 
-const int DISPLAY_TIME_BEFORE = 30;
+const int DISPLAY_TIME_BEFORE = 0;
 //define states for state machine, used in SleepUino.ino
 enum states_t {OPS, TO_WIFI, WIFI, TO_OPS};
 
