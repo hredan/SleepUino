@@ -302,6 +302,13 @@ var UiWakeList = {
 
 var UiFunc = {
     enableTestTab : false,
+
+    enableDisableTestTab : function(){
+        var test_switch = $("#test-flip").val();
+        console.log("test_switch" + test_switch);
+        // this.addTestTab();
+    },
+
     addTestTab : function(){
         if (this.enableTestTab)
         {

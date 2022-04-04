@@ -1,7 +1,4 @@
-
-
 var TestRunner = {
-    
     listEntry : '<li><a href="#tests" id="tabTests">Tests</a></li>',
     htmlTests : `
         <div id="tests">

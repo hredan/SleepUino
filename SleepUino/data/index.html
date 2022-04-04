@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="css/sleepUino.css" />
     <script src="./jquery-2.2.4.min.js"></script>
     <script src="./jquery.mobile-1.4.5.min.js"></script>
-    
 </head>
 <body> 
     <div class="su-base" data-role="page" class="ui-responsive-panel" id="page">
-        <div class="su-header ui-bar-inherit" data-role="header" role="banner">
+        <div class="su-header ui-bar-inherit" id="header" data-role="header" role="banner">
             <h2 class="ui-title" role="heading" aria-level="1">
                 <img src="./Logo.png" alt="SleepUINO">
             </h2>
@@ -24,6 +23,12 @@
                     <option value="ru">Pусский</option>
                 </select>
             </a>
+            <a data-role="none" class="ui-btn-left">
+                <select id="test-flip" name="test-flip" data-role="slider" onchange="UiFunc.enableDisableTestTab()">
+                    <option value="off">Test</option>
+                    <option value="on">Off</option>
+                </select>
+            </a>
         </div>
         <div data-role="tabs" id="tabs">
             <div data-role="listview" id="navbar">
@@ -31,7 +36,6 @@
                 <li><a href="#time" id="tabTime" class="ui-btn-active" onclick="UiFunc.setDescriptionText('timeDescription')">Time</a></li>
                 <li><a href="#brightness" id="tabLED" onclick="UiFunc.setDescriptionText('ledDescription')">LED/Alarm</a></li>
                 <li><a href="#wakeup" id="tabWakeTime" onclick="UiFunc.setDescriptionText('wakeTimeDescription')">Wake up</a></li>
-                <!-- <li><a href="#tests" id="tabTests">Tests</a></li> -->
                 </ul>
             </div>
             <div id="time">                
@@ -119,7 +123,19 @@
 <script>
     'use strict';
     //For test without SleepUINO use SleepUinoCom.enableServerCom = false
-    //SleepUinoCom.enableServerCom = false;
+    $.ajax({
+        url:'./isSleepUino',
+        type:'HEAD',
+        error: function()
+        {
+            SleepUinoCom.enableServerCom = false;
+        },
+        success: function()
+        {
+            SleepUinoCom.enableServerCom = true;
+        }
+    });
+
     //UiFunc.enableTestTab = true;
 
     window.onload = function() {
