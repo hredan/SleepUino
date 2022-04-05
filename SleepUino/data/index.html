@@ -123,6 +123,11 @@
         error: function()
         {
             SleepUinoCom.enableServerCom = false;
+            // add SleepUinoTests.js to DOM
+            const script = document.createElement('script')
+            script.src = './SleepUinoTests.js'
+            document.head.append(script)
+
             console.log("Enable Dummy Interface")
         },
         success: function()
@@ -134,9 +139,9 @@
     //UiFunc.enableTestTab = true;
 
     window.onload = function() {
-        UiFunc.addTestTab();
         UiFunc.addTestSwitch();
-        
+        UiFunc.addTestTab();
+
         //Set Browswer Language
         LangSupport.createLangResources();
         LangSupport.setLanguage(navigator.language || navigator.userLanguage);

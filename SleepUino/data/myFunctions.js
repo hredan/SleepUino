@@ -305,16 +305,24 @@ var UiFunc = {
 
     enableDisableTestTab : function(){
         var test_switch = $("#test-flip").val();
-        console.log("test_switch" + test_switch);
-        // this.addTestTab();
+        console.log("test_switch: " + test_switch);
+        if (test_switch == "on")
+        {
+            this.enableTestTab = true;
+        }
+        else
+        {
+            this.enableTestTab = false;
+        }
+        this.addTestTab();
     },
 
     addTestTab : function(){
         if (this.enableTestTab)
         {
-            $.getScript("./SleepUinoTests.js", function(){
-            TestRunner.addTestTab();
-            });
+            //$.getScript("./SleepUinoTests.js", function(){
+            //TestRunner.addTestTab();
+            //});
         }
         else
         {
