@@ -322,6 +322,22 @@ var UiFunc = {
         }
     },
 
+    addTestSwitch : function(){
+        var test_switch = `
+        <a data-role="none" class="ui-btn-left">
+                <select id="test-flip" name="test-flip" data-role="slider" onchange="UiFunc.enableDisableTestTab()">
+                    <option value="off">Test</option>
+                    <option value="on">Off</option>
+                </select>
+            </a>
+        `
+        if (SleepUinoCom.enableServerCom == false)
+        {
+            $(test_switch).appendTo("#header");
+            $("#test-flip").slider();
+        }
+    },
+
     handleChangeDisplayMode : function(){
         var mode = $("#select-display-mode").val();
         SleepUinoCom.sendDisplayMode(mode);

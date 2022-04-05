@@ -23,12 +23,6 @@
                     <option value="ru">Pусский</option>
                 </select>
             </a>
-            <a data-role="none" class="ui-btn-left">
-                <select id="test-flip" name="test-flip" data-role="slider" onchange="UiFunc.enableDisableTestTab()">
-                    <option value="off">Test</option>
-                    <option value="on">Off</option>
-                </select>
-            </a>
         </div>
         <div data-role="tabs" id="tabs">
             <div data-role="listview" id="navbar">
@@ -129,6 +123,7 @@
         error: function()
         {
             SleepUinoCom.enableServerCom = false;
+            console.log("Enable Dummy Interface")
         },
         success: function()
         {
@@ -140,7 +135,8 @@
 
     window.onload = function() {
         UiFunc.addTestTab();
-
+        UiFunc.addTestSwitch();
+        
         //Set Browswer Language
         LangSupport.createLangResources();
         LangSupport.setLanguage(navigator.language || navigator.userLanguage);
