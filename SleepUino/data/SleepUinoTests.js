@@ -1,5 +1,5 @@
 var TestRunner = {
-    listEntry : '<li><a href="#tests" id="tabTests">Tests</a></li>',
+    listEntry : '<li id="tabTests"><a href="#tests" class="ui-btn">Tests</a></li>',
     htmlTests : `
         <div id="tests">
             <div class="ui-body ui-body-a ui-corner-all">
@@ -26,17 +26,27 @@ var TestRunner = {
 
     addTestTab : function()
     {
-        $("#navbar ul").append(TestRunner.listEntry);
-        
         $(TestRunner.htmlTests).appendTo("#tabs");
+        $("#navbar ul").append(TestRunner.listEntry);
+        $("#tests").trigger('create');
         $("#tabs").tabs("refresh");
         $("#navbar").navbar();
-        $("#tests").trigger('create');
+        
 
         //Subscribtion for Events
         $('#testList').on('click', '.testRun', function(){
             TestRunner.runTest($(this));
         });
+    },
+
+    removeTestTab : function()
+    {
+        if($('#tabTests').length){
+            $("#tabTests").remove();
+            $("#tests").remove();
+        }
+        //$("#tabs").tabs("refresh");
+        $("#navbar").navbar();
     },
 
     runTest : function(listEntry)

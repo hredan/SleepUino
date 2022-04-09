@@ -320,13 +320,19 @@ var UiFunc = {
     addTestTab : function(){
         if (this.enableTestTab)
         {
-            //$.getScript("./SleepUinoTests.js", function(){
-            //TestRunner.addTestTab();
-            //});
+            if (SleepUinoCom.enableServerCom == false)
+            {
+                TestRunner.addTestTab();
+            }
+            else
+            {
+                $("#navbar").trigger('create');
+            }
         }
         else
         {
-            $("#navbar").navbar();
+            TestRunner.removeTestTab();
+            //$("#navbar").navbar();
         }
     },
 
