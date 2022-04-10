@@ -1,8 +1,5 @@
-
-
 var TestRunner = {
-    
-    listEntry : '<li><a href="#tests" id="tabTests">Tests</a></li>',
+    listEntry : '<li id="tabTests"><a href="#tests" class="ui-btn">Tests</a></li>',
     htmlTests : `
         <div id="tests">
             <div class="ui-body ui-body-a ui-corner-all">
@@ -29,17 +26,26 @@ var TestRunner = {
 
     addTestTab : function()
     {
-        $("#navbar ul").append(TestRunner.listEntry);
-        
         $(TestRunner.htmlTests).appendTo("#tabs");
-        $("#tabs").tabs("refresh");
-        $("#navbar").navbar();
+        $("#navbar ul").append(TestRunner.listEntry);
         $("#tests").trigger('create');
+        //$("#navbar").listview("refresh");
+        $("#tabs").tabs("refresh");
 
         //Subscribtion for Events
         $('#testList').on('click', '.testRun', function(){
             TestRunner.runTest($(this));
         });
+    },
+
+    removeTestTab : function()
+    {
+        if($('#tabTests').length){
+            $("#tabTests").remove();
+            $("#tests").remove();
+        }
+        //$("#tabs").tabs("refresh");
+        $("#navbar").navbar();
     },
 
     runTest : function(listEntry)
@@ -119,21 +125,21 @@ var Tests = {
         return (funcResult == expectedResult);
     },
 
-    testGetAlarmValueFunc_AlarmOn : function()
+    testGetAlarmValueFunc_AlarmOff : function()
     {
         var html = "|&#127774;&nbsp;04:00&nbsp;|&nbsp;&#127772;&nbsp;05:00&nbsp;|&nbsp;<s>&#x23F0;</s>&nbsp;|";
-        var expectedResult = true;
+        var expectedResult = false;
 
         var funcResult = WakeListFunc.getAlarmValueFunc(html);
         return (funcResult == expectedResult);
     },
     
-    testGetAlarmValueFunc_AlarmOff : function()
+    testGetAlarmValueFunc_AlarmOn : function()
     {
         var html = "|&#127774;&nbsp;04:00&nbsp;|&nbsp;&#127772;&nbsp;05:00&nbsp;|&nbsp;&#x23F0;&nbsp;|";
-        var expectedResult = false;
+        var expectedResult = true;
 
         var funcResult = WakeListFunc.getAlarmValueFunc(html);
         return (funcResult == expectedResult);
-    }
+    },
 };

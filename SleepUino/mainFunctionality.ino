@@ -34,8 +34,9 @@ MainFunc::MainFunc()
     //set Callbacks
     MainFunc::_handleAudio->setCallBackSoundIsDone(_handleWebpage->sendSuccess);
     //set Callbacks
-    _handleWebpage->setCallBackGetTime(_rtc->now);
-    _handleWebpage->setCallBackAdjustTime(_rtc->adjust);
+    
+    _handleWebpage->setCallBackGetTime(std::bind(&RTC_DS3231::now, _rtc));
+    _handleWebpage->setCallBackAdjustTime(std::bind(&RTC_DS3231::adjust, _rtc, std::placeholders::_1));
     
     _handleWebpage->setCallBackSetGain(this->setGainSound);
     _handleWebpage->setCallBackSetSunBrightness(this->setSunBrightness);

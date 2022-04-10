@@ -82,6 +82,7 @@ After you have build-up the hardware according the circuit diagram you can flash
     2. [U8g2 (by oliver)](https://github.com/olikraus/u8g2)
     3. [JC_Button](https://github.com/JChristensen/JC_Button)
     4. [ArduinoJson](https://github.com/bblanchon/ArduinoJson)
+    5. [RTClib](https://github.com/adafruit/RTClib)
 4. Copy or Clone the SleepUino Repository
     1. if you familiar with GIT you can clone the Repository from GitHub
     2. or download the ZIP File by pressing the TAP Code in [GitHub SleepUINO](https://github.com/hredan/SleepUino) -> Download ZIP

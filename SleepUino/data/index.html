@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="css/sleepUino.css" />
     <script src="./jquery-2.2.4.min.js"></script>
     <script src="./jquery.mobile-1.4.5.min.js"></script>
-    
 </head>
 <body> 
     <div class="su-base" data-role="page" class="ui-responsive-panel" id="page">
-        <div class="su-header ui-bar-inherit" data-role="header" role="banner">
+        <div class="su-header ui-bar-inherit" id="header" data-role="header" role="banner">
             <h2 class="ui-title" role="heading" aria-level="1">
                 <img src="./Logo.png" alt="SleepUINO">
             </h2>
@@ -28,13 +27,12 @@
         <div data-role="tabs" id="tabs">
             <div data-role="listview" id="navbar">
                 <ul>
-                <li><a href="#time" id="tabTime" class="ui-btn-active" onclick="UiFunc.setDescriptionText('timeDescription')">Time</a></li>
-                <li><a href="#brightness" id="tabLED" onclick="UiFunc.setDescriptionText('ledDescription')">LED/Alarm</a></li>
-                <li><a href="#wakeup" id="tabWakeTime" onclick="UiFunc.setDescriptionText('wakeTimeDescription')">Wake up</a></li>
-                <!-- <li><a href="#tests" id="tabTests">Tests</a></li> -->
+                    <li><a href="#time" id="tabTime" class="ui-btn-active" onclick="UiFunc.setDescriptionText('timeDescription')">Time</a></li>
+                    <li><a href="#brightness" class="ui-btn" id="tabLED" onclick="UiFunc.setDescriptionText('ledDescription')">LED/Alarm</a></li>
+                    <li><a href="#wakeup" class="ui-btn" id="tabWakeTime" onclick="UiFunc.setDescriptionText('wakeTimeDescription')">Wake up</a></li>
                 </ul>
             </div>
-            <div id="time">                
+            <div id="time">
                 <div class="ui-body ui-body-a ui-corner-all">
                     <h3 id="headerTimeSetup" class="ui-bar ui-bar-a ui-corner-all">Uhrzeit einstellen</h3>
                     <label id="labelTimeBrowser" for="timeBrowser">Browser Time:</label>
@@ -101,8 +99,8 @@
                     <div>
                         <ol data-role="listview" data-inset="true" id="list" data-split-icon="delete" data-split-theme="d">
                         </ol>
-                    </div>       
-                </div>           
+                    </div>
+                </div>
             </div>
         </div>
         <!-- data-position="fixed" -->
@@ -119,10 +117,30 @@
 <script>
     'use strict';
     //For test without SleepUINO use SleepUinoCom.enableServerCom = false
-    //SleepUinoCom.enableServerCom = false;
+    $.ajax({
+        url:'./isSleepUino',
+        type:'HEAD',
+        async: false,
+        error: function()
+        {
+            SleepUinoCom.enableServerCom = false;
+            // add SleepUinoTests.js to DOM
+            const script = document.createElement('script')
+            script.src = './SleepUinoTests.js'
+            document.head.append(script)
+
+            console.log("Enable Dummy Interface")
+        },
+        success: function()
+        {
+            SleepUinoCom.enableServerCom = true;
+        }
+    });
+
     //UiFunc.enableTestTab = true;
 
     window.onload = function() {
+        UiFunc.addTestSwitch();
         UiFunc.addTestTab();
 
         //Set Browswer Language

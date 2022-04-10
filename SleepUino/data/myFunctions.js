@@ -79,7 +79,7 @@ var WakeListFunc = {
         //search returns position of string, if string not found it returns -1
         var pos = html.search(/\<s\>/);
         
-        //If it is -1 Alarm is on, alse it is off
+        //If it is -1 Alarm is on, else it is off
         return pos == -1;
     },
 
@@ -302,16 +302,52 @@ var UiWakeList = {
 
 var UiFunc = {
     enableTestTab : false,
-    addTestTab : function(){
-        if (this.enableTestTab)
+
+    enableDisableTestTab : function(){
+        var test_switch = $("#test-flip").val();
+        console.log("test_switch: " + test_switch);
+        if (test_switch == "on")
         {
-            $.getScript("./SleepUinoTests.js", function(){
-            TestRunner.addTestTab();
-            });
+            this.enableTestTab = true;
         }
         else
         {
-            $("#navbar").navbar();
+            this.enableTestTab = false;
+        }
+        this.addTestTab();
+    },
+
+    addTestTab : function(){
+        if (this.enableTestTab)
+        {
+                TestRunner.addTestTab();
+        }
+        else
+        {
+            if (SleepUinoCom.enableServerCom == false)
+            {
+                TestRunner.removeTestTab();
+            }
+            else
+            {
+                $("#navbar").navbar();
+            }
+        }
+    },
+
+    addTestSwitch : function(){
+        var test_switch = `
+        <a data-role="none" class="ui-btn-left">
+                <select id="test-flip" name="test-flip" data-role="slider" onchange="UiFunc.enableDisableTestTab()">
+                    <option value="off">Test</option>
+                    <option value="on">Off</option>
+                </select>
+            </a>
+        `
+        if (SleepUinoCom.enableServerCom == false)
+        {
+            $(test_switch).appendTo("#header");
+            $("#test-flip").slider();
         }
     },
 

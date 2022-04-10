@@ -32,7 +32,7 @@
 #include "AudioFileSourceLittleFS.h"
 #include "AudioGeneratorWAV.h"
 #ifdef USE_I2S_DAC
-  #include <i2s.h>
+  #include <I2S.h>
   #include "AudioOutputI2S.h"
 #else
   #include "AudioOutputI2SNoDAC.h"

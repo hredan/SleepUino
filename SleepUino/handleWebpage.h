@@ -34,8 +34,8 @@ class HandleWebpage
 {
     //type aliasing
     //C++ version of: typedef void (*InputEvent)(const char*)
-    using CallBackGetTime = DateTime (*)();
-    using CallBackAdjustTime = void (*) (const DateTime&);
+    using CallBackGetTime = std::function<DateTime()>;
+    using CallBackAdjustTime = std::function<void(const DateTime&)>;
     using CallBackSetGain = void (*) (uint8_t gainValue);
     using CallBackSetMoonBrightness = void (*) (uint8_t moonBrightness);
     using CallBackSetSunBrightness = void (*) (uint8_t sunBrightness);

@@ -90,7 +90,7 @@ bool HandleAudio::isSoundPlaying()
 
 void HandleAudio::playSound()
 {
-    const char *soundFile = "/AlarmSound.wav";
+    const char *soundFile = "/AlarmSound_16bit.wav";
     if(LittleFS.exists(soundFile))
     {
         Serial.println("initialize all instances, needed for sound");
@@ -115,6 +115,6 @@ void HandleAudio::playSound()
     }
     else
     {
-      Serial.println("Sound File does not exists!");
+      Serial.printf("Sound File (%s) does not exists!", soundFile);
     }
 }
