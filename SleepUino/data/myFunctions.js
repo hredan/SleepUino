@@ -79,7 +79,7 @@ var WakeListFunc = {
         //search returns position of string, if string not found it returns -1
         var pos = html.search(/\<s\>/);
         
-        //If it is -1 Alarm is on, alse it is off
+        //If it is -1 Alarm is on, else it is off
         return pos == -1;
     },
 

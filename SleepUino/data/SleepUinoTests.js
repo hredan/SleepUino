@@ -125,29 +125,21 @@ var Tests = {
         return (funcResult == expectedResult);
     },
 
-    testGetAlarmValueFunc_AlarmOn : function()
-    {
-        var html = "|&#127774;&nbsp;04:00&nbsp;|&nbsp;&#127772;&nbsp;05:00&nbsp;|&nbsp;<s>&#x23F0;</s>&nbsp;|";
-        var expectedResult = true;
-
-        var funcResult = WakeListFunc.getAlarmValueFunc(html);
-        return (this.checkResult(this.testGetAlarmValueFunc_AlarmOn.name, funcResult, expectedResult));
-    },
-    
     testGetAlarmValueFunc_AlarmOff : function()
     {
-        var html = "|&#127774;&nbsp;04:00&nbsp;|&nbsp;&#127772;&nbsp;05:00&nbsp;|&nbsp;&#x23F0;&nbsp;|";
+        var html = "|&#127774;&nbsp;04:00&nbsp;|&nbsp;&#127772;&nbsp;05:00&nbsp;|&nbsp;<s>&#x23F0;</s>&nbsp;|";
         var expectedResult = false;
 
         var funcResult = WakeListFunc.getAlarmValueFunc(html);
         return (funcResult == expectedResult);
     },
-    checkResult: function(funcname, result, expected)
+    
+    testGetAlarmValueFunc_AlarmOn : function()
     {
-        if (result != expected)
-        {
-            console.log("Error in " + funcname + ": " + result.html + "!= " + expected.html)
-        }
-        return (result == expected)
-    }
+        var html = "|&#127774;&nbsp;04:00&nbsp;|&nbsp;&#127772;&nbsp;05:00&nbsp;|&nbsp;&#x23F0;&nbsp;|";
+        var expectedResult = true;
+
+        var funcResult = WakeListFunc.getAlarmValueFunc(html);
+        return (funcResult == expectedResult);
+    },
 };
