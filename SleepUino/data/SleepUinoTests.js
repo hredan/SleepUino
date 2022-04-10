@@ -29,9 +29,8 @@ var TestRunner = {
         $(TestRunner.htmlTests).appendTo("#tabs");
         $("#navbar ul").append(TestRunner.listEntry);
         $("#tests").trigger('create');
+        //$("#navbar").listview("refresh");
         $("#tabs").tabs("refresh");
-        $("#navbar").navbar();
-        
 
         //Subscribtion for Events
         $('#testList').on('click', '.testRun', function(){
@@ -132,7 +131,7 @@ var Tests = {
         var expectedResult = true;
 
         var funcResult = WakeListFunc.getAlarmValueFunc(html);
-        return (funcResult == expectedResult);
+        return (this.checkResult(this.testGetAlarmValueFunc_AlarmOn.name, funcResult, expectedResult));
     },
     
     testGetAlarmValueFunc_AlarmOff : function()
@@ -142,5 +141,13 @@ var Tests = {
 
         var funcResult = WakeListFunc.getAlarmValueFunc(html);
         return (funcResult == expectedResult);
+    },
+    checkResult: function(funcname, result, expected)
+    {
+        if (result != expected)
+        {
+            console.log("Error in " + funcname + ": " + result.html + "!= " + expected.html)
+        }
+        return (result == expected)
     }
 };

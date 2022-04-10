@@ -320,19 +320,18 @@ var UiFunc = {
     addTestTab : function(){
         if (this.enableTestTab)
         {
-            if (SleepUinoCom.enableServerCom == false)
-            {
                 TestRunner.addTestTab();
-            }
-            else
-            {
-                $("#navbar").trigger('create');
-            }
         }
         else
         {
-            TestRunner.removeTestTab();
-            //$("#navbar").navbar();
+            if (SleepUinoCom.enableServerCom == false)
+            {
+                TestRunner.removeTestTab();
+            }
+            else
+            {
+                $("#navbar").navbar();
+            }
         }
     },
 
