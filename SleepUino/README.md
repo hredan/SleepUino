@@ -1,4 +1,4 @@
-![SleepUino DIY Alarm-Clock with webinterface](/data/Logo_en.png)
+![SleepUino DIY Alarm-Clock with webinterface](./data/Logo_en.png)
 # SleepUino Arduino Sketch
 This folder contains the Arduino Sketch files.
 
