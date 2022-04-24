@@ -85,7 +85,7 @@ var SleepUinoCom = {
         if (this.isNotPlayingSound)
         {
             this.isNotPlayingSound = false;
-            var audio = new Audio('Kikeriki.wav');
+            var audio = new Audio('AlarmSound_16bit.wav');
             audio.volume = this.gainValue/100.0;
             audio.play();
             await this.Sleep(3000); 
