@@ -317,6 +317,29 @@ var UiFunc = {
         this.addTestTab();
     },
 
+    checkIfDummyInterface : function(){
+        $.ajax({
+            url:'./isSleepUino',
+            type:'HEAD',
+            async: false,
+            error: function()
+            {
+                SleepUinoCom.enableServerCom = false;
+                // add SleepUinoTests.js to DOM, only if Dummy Interface is used
+                const script = document.createElement('script')
+                script.src = './SleepUinoTests.js'
+                script.type = "application/javascript"
+                document.head.append(script)
+
+                console.log("Enable Dummy Interface")
+            },
+            success: function()
+            {
+                SleepUinoCom.enableServerCom = true;
+            }
+        });
+    },
+
     addTestTab : function(){
         if (this.enableTestTab)
         {
