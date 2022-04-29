@@ -220,7 +220,6 @@ var LangSupport = {
         this.setLangOfElement("display-off");
         this.setLangOfElement("display-on-day");
         this.setLangOfElement("display-on-night");
-        $("#select-display-mode").val($("#select-display-mode").val());
         $("#select-display-mode").selectmenu("refresh");
 
         var onTextStr = this.getLangString("optOnAlarm");
