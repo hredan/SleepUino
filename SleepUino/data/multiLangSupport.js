@@ -81,6 +81,26 @@ var LangSupport = {
         en['headerAlarm'] = "Alarm settings";
         ru['headerAlarm'] = "Настройки будильника";
 
+        de['headerDisplay'] = "Anzeige Einstellungen";
+        en['headerDisplay'] = "Display Settings";
+        ru['headerDisplay'] = "Настройки отображения";
+
+        de["display-on"] ="Anzeige-An";
+        en["display-on"] ="Display-On";
+        ru["display-on"] ="Дисплей включен";
+
+        de["display-off"] = "Anzeige-Aus";
+        en["display-off"] = "Display-Off";
+        ru["display-off"] = "Дисплей выключен";
+
+        de["display-on-day"] ="Anzeige-An zur Wachzeit";
+        en["display-on-day"] ="Display-On at waking time";
+        ru["display-on-day"] ="Включение дисплея во время бодрствования";
+
+        de["display-on-night"] = "Anzeige-An zur Schlafenszeit";
+        en["display-on-night"] = "Display-On at bedtime";
+        ru["display-on-night"] = "Включение дисплея перед сном";
+
         de['playButton'] = "Sound abspielen";
         en['playButton'] = "Play sound";
         ru['playButton'] = "Воспроизвести звук";
@@ -194,7 +214,15 @@ var LangSupport = {
         this.setLangOfElement("playButton");
         this.setLangOfElement("labelSliderGain");
         this.setLangOfElement("labelFlipAlarm");
+        this.setLangOfElement("headerDisplay");
         
+        this.setLangOfElement("display-on");
+        this.setLangOfElement("display-off");
+        this.setLangOfElement("display-on-day");
+        this.setLangOfElement("display-on-night");
+        $("#select-display-mode").val($("#select-display-mode").val());
+        $("#select-display-mode").selectmenu("refresh");
+
         var onTextStr = this.getLangString("optOnAlarm");
         var offTextStr =  this.getLangString("optOffAlarm");
         $("#flipAlarm").flipswitch("option", "onText", onTextStr);
