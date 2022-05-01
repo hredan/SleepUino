@@ -76,7 +76,7 @@ void HandleDisplay::setTime(char *timeStr)
     if (strncmp(timeStr, _timeStr, 5) != 0)
     {
         strcpy(_timeStr, timeStr);
-        Serial.printf("update _timeStr: %d\n", &_timeStr);
+        Serial.printf("update _timeStr: %s\n", _timeStr);
         updateDisplay();
     }
 }

@@ -22,8 +22,9 @@
 
 ESP8266WebServer* HandleWebpage::_webServer = nullptr;
 
-HandleWebpage::HandleWebpage()
+HandleWebpage::HandleWebpage(RTC_DS3231 *rtc)
 {
+  _rtc = rtc;
   _webServer = new ESP8266WebServer(80);
 };
 
@@ -193,20 +194,38 @@ void HandleWebpage::handleSetWakeData(){
 void HandleWebpage::handleSyncTime(){
   Serial.println("handleSyncTime: " + _webServer->arg("plain"));
   
-  int year = _webServer->arg("year").toInt();
+  uint16_t year = _webServer->arg("year").toInt();
   //convert javasript month->0-11 to 1-12
-  int month = _webServer->arg("month").toInt() + 1;
-  int day = _webServer->arg("day").toInt();
-  int hours = _webServer->arg("hours").toInt();
-  int minutes = _webServer->arg("minutes").toInt();
-  int seconds = _webServer->arg("seconds").toInt();
+  uint8_t month = _webServer->arg("month").toInt() + 1;
+  uint8_t day = _webServer->arg("day").toInt();
+  uint8_t hours = _webServer->arg("hours").toInt();
+  uint8_t minutes = _webServer->arg("minutes").toInt();
+  uint8_t seconds = _webServer->arg("seconds").toInt();
   
-  DateTime recivedTime = DateTime(year, month, day, hours, minutes, seconds);
+  DateTime receivedTime = DateTime(year, month, day, hours, minutes, seconds);
+  if (!receivedTime.isValid())
+  {
+    _webServer->send(400, "DateTime not valid!");
+    Serial.println("Error: DateTime not valid!");
+    return;
+  }
+
   if (_callBackAdjustTime != nullptr)
   {
-    _rtc->adjust(recivedTime);
-     Serial.printf("set time to: %02d.%02d.%d %02d:%02d:%02d\n", recivedTime.day(), recivedTime.month(), recivedTime.year(), 
-                                          recivedTime.hour(), recivedTime.minute(), recivedTime.second());
+    Serial.printf("set time to: %02d.%02d.%d %02d:%02d:%02d\n", receivedTime.day(), receivedTime.month(), receivedTime.year(), 
+                                          receivedTime.hour(), receivedTime.minute(), receivedTime.second());
+    Serial.println("start time adjustment");
+    if (_rtc != nullptr)
+    {
+      _rtc->adjust(receivedTime);
+    }
+    else
+    {
+      _webServer->send(404, "text/plane", "Error: _rtc not initialized!");
+      Serial.println("Error: _rtc == nullptr");
+    }
+    Serial.println("set time successfully");
+  
     _webServer->send(200, "text/plane", "{\"success\": true}");
   }
   else
@@ -369,7 +388,7 @@ void HandleWebpage::handleGetTime() {
   if (_callBackGetTime != nullptr)
   {
     DateTime now = _callBackGetTime();
-    char buf[100];
+    char buf[150];
     //month() - 1 to be compatible with javascript month -> 0-11
     sprintf(buf, "{\"year\": %d, \"month\": %d, \"day\": %d, \"hours\": %d, \"minutes\": %d, \"seconds\": %d, \"milliseconds\": %d}",
       now.year(), now.month() - 1, now.day(), now.hour(), now.minute(), now.second(), 0);

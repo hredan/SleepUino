@@ -25,6 +25,7 @@
 #include <ESP8266WebServer.h>
 #include "LittleFS.h"
 #include <ArduinoJson.h>
+#include "RTClib.h"         //https://github.com/adafruit/RTClib
 
 const byte DNS_PORT = 53;
 IPAddress apIP(172, 217, 28, 1);
@@ -56,7 +57,7 @@ class HandleWebpage
     using CallBackGetWakeTimeJson = String(*) ();
   
     public:
-        HandleWebpage();
+        HandleWebpage(RTC_DS3231 *rtc);
         void setupHandleWebpage();
         
         void handleClient();
@@ -126,6 +127,6 @@ class HandleWebpage
 
         void setLED(int pin);
         static ESP8266WebServer *_webServer;
-        RTC_DS3231 *_rtc;        
+        RTC_DS3231 *_rtc = nullptr;        
 };
 #endif // HANDLEWEBPAGE_H_INCLUDED
