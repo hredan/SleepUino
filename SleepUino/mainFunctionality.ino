@@ -27,7 +27,7 @@ MainFunc::MainFunc()
     MainFunc::_handleDisplay->begin();
 
     MainFunc::_handleEeprom = new HandleEeprom();
-    HandleWebpage *_handleWebpage = new HandleWebpage();;
+    HandleWebpage *_handleWebpage = new HandleWebpage(_rtc);;
     
     MainFunc::_handleAudio = new HandleAudio();
     
@@ -174,7 +174,8 @@ void MainFunc::startRealTimeClock()
     }
 
     DateTime now = _rtc->now();
-    Serial.printf("RTC: %s, temp: %f °C\n", now.toString("DD.MM.YYYY, hh:mm:ss"), _rtc->getTemperature());
+    char time_format[25] = "DD.MM.YYYY, hh:mm:ss";
+    Serial.printf("RTC: %s, temp: %f °C\n", now.toString(time_format), _rtc->getTemperature());
 }
 
 void MainFunc::startLittleFileSystem()
@@ -451,7 +452,7 @@ void MainFunc::sanityCheckOfWakeUpTimes()
     bool testSuccessful = true;
     uint8_t count = _handleEeprom->getNumberOfWakeTimes();
    
-    if (count >= 0 && count <= MAX_WAKE_TIMES)
+    if (count <= MAX_WAKE_TIMES)
     {
         uint8_t lastEEWakeTime = 0;  
         _handleEeprom->readWakeTimes(count, _wakeArr);
@@ -589,8 +590,7 @@ TimeTypes MainFunc::checkState(uint16_t currentTimeInMinutes)
             for(int i = 0; i < (MainFunc::_countOfWakeTimes - 1); i++)
             {
                 //get wakeTime and wakeType
-                uint16_t wakeTime = MainFunc::getTimeInMinutesPerDay(MainFunc::_wakeArr[i]);
-                TimeTypes wakeType = MainFunc::getWakeUpType(MainFunc::_wakeArr[i]);
+                uint16_t wakeTime = MainFunc::getTimeInMinutesPerDay(MainFunc::_wakeArr[i]);               
 
                 //if time of first entry > currentTime then currentState = state of last wakeTime entry
                 if ((i ==0) && (currentTimeInMinutes < wakeTime))
@@ -624,9 +624,7 @@ void MainFunc::checkDisplayOnBeforeWakeTime(DateTime currentTime)
 
     //show Display 
     if (((nextTimeType == TT_SUN) || (nextTimeType == TT_SUN_ALARM)) && (_displayOn == false))
-    {
-        int nextTimeInMinutes = getTimeInMinutesPerDay(nextWakeUpTimeFormat);
-        
+    {        
         //create nextWakeTime based on currentTime     
         uint16_t year = currentTime.year();
         uint8_t month = currentTime.month();
@@ -636,19 +634,21 @@ void MainFunc::checkDisplayOnBeforeWakeTime(DateTime currentTime)
         uint8_t hour = getHour(nextWakeUpTimeFormat);
         uint8_t minute = getMinutes(nextWakeUpTimeFormat);
 
-        DateTime nextWakeTime = DateTime(year, month, day, hour, minute);
+        DateTime *nextWakeTime = new DateTime(year, month, day, hour, minute);
         
         //if nextTime < now add 1 day (it is next morning)
-        if (nextWakeTime < currentTime)
+        if (*nextWakeTime < currentTime)
         {
-            TimeSpan oneDay = TimeSpan(1, 0, 0 ,0);
-            nextWakeTime = nextWakeTime + oneDay;
+            const TimeSpan oneDay = TimeSpan(1, 0, 0 ,0);            
+            DateTime nextWakeTimeNextMorning = *nextWakeTime + oneDay;
+            nextWakeTime = &nextWakeTimeNextMorning;
         }
 
         TimeSpan timeSpanDisplayOn = TimeSpan(60 * DISPLAY_TIME_BEFORE);
-        _displayOnTime = nextWakeTime - timeSpanDisplayOn;
+        DateTime displayOnTime = *nextWakeTime - timeSpanDisplayOn;
+        _displayOnTime = &displayOnTime;
         _displayOn = true;
-        Serial.printf("DisplayOn: start %d:%d\n", _displayOnTime.hour(), _displayOnTime.minute());
+        Serial.printf("DisplayOn: start %d:%d\n", _displayOnTime->hour(), _displayOnTime->minute());
     }
     this->setEnableDisplay();
 }
@@ -702,9 +702,10 @@ void MainFunc::updateDisplay(bool force)
     if(((_milliTime - _lastMicroTime) > 2000) || force)
     {
       _lastMicroTime = _milliTime;
-      _now = _rtc->now();
-      int hour = _now.hour();
-      int minute = _now.minute();
+      DateTime rtc_now = _rtc->now();
+      _now = &rtc_now;
+      uint8_t hour = _now->hour();
+      uint8_t minute = _now->minute();
       
       //output should be used only for tests
       //Serial.printf("Read RTC %d:%d\n", hour, minute);
@@ -715,13 +716,13 @@ void MainFunc::updateDisplay(bool force)
 
         uint16_t minutesPerDay = hour * 60 + minute;
 
-        char timeStr[6];
+        char timeStr[8];
         sprintf(timeStr, "%02d:%02d", hour, minute);
-        Serial.printf("UpdateDisplay: time->%s %d\n", timeStr, &timeStr);
+        Serial.printf("UpdateDisplay: time->%s\n", timeStr);
 
          //set the stored brightness on LEDs
         _currentTimeType = checkState(minutesPerDay);
-        checkDisplayOnBeforeWakeTime(_now);
+        checkDisplayOnBeforeWakeTime(*_now);
         
         if (_currentTimeType == TT_SUN || _currentTimeType == TT_SUN_ALARM)
         {

@@ -89,8 +89,8 @@ class MainFunc
         TimeTypes _lastTimeType = TT_UNKNOWN;
 
         bool _displayOn = false;
-        DateTime _displayOnTime;
-        DateTime _now;
+        DateTime *_displayOnTime = nullptr;
+        DateTime *_now = nullptr;
 
         bool _enableDisplayTimer = false;
         unsigned long _enableDisplayTime = 0;
