@@ -1,10 +1,10 @@
 /*
   handleEeprom
-  
+
   handleEeprom is used by SleepUino.ino. It is used to store configuration values permalently on ESP.
-  
+
   Information and contribution at https://www.sleepuino.sourcecode3d.de/.
-  
+
   Copyright (C) 2021  André Herrmann
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -18,52 +18,50 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef HANDLEEEPROM_H_INCLUDED
-#define HANDLEEEPROM_H_INCLUDED
+#ifndef SLEEPUINO_HANDLEEEPROM_H_
+#define SLEEPUINO_HANDLEEEPROM_H_
 
 #include <EEPROM.h>
 
-class HandleEeprom
-{
-    public:
-        HandleEeprom();
-        
-        bool getUpdateEeprom();
+class HandleEeprom {
+ public:
+  HandleEeprom();
 
-        void writeWakeUpTimes(uint16_t wakeUpTimes[], uint8_t count);
-        bool setWakeCountToZero();
-        uint8_t getNumberOfWakeTimes();
-        void readWakeTimes(uint8_t numberOfTimes, uint16_t wakeUpTimes[]);
+  bool getUpdateEeprom();
 
-        uint8_t getSunBrightnessValue();
-        uint8_t getMoonBrightnessValue();
-        uint8_t getGainValue();
+  void writeWakeUpTimes(uint16_t wakeUpTimes[], uint8_t count);
+  bool setWakeCountToZero();
+  uint8_t getNumberOfWakeTimes();
+  void readWakeTimes(uint8_t numberOfTimes, uint16_t wakeUpTimes[]);
 
-        uint8_t getDisplayMode();
-        uint8_t getSoundReplay();
+  uint8_t getSunBrightnessValue();
+  uint8_t getMoonBrightnessValue();
+  uint8_t getGainValue();
 
-        void setSunBrightnessValue(uint8_t sunBrightness);
-        void setMoonBrightnessValue(uint8_t moonBrightness);
-        void setGainValue(uint8_t gainValue);
+  uint8_t getDisplayMode();
+  uint8_t getSoundReplay();
 
-        void setDisplayMode(uint8_t displayMode);
-        void setSoundReplay(uint8_t soundReplay);
+  void setSunBrightnessValue(uint8_t sunBrightness);
+  void setMoonBrightnessValue(uint8_t moonBrightness);
+  void setGainValue(uint8_t gainValue);
 
-        bool commitValues();
+  void setDisplayMode(uint8_t displayMode);
+  void setSoundReplay(uint8_t soundReplay);
 
-    private:
-        const int EEADR_BRI_SUN = 0;
-        const int EEADR_BRI_MOON = 1;
-        const int EEADR_GAIN_SOUND = 2;
-        const int EEADR_DISPLAY_MODE = 3;
-        const int EEADR_SOUND_REPLAY = 4;
-        
-        //Number of entries for wake up times
-        //the next bytes will be the entries, 2 bytes per entry
-        const int EEADR_COUNT = 10;
-        bool _updateEeprom = false;
-        enum timeState {SUN, MOON};
+  bool commitValues();
+
+ private:
+  const int EEADR_BRI_SUN = 0;
+  const int EEADR_BRI_MOON = 1;
+  const int EEADR_GAIN_SOUND = 2;
+  const int EEADR_DISPLAY_MODE = 3;
+  const int EEADR_SOUND_REPLAY = 4;
+
+  // Number of entries for wake up times
+  // the next bytes will be the entries, 2 bytes per entry
+  const int EEADR_COUNT = 10;
+  bool _updateEeprom = false;
+  enum timeState { SUN, MOON };
 };
 
-#endif // HANDLEEEPROM_H_INCLUDED
+#endif  // SLEEPUINO_HANDLEEEPROM_H_
