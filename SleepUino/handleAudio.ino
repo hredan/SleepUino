@@ -1,11 +1,11 @@
 /*
   handleAudio
-  
+
   handleAudio is used by SleepUino to handle the alarm sound.
   It is using the library ESP8266Audio by earlephilhower https://github.com/earlephilhower/ESP8266Audio.
 
   Information and contribution at https://www.sleepuino.sourcecode3d.de/.
-  
+
   Copyright (C) 2021  André Herrmann
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -21,100 +21,83 @@
 
 #include "handleAudio.h"
 
-HandleAudio::HandleAudio()
-{
+HandleAudio::HandleAudio() {
+  _soundIsPlaying = false;
+  audioLogger = &Serial;
+#ifdef USE_I2S_DAC
+  _out = new AudioOutputI2S();
+
+#ifdef USE_I2S_WORKAROUND
+  i2s_end();
+#endif
+#else
+  HandleAudio::_out = new AudioOutputI2SNoDAC();
+#endif
+  _wav = new AudioGeneratorWAV();
+}
+
+void HandleAudio::setCallBackSoundIsDone(CallBackSoundIsDone callBack) {
+  _callBackSoundIsDone = callBack;
+}
+
+uint8_t HandleAudio::getGain() { return HandleAudio::_gainSound; }
+
+void HandleAudio::setGain(uint8_t gainValue) {
+  HandleAudio::_gainSound = gainValue;
+}
+
+void HandleAudio::stopSound() {
+  if (_wav->isRunning()) {
+    _wav->stop();
     _soundIsPlaying = false;
-    audioLogger = &Serial;
-    #ifdef USE_I2S_DAC
-        _out = new AudioOutputI2S();
-        
-        #ifdef USE_I2S_WORKAROUND
-            i2s_end();
-        #endif
-    #else
-        HandleAudio::_out = new AudioOutputI2SNoDAC();
-    #endif
-    _wav = new AudioGeneratorWAV();
-};
-
-void HandleAudio::setCallBackSoundIsDone(CallBackSoundIsDone callBack)
-{
-    _callBackSoundIsDone = callBack;
+    Serial.printf("WAV stoped\n");
+  }
+#ifdef USE_I2S_WORKAROUND
+  i2s_end();
+#endif
 }
 
-uint8_t HandleAudio::getGain()
-{
-    return HandleAudio::_gainSound;
-}
+bool HandleAudio::isSoundPlaying() {
+  if (_wav->isRunning()) {
+    if (!_wav->loop()) {
+      _wav->stop();
+      _soundIsPlaying = false;
+      Serial.printf("WAV done\n");
 
-void HandleAudio::setGain(uint8_t gainValue)
-{
-    HandleAudio::_gainSound = gainValue;
-}
-
-void HandleAudio::stopSound()
-{
-    if (_wav->isRunning())
-    {
-        _wav->stop();
-        _soundIsPlaying = false;
-        Serial.printf("WAV stoped\n");
+      if (_callBackSoundIsDone != nullptr) {
+        _callBackSoundIsDone();
+        // handleWebpage->sendSuccess();
+      }
+#ifdef USE_I2S_WORKAROUND
+      i2s_end();
+#endif
     }
-    #ifdef USE_I2S_WORKAROUND
-        i2s_end();
-    #endif
+  }
+  return _soundIsPlaying;
 }
 
-bool HandleAudio::isSoundPlaying()
-{
-    if (_wav->isRunning())
-    {
-        if (!_wav->loop()) 
-        {
-        _wav->stop();
-        _soundIsPlaying = false;
-        Serial.printf("WAV done\n");
-        
-        if (_callBackSoundIsDone != nullptr)
-        {
-            _callBackSoundIsDone();
-            //handleWebpage->sendSuccess();
-        }
-        #ifdef USE_I2S_WORKAROUND
-            i2s_end();
-        #endif
-        }
-    }
-    return _soundIsPlaying;
-}
+void HandleAudio::playSound() {
+  const char *soundFile = "/AlarmSound_16bit.wav";
+  if (LittleFS.exists(soundFile)) {
+    Serial.println("initialize all instances, needed for sound");
+#ifdef USE_I2S_DAC
+    // max gain value < 1
+    float gain = (_gainSound - 1) * 0.01;
+    _out->SetGain(gain);
+    Serial.println("use gain to play sound: " + String(gain));
 
-void HandleAudio::playSound()
-{
-    const char *soundFile = "/AlarmSound_16bit.wav";
-    if(LittleFS.exists(soundFile))
-    {
-        Serial.println("initialize all instances, needed for sound");
-        #ifdef USE_I2S_DAC
-            //max gain value < 1
-            float gain = (_gainSound - 1) * 0.01;
-            _out->SetGain(gain);
-            Serial.println("use gain to play sound: " + String(gain));
-            
-            #ifdef USE_I2S_WORKAROUND
-                i2s_begin();
-            #endif //USE_I2S_WORKAROUND
-        #endif
-        
-        Serial.println("load file");
-        _file = new AudioFileSourceLittleFS(soundFile);
-        Serial.println("play sound");
-        if (_wav->begin(_file, _out))
-        {
-            _soundIsPlaying = true;
-        }
+#ifdef USE_I2S_WORKAROUND
+    i2s_begin();
+#endif  // USE_I2S_WORKAROUND
+#endif
+
+    Serial.println("load file");
+    _file = new AudioFileSourceLittleFS(soundFile);
+    Serial.println("play sound");
+    if (_wav->begin(_file, _out)) {
+      _soundIsPlaying = true;
     }
-    else
-    {
-      Serial.printf("Sound File (%s) does not exists!", soundFile);
-    }
+  } else {
+    Serial.printf("Sound File (%s) does not exists!", soundFile);
+  }
 }
