@@ -19,28 +19,27 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HANDLEDISPLAY_H_INCLUDED
-#define HANDLEDISPLAY_H_INCLUDED
+#ifndef SLEEPUINO_HANDLEDISPLAY_H_
+#define SLEEPUINO_HANDLEDISPLAY_H_
 
 #include <U8g2lib.h>
-class HandleDisplay
-{
-    public:
-        HandleDisplay();
-        void begin();
-        void setTime(char *timeStr);
-        void setWlanStatus(bool wlan);
-        void setAlarmStatus(bool alarm, bool force=true);
-        void setEnableDisplay(bool enableDisplay, bool force=false);
+class HandleDisplay {
+ public:
+    HandleDisplay();
+    void begin();
+    void setTime(char *timeStr);
+    void setWlanStatus(bool wlan);
+    void setAlarmStatus(bool alarm, bool force = true);
+    void setEnableDisplay(bool enableDisplay, bool force = false);
 
-        bool getEnableDisplay();
-    private:
-        //define Display type
-        U8G2_SH1106_128X64_NONAME_F_HW_I2C *_u8g2;
-        bool _wlan;
-        bool _alarm;
-        bool _enableDisplay;
-        char _timeStr[6];
-        void updateDisplay();
+    bool getEnableDisplay();
+ private:
+    // define Display type
+    U8G2_SH1106_128X64_NONAME_F_HW_I2C *_u8g2;
+    bool _wlan;
+    bool _alarm;
+    bool _enableDisplay;
+    char _timeStr[MAX_CHARACTOR_TIME_STR];
+    void updateDisplay();
 };
-#endif // HANDLEISPLAY_H_INCLUDED
+#endif  // SLEEPUINO_HANDLEDISPLAY_H_
