@@ -29,6 +29,6 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: ${{env.CORE}}_${{env.BOARD}}_${{env.SKETCH_NAME}}
-          path: .SleepUino/EEP/*
+          path: ./SleepUino/EEP/*
   
  
