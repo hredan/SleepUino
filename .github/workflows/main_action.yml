@@ -22,8 +22,9 @@ jobs:
           submodules: recursive
       - uses: actions/setup-python@v2
       - run: pip install esptool
-      - run: touch ./SleepUino/data/isSleepUino
-      - run: bash ./SleepUino/ESP_Action_Build_Scripts/build_sketch.sh -s ${{env.SKETCH_NAME}} -c ${{env.CORE}} -b ${{env.BOARD}} -l ${{env.LIBS}} -f 160 
+      - run: cd SleepUino
+      - run: touch ./data/isSleepUino
+      - run: bash ./ESP_Action_Build_Scripts/build_sketch.sh -s ${{env.SKETCH_NAME}} -c ${{env.CORE}} -b ${{env.BOARD}} -l ${{env.LIBS}} -f 160 
       - uses: actions/upload-artifact@v2
         with:
           name: ${{env.CORE}}_${{env.BOARD}}_${{env.SKETCH_NAME}}
