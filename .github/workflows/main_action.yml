@@ -25,7 +25,8 @@ jobs:
       - run: |
           cd SleepUino
           touch ./data/isSleepUino
-          bash ./ESP_Action_Build_Scripts/build_sketch.sh -s ${{env.SKETCH_NAME}} -c ${{env.CORE}} -b ${{env.BOARD}} -l ${{env.LIBS}} -f 160 
+          bash ./ESP_Action_Build_Scripts/build_sketch.sh -s ${{env.SKETCH_NAME}} -c ${{env.CORE}} -b ${{env.BOARD}} -l ${{env.LIBS}} -f 160
+        name: Build_ESP_Binaries 
       - uses: actions/upload-artifact@v2
         with:
           name: ${{env.CORE}}_${{env.BOARD}}_${{env.SKETCH_NAME}}
