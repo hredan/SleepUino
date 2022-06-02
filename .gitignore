@@ -1,2 +1,7 @@
 build
 /SleepUino/data/isSleepUino
+BIN_DATA
+BIN_ESP8266_d1_mini
+CACHE_ESP8266
+EEP
+tools
