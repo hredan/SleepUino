@@ -20,6 +20,7 @@
 
 #include "mainFunctionality.h"
 #include "Config.h"
+#include <cstdio>
 
 MainFunc::MainFunc() {
   _rtc = new RTC_DS3231();

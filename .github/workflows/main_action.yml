@@ -4,8 +4,10 @@ jobs:
   cpplint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6
+      with:
+        python-version: '3.x'
     - run: pip install cpplint
     - run: cpplint --linelength=120 --extensions=hpp,cpp,h,c,ino --recursive ./SleepUino/.
   build_ESP8266:
@@ -17,10 +19,12 @@ jobs:
         BOARD: d1_mini
         LIBS: ArduinoJson,ESP8266Audio,JC_Button,RTClib,U8g2
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
         with:
           submodules: recursive
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
       - run: pip install esptool
       - run: |
           cd SleepUino
@@ -31,7 +35,7 @@ jobs:
           cd SleepUino
           bash ./ESP_Action_Build_Scripts/create_build_info.sh -s $GITHUB_SHA -r $GITHUB_REPOSITORY
         name: Create build info
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{env.CORE}}_${{env.BOARD}}_${{env.SKETCH_NAME}}
           path: ./SleepUino/EEP/*

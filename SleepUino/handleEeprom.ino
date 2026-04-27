@@ -125,7 +125,7 @@ void HandleEeprom::readWakeTimes(uint8_t numberOfTimes, uint16_t wakeUpTimes[]) 
     uint8_t byteHigh = EEPROM.read((EEADR_COUNT + 1) + (i * 2));
     uint8_t byteLow = EEPROM.read((EEADR_COUNT + 1) + (i * 2 + 1));
 
-    uint16_t time = (uint16_t)byteHigh;
+    uint16_t time = static_cast<uint16_t>(byteHigh);
     time = time << 8;
     time = time | byteLow;
 
