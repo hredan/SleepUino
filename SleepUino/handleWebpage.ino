@@ -20,6 +20,7 @@
 
 #include "handleWebpage.h"
 #include "Config.h"
+#include <cstdio>
 
 ESP8266WebServer* HandleWebpage::_webServer = nullptr;
 
