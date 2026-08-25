@@ -220,7 +220,7 @@ var SleepUinoCom = {
         else
         {
             var jsonWakeTimesAnswer
-            jsonWakeTimesAnswer = {"wakeTimes":[{"getUp":"01:00", "goToBed": "02:00", "alarm": true}, {"getUp":"03:00", "goToBed": "04:00", "alarm": true}, {"getUp":"06:00", "goToBed": "09:00", "alarm": true}, {"getUp":"12:00", "goToBed": "15:00", "alarm": false}]};
+            jsonWakeTimesAnswer = {"wakeTimes":[{"getUp":"06:00", "goToBed": "13:00", "alarm": true}, {"getUp":"14:30", "goToBed": "19:00", "alarm": false}]};
             UiWakeList.setWakeTimeList(jsonWakeTimesAnswer);
         }
     }
