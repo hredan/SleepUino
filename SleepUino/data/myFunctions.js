@@ -1,30 +1,4 @@
 'use strict';
-//Subscribtion for Events
-$('#list').on('click', '.deleteMe', function(){
-    $(this).parent().remove();
-    $('#list').listview('refresh');
-    UiWakeList.sendWakeTimeData();
-});
-
-$('#list').on('click', '.wakeTimeItem', function(){
-    var html = $(this).html();
-    var text = $(this).text();
-    var timeInfo = text.substr(0,20);
-    var alarmInfo;
-    var searchResult = html.search(/\<s\>/);
-    if (searchResult == -1)
-    {
-        alarmInfo = "&nbsp;|&nbsp;<b><s>&#x23F0;</s></b>&nbsp;|";
-    }
-    else
-    {
-        alarmInfo = "&nbsp;|&nbsp;&#x23F0;&nbsp;|";
-    }
-    $(this).html(timeInfo + alarmInfo);
-    $('#list').listview('refresh');
-    UiWakeList.sendWakeTimeData();
-});
-
 const wakeTimeTypes = {
     unknown : 0,
     moon : 1,
