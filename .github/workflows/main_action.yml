@@ -3,3 +3,9 @@ on: [push, pull_request]
 jobs:
   test:
     uses: ./.github/workflows/test.yml
+  build_eep_esp32c3:
+    needs: [test]
+    uses: ./.github/workflows/build_eep.yml
+    with:
+      core: esp8266
+      board: d1_mini
