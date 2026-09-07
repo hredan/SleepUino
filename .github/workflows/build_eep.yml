@@ -18,7 +18,7 @@ jobs:
             SKETCH_NAME: SleepUino
         steps:
           - uses: actions/checkout@v6
-          - uses: hredan/eep-build-action@main
+          - uses: hredan/eep-build-action@set-sketch-path
             with:
               sketch-name: ${{env.SKETCH_NAME}}
               sketch-path: './SleepUino'
