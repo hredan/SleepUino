@@ -1,0 +1,21 @@
+on:
+    workflow_call:
+jobs:
+  cpplint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: actions/setup-python@v7
+      with:
+        python-version: '3.x'
+    - run: pip install cpplint
+    - run: cpplint --filter=-legal/copyright --linelength=120 --extensions=hpp,cpp,h,c,ino --recursive ./SleepUino/.
+  arduino_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: arduino/arduino-lint-action@v3
+        with:
+          library-manager: 'update'
+          compliance: 'strict'
+          path: './SleepUino'

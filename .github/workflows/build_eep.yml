@@ -1,0 +1,28 @@
+on:
+    workflow_call:
+      inputs:
+        core:
+          description: 'ESP core (esp8266 or esp32)'
+          default: 'esp8266'
+          required: true
+          type: string
+        board:
+          description: 'ESP board'
+          default: 'd1_mini'
+          type: string
+          required: true
+jobs:
+    build_eep:
+        runs-on: ubuntu-latest
+        env:
+            SKETCH_NAME: SleepUino
+        steps:
+          - uses: actions/checkout@v6
+          - uses: hredan/eep-build-action@v1
+            with:
+              sketch-name: ${{env.SKETCH_NAME}}
+              sketch-path: './SleepUino'
+              cpu-frequency: 80
+              core: ${{ inputs.core }}
+              board: ${{ inputs.board}}
+              libs: "ArduinoJson,ESP8266Audio,JC_Button,RTClib,U8g2"
