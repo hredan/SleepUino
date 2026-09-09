@@ -116,6 +116,53 @@ var SleepUinoCom = {
         }
     },
 
+    uploadAlarmSound : function (){
+        var fileInput = $("#alarmSoundFile")[0];
+        var statusElement = $("#alarmSoundUploadStatus");
+
+        if (fileInput.files.length === 0)
+        {
+            statusElement.text(LangSupport.getLangString("alarmSoundSelectFile"));
+            return;
+        }
+
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("file", file, file.name);
+
+        if (this.enableServerCom)
+        {
+            statusElement.text(LangSupport.getLangString("alarmSoundUploading"));
+
+            $.ajax({
+                url: "/uploadAlarmSound",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json"
+            })
+            .done(function(jsonResult){
+                if (jsonResult.success)
+                {
+                    statusElement.text(LangSupport.getLangString("alarmSoundUploadSuccess"));
+                    $("#alarmSoundFile").val("");
+                }
+                else
+                {
+                    statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+                }
+            })
+            .fail(function(){
+                statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+            });
+        }
+        else
+        {
+            statusElement.text(LangSupport.getLangString("alarmSoundUploadDummy"));
+        }
+    },
+
     setAlarmVolume : function (volumeValue)
     {
         if (this.enableServerCom)

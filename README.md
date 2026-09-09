@@ -102,6 +102,17 @@ After you have build-up the hardware according the circuit diagram you can flash
 11. Now you can try if it is working. At first you can start the configuration mode by pressing the SleepUino button for a longer time. When the WLAN Symbol is shown in the SleepUino Display, the SleepUino is in the Config Mode.
 12. If you have some trouble use the Serial Monitor
 
+## Upload a new alarm sound by HTTP
+After the web interface is uploaded and SleepUino is in configuration mode, you can replace or create the file `/AlarmSound_16bit.wav` directly in LittleFS.
+
+Use the web interface in the alarm settings area or send a multipart HTTP POST request to `/uploadAlarmSound`. The uploaded file is always stored as `/AlarmSound_16bit.wav`, independent from the original filename.
+
+Example with curl:
+
+```bash
+curl -F "file=@/path/to/your/alarm.wav" http://172.217.28.1/uploadAlarmSound
+```
+
 ## Optional: Visual Studio Code with Arduino Extension as IDE
 The Arduino IDE brings all things you need to compile the code and upload it to the ESP8266. For me I have missing some things to develop the code efficiently. That is why I am try out Visual Studio Code. Visual Studio Code comes up with many Plugins for many different things. For me, the navigation through the code is quite easy and supported by VS Code. I could integrate a Live Server this makes it extremely comfortable to developing the HTML and Java Script part of SleepUino. I have used the Microsoft C/C++ extension for testing some C++ functions before I have used it on ESP8266. All these things I could be use in one IDE and this was immensely helpful and makes it very efficiently to developing the code of SleepUino. If you are interested, I can share my experience and setup in more detail with you.
 

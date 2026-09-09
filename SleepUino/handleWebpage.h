@@ -121,11 +121,15 @@ class HandleWebpage {
   void handleGetWakeTimeData();
 
   void handlePlaySound();
+  void handleUploadAlarmSound();
+  void handleUploadAlarmSoundData();
 
   bool loadFromLittleFS(String path);
 
   void setLED(int pin);
   static ESP8266WebServer *_webServer;
   RTC_DS3231 *_rtc = nullptr;
+  File _uploadFile;
+  bool _uploadHasError = false;
 };
 #endif  // SLEEPUINO_HANDLEWEBPAGE_H_

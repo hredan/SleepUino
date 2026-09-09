@@ -105,6 +105,14 @@ var LangSupport = {
         en['playButton'] = "Play sound";
         ru['playButton'] = "Воспроизвести звук";
 
+        de['labelAlarmSoundFile'] = "Alarm-Sound (.wav):";
+        en['labelAlarmSoundFile'] = "Alarm sound (.wav):";
+        ru['labelAlarmSoundFile'] = "Звук будильника (.wav):";
+
+        de['uploadAlarmSoundButton'] = "Sound hochladen";
+        en['uploadAlarmSoundButton'] = "Upload sound";
+        ru['uploadAlarmSoundButton'] = "Загрузить звук";
+
         de['labelSliderGain'] = "Sound Lautstärke:";
         en['labelSliderGain'] = "Sound Volume:";
         ru['labelSliderGain'] = "громкости:";
@@ -124,6 +132,26 @@ var LangSupport = {
         de['labelAlarmReplays'] = "Anzahl der Wiederholungen des Sounds:";
         en['labelAlarmReplays'] = "Number of times to repeat the sound:";
         ru['labelAlarmReplays'] = "Количество раз, чтобы повторить звук:";
+
+        de['alarmSoundSelectFile'] = "Bitte zuerst eine WAV-Datei auswählen.";
+        en['alarmSoundSelectFile'] = "Please select a WAV file first.";
+        ru['alarmSoundSelectFile'] = "Сначала выберите WAV-файл.";
+
+        de['alarmSoundUploading'] = "Upload läuft...";
+        en['alarmSoundUploading'] = "Upload in progress...";
+        ru['alarmSoundUploading'] = "Идет загрузка...";
+
+        de['alarmSoundUploadSuccess'] = "AlarmSound_16bit.wav wurde hochgeladen.";
+        en['alarmSoundUploadSuccess'] = "AlarmSound_16bit.wav has been uploaded.";
+        ru['alarmSoundUploadSuccess'] = "AlarmSound_16bit.wav загружен.";
+
+        de['alarmSoundUploadFailed'] = "Upload fehlgeschlagen.";
+        en['alarmSoundUploadFailed'] = "Upload failed.";
+        ru['alarmSoundUploadFailed'] = "Ошибка загрузки.";
+
+        de['alarmSoundUploadDummy'] = "Dummy-Modus: kein Upload zum ESP.";
+        en['alarmSoundUploadDummy'] = "Dummy mode: no upload to the ESP.";
+        ru['alarmSoundUploadDummy'] = "Режим заглушки: загрузка на ESP не выполняется.";
 
         //WakeTimeList
         de['headerSetWakeTimes'] = "Eingabe der Weck- und Schlafenszeit:";
@@ -212,6 +240,8 @@ var LangSupport = {
         this.setLangOfElement("labelSliderSun");
         this.setLangOfElement("headerAlarm");
         this.setLangOfElement("playButton");
+        this.setLangOfElement("labelAlarmSoundFile");
+        this.setLangOfElement("uploadAlarmSoundButton");
         this.setLangOfElement("labelSliderGain");
         this.setLangOfElement("labelFlipAlarm");
         this.setLangOfElement("headerDisplay");

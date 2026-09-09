@@ -60,6 +60,10 @@
                     <label id="labelSliderGain" for="sliderGain">Volume:</label>
                     <input type="range" name="sliderGain" id="sliderGain" data-highlight="true" min="2" max="100" value="25" onchange="SleepUinoCom.setAlarmVolume(this.value)">
                     <button id="playButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.playSound()">Play</button>
+                    <label id="labelAlarmSoundFile" for="alarmSoundFile">Alarm sound (.wav):</label>
+                    <input type="file" name="alarmSoundFile" id="alarmSoundFile" accept=".wav,audio/wav">
+                    <button id="uploadAlarmSoundButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.uploadAlarmSound()">Upload sound</button>
+                    <p id="alarmSoundUploadStatus"></p>
                                            
                     <label id="labelFlipAlarm" for="flipAlarm">Flip toggle:</label>
                     <input type="checkbox" data-role="flipswitch" id="flipAlarm" data-on-text="On" data-off-text="Off" checked="true" onchange="UiFunc.handleFlipAlarm()">
