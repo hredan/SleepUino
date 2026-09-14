@@ -122,6 +122,7 @@ class HandleWebpage {
   void handleSetWakeData();
 
   void handleGetWakeTimeData();
+  void handleGetMaxSoundSize();
 
   void handlePlaySound();
   void handleStopSound();

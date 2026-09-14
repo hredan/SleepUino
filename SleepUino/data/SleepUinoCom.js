@@ -178,8 +178,7 @@ var SleepUinoCom = {
         var formData = new FormData();
         formData.append("file", file, file.name);
 
-        if (this.enableServerCom)
-        {
+        var startUpload = function() {
             statusElement.text(LangSupport.getLangString("alarmSoundUploading"));
 
             $.ajax({
@@ -218,6 +217,42 @@ var SleepUinoCom = {
                     progressElement.val(0);
                     statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
                 }
+            })
+            .fail(function(){
+                progressElement.val(0);
+                statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+            });
+        };
+
+        if (this.enableServerCom)
+        {
+            $.ajax({
+                url: "/getMaxSoundSize",
+                type: "GET",
+                dataType: "json",
+                timeout: 10000
+            })
+            .done(function(jsonResult){
+                var maxSoundSize = parseInt(jsonResult.maxSoundSize, 10);
+
+                if (isNaN(maxSoundSize) || maxSoundSize <= 0)
+                {
+                    progressElement.val(0);
+                    statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+                    return;
+                }
+
+                if (file.size > maxSoundSize)
+                {
+                    progressElement.val(0);
+                    statusElement.text(
+                        LangSupport.getLangString("alarmSoundFileTooLarge") +
+                        " (" + file.size + " > " + maxSoundSize + " Bytes)"
+                    );
+                    return;
+                }
+
+                startUpload();
             })
             .fail(function(){
                 progressElement.val(0);

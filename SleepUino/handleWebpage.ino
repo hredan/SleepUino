@@ -295,17 +295,16 @@ void HandleWebpage::handleUploadAlarmSound() {
 void HandleWebpage::handleUploadAlarmSoundData() {
   HTTPUpload &upload = _webServer->upload();
   const char *targetFile = "/AlarmSound_16bit.wav";
-  const char *tempFile = "/AlarmSound_16bit.upload";
 
   if (upload.status == UPLOAD_FILE_START) {
     Serial.println("Start upload of AlarmSound_16bit.wav");
     _uploadHasError = false;
 
-    if (LittleFS.exists(tempFile)) {
-      LittleFS.remove(tempFile);
+    if (LittleFS.exists(targetFile)) {
+      LittleFS.remove(targetFile);
     }
 
-    _uploadFile = LittleFS.open(tempFile, "w");
+    _uploadFile = LittleFS.open(targetFile, "w");
     if (!_uploadFile) {
       Serial.println("Error: could not open AlarmSound_16bit.wav for writing");
       _uploadHasError = true;
@@ -320,23 +319,11 @@ void HandleWebpage::handleUploadAlarmSoundData() {
       Serial.println("Error: could not write complete upload chunk");
       _uploadHasError = true;
       _uploadFile.close();
-      LittleFS.remove(tempFile);
+      LittleFS.remove(targetFile);
     }
   } else if (upload.status == UPLOAD_FILE_END) {
     if (_uploadFile) {
       _uploadFile.close();
-    }
-
-    if (!_uploadHasError) {
-      if (LittleFS.exists(targetFile)) {
-        LittleFS.remove(targetFile);
-      }
-
-      if (!LittleFS.rename(tempFile, targetFile)) {
-        Serial.println("Error: could not replace AlarmSound_16bit.wav");
-        LittleFS.remove(tempFile);
-        _uploadHasError = true;
-      }
     }
 
     if (_uploadHasError) {
@@ -348,7 +335,7 @@ void HandleWebpage::handleUploadAlarmSoundData() {
     if (_uploadFile) {
       _uploadFile.close();
     }
-    LittleFS.remove(tempFile);
+    LittleFS.remove(targetFile);
     _uploadHasError = true;
     Serial.println("Alarm sound upload aborted");
   }
@@ -426,6 +413,29 @@ void HandleWebpage::handleGetWakeTimeData() {
     _webServer->send(404, "text/plane", "Error: Callback not available.");
     Serial.println("Error: _callBackGetWakeTimeJson==nullptr");
   }
+}
+
+void HandleWebpage::handleGetMaxSoundSize() {
+  FSInfo fs_info;
+  LittleFS.info(fs_info);
+
+  uint32_t freeBytes = fs_info.totalBytes - fs_info.usedBytes;
+  uint32_t maxSoundSize = freeBytes;
+  const char *customSoundFile = "/AlarmSound_16bit.wav";
+
+  if (LittleFS.exists(customSoundFile)) {
+    File soundFile = LittleFS.open(customSoundFile, "r");
+    if (soundFile) {
+      maxSoundSize += soundFile.size();
+      soundFile.close();
+    }
+  }
+  //add little Buffer of 50 Bytes
+  maxSoundSize -= 50;
+  Serial.printf("Max Sound Size: %u Bytes\n", maxSoundSize);
+
+  String jsonAnswer = String("{\"maxSoundSize\": ") + String(maxSoundSize) + String("}");
+  _webServer->send(200, "application/json", jsonAnswer);
 }
 
 void HandleWebpage::handleWebRequests() {
@@ -518,6 +528,7 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/setGain", HTTP_POST, std::bind(&HandleWebpage::handleSetGain, this));
   _webServer->on("/setWakeData", HTTP_POST, std::bind(&HandleWebpage::handleSetWakeData, this));
   _webServer->on("/getWakeTimeData", HTTP_GET, std::bind(&HandleWebpage::handleGetWakeTimeData, this));
+  _webServer->on("/getMaxSoundSize", HTTP_GET, std::bind(&HandleWebpage::handleGetMaxSoundSize, this));
   _webServer->on("/uploadAlarmSound", HTTP_POST, std::bind(&HandleWebpage::handleUploadAlarmSound, this),
                  std::bind(&HandleWebpage::handleUploadAlarmSoundData, this));
 

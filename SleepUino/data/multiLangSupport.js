@@ -177,6 +177,10 @@ var LangSupport = {
         en['alarmSoundUploadFailed'] = "Upload failed.";
         ru['alarmSoundUploadFailed'] = "Ошибка загрузки.";
 
+        de['alarmSoundFileTooLarge'] = "Die gewählte Datei ist zu groß.";
+        en['alarmSoundFileTooLarge'] = "The selected file is too large.";
+        ru['alarmSoundFileTooLarge'] = "Выбранный файл слишком большой.";
+
         de['alarmSoundUploadDummy'] = "Dummy-Modus: kein Upload zum ESP.";
         en['alarmSoundUploadDummy'] = "Dummy mode: no upload to the ESP.";
         ru['alarmSoundUploadDummy'] = "Режим заглушки: загрузка на ESP не выполняется.";
