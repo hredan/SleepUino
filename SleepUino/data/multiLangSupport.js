@@ -105,6 +105,10 @@ var LangSupport = {
         en['playButton'] = "Play sound";
         ru['playButton'] = "Воспроизвести звук";
 
+        de['stopButton'] = "Sound stoppen";
+        en['stopButton'] = "Stop sound";
+        ru['stopButton'] = "Остановить звук";
+
         de['labelAlarmSoundFile'] = "Alarm-Sound (.wav):";
         en['labelAlarmSoundFile'] = "Alarm sound (.wav):";
         ru['labelAlarmSoundFile'] = "Звук будильника (.wav):";
@@ -112,6 +116,26 @@ var LangSupport = {
         de['uploadAlarmSoundButton'] = "Sound hochladen";
         en['uploadAlarmSoundButton'] = "Upload sound";
         ru['uploadAlarmSoundButton'] = "Загрузить звук";
+
+        de['openUploadAlarmSoundPopupButton'] = "Alarm-Sound hochladen";
+        en['openUploadAlarmSoundPopupButton'] = "Upload alarm sound";
+        ru['openUploadAlarmSoundPopupButton'] = "Загрузить звук будильника";
+
+        de['popupUploadAlarmSoundClose'] = "Schließen";
+        en['popupUploadAlarmSoundClose'] = "Close";
+        ru['popupUploadAlarmSoundClose'] = "Закрыть";
+
+        de['popupUploadAlarmSoundTitle'] = "Alarm-Sound hochladen";
+        en['popupUploadAlarmSoundTitle'] = "Upload alarm sound";
+        ru['popupUploadAlarmSoundTitle'] = "Загрузка звука будильника";
+
+        de['popupUploadAlarmSoundHeadline'] = "Alarm-Sound hochladen";
+        en['popupUploadAlarmSoundHeadline'] = "Upload alarm sound";
+        ru['popupUploadAlarmSoundHeadline'] = "Загрузка звука будильника";
+
+        de['popupUploadAlarmSoundDescription'] = "Wählen Sie eine WAV-Datei aus und klicken Sie auf 'Sound hochladen', um den Alarm-Sound auf das SleepUino-Gerät hochzuladen.";
+        en['popupUploadAlarmSoundDescription'] = "Select a WAV file and click 'Upload sound' to upload the alarm sound to the SleepUino device.";
+        ru['popupUploadAlarmSoundDescription'] = "Выберите WAV-файл и нажмите 'Загрузить звук', чтобы загрузить звук будильника на устройство SleepUino.";
 
         de['labelSliderGain'] = "Sound Lautstärke:";
         en['labelSliderGain'] = "Sound Volume:";
@@ -240,6 +264,12 @@ var LangSupport = {
         this.setLangOfElement("labelSliderSun");
         this.setLangOfElement("headerAlarm");
         this.setLangOfElement("playButton");
+        this.setLangOfElement("stopButton");
+        this.setLangOfElement("openUploadAlarmSoundPopupButton");
+        this.setLangOfElement("popupUploadAlarmSoundClose");
+        this.setLangOfElement("popupUploadAlarmSoundTitle");
+        this.setLangOfElement("popupUploadAlarmSoundHeadline");
+        this.setLangOfElement("popupUploadAlarmSoundDescription");
         this.setLangOfElement("labelAlarmSoundFile");
         this.setLangOfElement("uploadAlarmSoundButton");
         this.setLangOfElement("labelSliderGain");

@@ -51,6 +51,7 @@ class HandleWebpage {
   using CallBackGetSoundReplays = uint8_t (*)();
 
   using CallBackPlaySound = void (*)();
+  using CallBackStopSound = void (*)();
 
   using CallBackWakeTimeData = void (*)(uint8_t size, uint16_t dataArr[]);
 
@@ -80,6 +81,7 @@ class HandleWebpage {
   void setCallBackGetSoundReplays(CallBackGetSoundReplays callBackGetSoundReplays);
 
   void setCallBackPlaySound(CallBackPlaySound callBackPlaySound);
+  void setCallBackStopSound(CallBackStopSound callBackStopSound);
 
   void setCallBackWakeTimeData(CallBackWakeTimeData callBackWakeTimeData);
 
@@ -101,6 +103,7 @@ class HandleWebpage {
   CallBackGetSoundReplays _callBackGetSoundReplays = nullptr;
 
   CallBackPlaySound _callBackPlaySound = nullptr;
+  CallBackStopSound _callBackStopSound = nullptr;
   CallBackWakeTimeData _callBackWakeTimeData = nullptr;
 
   CallBackGetWakeTimeJson _callBackGetWakeTimeJson = nullptr;
@@ -121,6 +124,7 @@ class HandleWebpage {
   void handleGetWakeTimeData();
 
   void handlePlaySound();
+  void handleStopSound();
   void handleUploadAlarmSound();
   void handleUploadAlarmSoundData();
 

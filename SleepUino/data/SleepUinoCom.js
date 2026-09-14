@@ -116,6 +116,24 @@ var SleepUinoCom = {
         }
     },
 
+    stopSound : function (){
+        if (this.enableServerCom)
+        {
+            $.ajax({url: "/stopSound", type: "GET", dataType: "json", timeout: 10000})
+            .done(function(jsonResult){
+                if (!jsonResult.success)
+                {
+                    console.log("Error: stopSound");
+                }
+            });
+        }
+        else
+        {
+            this.isNotPlayingSound = true;
+            console.log("Stop Sound");
+        }
+    },
+
     uploadAlarmSound : function (){
         var fileInput = $("#alarmSoundFile")[0];
         var statusElement = $("#alarmSoundUploadStatus");

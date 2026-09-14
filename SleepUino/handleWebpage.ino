@@ -84,6 +84,10 @@ void HandleWebpage::setCallBackPlaySound(CallBackPlaySound callBackPlaySound) {
   _callBackPlaySound = callBackPlaySound;
 }
 
+void HandleWebpage::setCallBackStopSound(CallBackStopSound callBackStopSound) {
+  _callBackStopSound = callBackStopSound;
+}
+
 void HandleWebpage::setCallBackWakeTimeData(CallBackWakeTimeData callBackWakeTimeData) {
   _callBackWakeTimeData = callBackWakeTimeData;
 }
@@ -249,6 +253,17 @@ void HandleWebpage::handlePlaySound() {
     _callBackPlaySound();
   } else {
     Serial.println("Error: _callBackPlaySound ==nullptr");
+    _webServer->send(200, "text/plane", "{\"success\": false}");
+  }
+}
+
+void HandleWebpage::handleStopSound() {
+  Serial.println("handleStopSound" + _webServer->arg("plain"));
+  if (_callBackStopSound != nullptr) {
+    _callBackStopSound();
+    _webServer->send(200, "text/plane", "{\"success\": true}");
+  } else {
+    Serial.println("Error: _callBackStopSound ==nullptr");
     _webServer->send(200, "text/plane", "{\"success\": false}");
   }
 }
@@ -478,6 +493,7 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/getValues", HTTP_GET, std::bind(&HandleWebpage::handleGetValues, this));
   _webServer->on("/getTime", HTTP_GET, std::bind(&HandleWebpage::handleGetTime, this));
   _webServer->on("/playSound", HTTP_GET, std::bind(&HandleWebpage::handlePlaySound, this));
+  _webServer->on("/stopSound", HTTP_GET, std::bind(&HandleWebpage::handleStopSound, this));
   _webServer->on("/setDisplayMode", HTTP_POST, std::bind(&HandleWebpage::setDisplayMode, this));
   _webServer->on("/setSoundReplay", HTTP_POST, std::bind(&HandleWebpage::setSoundReplay, this));
   _webServer->on("/setLEDMoon", HTTP_POST, std::bind(&HandleWebpage::setLEDMoon, this));

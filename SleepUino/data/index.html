@@ -64,16 +64,23 @@
                     <h3 id="headerAlarm" class="ui-bar ui-bar-a ui-corner-all">Alarm Settings</h3>
                     <label id="labelSliderGain" for="sliderGain">Volume:</label>
                     <input type="range" name="sliderGain" id="sliderGain" data-highlight="true" min="2" max="100" value="25" onchange="SleepUinoCom.setAlarmVolume(this.value)">
-                    <button id="playButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.playSound()">Play</button>
+                    <div class="su-button-row">
+                        <div class="su-button-cell">
+                            <button id="playButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.playSound()">Play</button>
+                        </div>
+                        <div class="su-button-cell">
+                            <button id="stopButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.stopSound()">Stop</button>
+                        </div>
+                    </div>
                     <button type="button" id="openUploadAlarmSoundPopupButton" class="ui-btn ui-corner-all" onclick="$('#popupUploadAlarmSound').popup('open', {positionTo: 'window', transition: 'pop'});">Upload Alarm Sound</button>
                     <div data-role="popup" id="popupUploadAlarmSound" data-overlay-theme="a" data-dismissible="true" data-history="false" style="max-width:400px;">
                         <div data-role="header" data-theme="a">
-                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-                            <h1>Upload Alarm Sound</h1>
+                            <a id="popupUploadAlarmSoundClose" href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <h1 id="popupUploadAlarmSoundTitle">Upload Alarm Sound</h1>
                         </div>
                         <div class="ui-content">
-                            <h3>Upload Alarm Sound</h3>
-                            <p>Select a .wav file and click the "Upload sound" button to upload the alarm sound to the SleepUino device.</p>
+                            <h3 id="popupUploadAlarmSoundHeadline">Upload Alarm Sound</h3>
+                            <p id="popupUploadAlarmSoundDescription">Select a .wav file and click the "Upload sound" button to upload the alarm sound to the SleepUino device.</p>
                             <label id="labelAlarmSoundFile" for="alarmSoundFile">Alarm sound (.wav):</label>
                             <input type="file" name="alarmSoundFile" id="alarmSoundFile" accept=".wav,audio/wav">
                             <button id="uploadAlarmSoundButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.uploadAlarmSound()">Upload sound</button>
