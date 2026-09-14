@@ -114,10 +114,8 @@ void loop() {
         STATE = TO_OPS;
         Serial.println("Change State: WIFI -> TO_OPS");
       } else {
-        if (!mainFunc->isSoundRunning()) {
-          dnsServer.processNextRequest();
-          mainFunc->webpageCheckClient();
-        }
+        dnsServer.processNextRequest();
+        mainFunc->webpageCheckClient();
         mainFunc->updateDisplay();
       }
       break;
