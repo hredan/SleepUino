@@ -85,7 +85,7 @@ var SleepUinoCom = {
         if (this.isNotPlayingSound)
         {
             this.isNotPlayingSound = false;
-            var audio = new Audio('AlarmSound_16bit.wav');
+            var audio = new Audio('default_AlarmSound.wav');
             audio.volume = this.gainValue/100.0;
             audio.play();
             await this.Sleep(3000); 
@@ -131,6 +131,33 @@ var SleepUinoCom = {
         {
             this.isNotPlayingSound = true;
             console.log("Stop Sound");
+        }
+    },
+
+    resetAlarmSound : function (){
+        var statusElement = $("#alarmSoundUploadStatus");
+
+        if (this.enableServerCom)
+        {
+            $.ajax({url: "/resetAlarmSound", type: "GET", dataType: "json", timeout: 10000})
+            .done(function(jsonResult){
+                if (jsonResult.success)
+                {
+                    statusElement.text(LangSupport.getLangString("alarmSoundResetSuccess"));
+                    $("#popupResetAlarmSound").popup("close");
+                }
+                else
+                {
+                    statusElement.text(LangSupport.getLangString("alarmSoundResetFailed"));
+                }
+            })
+            .fail(function(){
+                statusElement.text(LangSupport.getLangString("alarmSoundResetFailed"));
+            });
+        }
+        else
+        {
+            statusElement.text(LangSupport.getLangString("alarmSoundResetDummy"));
         }
     },
 

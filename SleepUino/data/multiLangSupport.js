@@ -109,6 +109,10 @@ var LangSupport = {
         en['stopButton'] = "Stop sound";
         ru['stopButton'] = "Остановить звук";
 
+        de['resetAlarmSoundButton'] = "Alarm-Sound zurücksetzen";
+        en['resetAlarmSoundButton'] = "Reset alarm sound";
+        ru['resetAlarmSoundButton'] = "Сбросить звук будильника";
+
         de['labelAlarmSoundFile'] = "Alarm-Sound (.wav):";
         en['labelAlarmSoundFile'] = "Alarm sound (.wav):";
         ru['labelAlarmSoundFile'] = "Звук будильника (.wav):";
@@ -176,6 +180,46 @@ var LangSupport = {
         de['alarmSoundUploadDummy'] = "Dummy-Modus: kein Upload zum ESP.";
         en['alarmSoundUploadDummy'] = "Dummy mode: no upload to the ESP.";
         ru['alarmSoundUploadDummy'] = "Режим заглушки: загрузка на ESP не выполняется.";
+
+        de['alarmSoundResetSuccess'] = "Benutzerdefinierter Alarm-Sound wurde zurückgesetzt.";
+        en['alarmSoundResetSuccess'] = "Custom alarm sound has been reset.";
+        ru['alarmSoundResetSuccess'] = "Пользовательский звук будильника сброшен.";
+
+        de['alarmSoundResetFailed'] = "Zurücksetzen des Alarm-Sounds fehlgeschlagen.";
+        en['alarmSoundResetFailed'] = "Failed to reset alarm sound.";
+        ru['alarmSoundResetFailed'] = "Не удалось сбросить звук будильника.";
+
+        de['alarmSoundResetDummy'] = "Dummy-Modus: kein Reset auf dem ESP durchgeführt.";
+        en['alarmSoundResetDummy'] = "Dummy mode: no reset performed on the ESP.";
+        ru['alarmSoundResetDummy'] = "Режим заглушки: сброс на ESP не выполнен.";
+
+        de['alarmSoundResetConfirm'] = "Soll der benutzerdefinierte Alarm-Sound wirklich gelöscht und auf den Standard-Sound zurückgesetzt werden?";
+        en['alarmSoundResetConfirm'] = "Do you really want to delete the custom alarm sound and reset to the default sound?";
+        ru['alarmSoundResetConfirm'] = "Вы действительно хотите удалить пользовательский звук будильника и вернуть звук по умолчанию?";
+
+        de['popupResetAlarmSoundClose'] = "Schließen";
+        en['popupResetAlarmSoundClose'] = "Close";
+        ru['popupResetAlarmSoundClose'] = "Закрыть";
+
+        de['popupResetAlarmSoundTitle'] = "Alarm-Sound zurücksetzen";
+        en['popupResetAlarmSoundTitle'] = "Reset alarm sound";
+        ru['popupResetAlarmSoundTitle'] = "Сброс звука будильника";
+
+        de['popupResetAlarmSoundHeadline'] = "Alarm-Sound zurücksetzen";
+        en['popupResetAlarmSoundHeadline'] = "Reset alarm sound";
+        ru['popupResetAlarmSoundHeadline'] = "Сброс звука будильника";
+
+        de['popupResetAlarmSoundDescription'] = "Soll der benutzerdefinierte Alarm-Sound wirklich gelöscht und auf den Standard-Sound zurückgesetzt werden?";
+        en['popupResetAlarmSoundDescription'] = "Do you really want to delete the custom alarm sound and reset to the default sound?";
+        ru['popupResetAlarmSoundDescription'] = "Вы действительно хотите удалить пользовательский звук будильника и вернуть звук по умолчанию?";
+
+        de['confirmResetAlarmSoundButton'] = "Alarm-Sound zurücksetzen";
+        en['confirmResetAlarmSoundButton'] = "Reset alarm sound";
+        ru['confirmResetAlarmSoundButton'] = "Сбросить звук будильника";
+
+        de['cancelResetAlarmSoundButton'] = "Abbrechen";
+        en['cancelResetAlarmSoundButton'] = "Cancel";
+        ru['cancelResetAlarmSoundButton'] = "Отмена";
 
         //WakeTimeList
         de['headerSetWakeTimes'] = "Eingabe der Weck- und Schlafenszeit:";
@@ -265,11 +309,18 @@ var LangSupport = {
         this.setLangOfElement("headerAlarm");
         this.setLangOfElement("playButton");
         this.setLangOfElement("stopButton");
+        this.setLangOfElement("resetAlarmSoundButton");
         this.setLangOfElement("openUploadAlarmSoundPopupButton");
         this.setLangOfElement("popupUploadAlarmSoundClose");
         this.setLangOfElement("popupUploadAlarmSoundTitle");
         this.setLangOfElement("popupUploadAlarmSoundHeadline");
         this.setLangOfElement("popupUploadAlarmSoundDescription");
+        this.setLangOfElement("popupResetAlarmSoundClose");
+        this.setLangOfElement("popupResetAlarmSoundTitle");
+        this.setLangOfElement("popupResetAlarmSoundHeadline");
+        this.setLangOfElement("popupResetAlarmSoundDescription");
+        this.setLangOfElement("confirmResetAlarmSoundButton");
+        this.setLangOfElement("cancelResetAlarmSoundButton");
         this.setLangOfElement("labelAlarmSoundFile");
         this.setLangOfElement("uploadAlarmSoundButton");
         this.setLangOfElement("labelSliderGain");

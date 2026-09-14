@@ -268,6 +268,21 @@ void HandleWebpage::handleStopSound() {
   }
 }
 
+void HandleWebpage::handleResetAlarmSound() {
+  const char *customSoundFile = "/AlarmSound_16bit.wav";
+
+  if (!LittleFS.exists(customSoundFile)) {
+    _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"No custom sound found\"}");
+    return;
+  }
+
+  if (LittleFS.remove(customSoundFile)) {
+    _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"Custom alarm sound reset\"}");
+  } else {
+    _webServer->send(500, "application/json", "{\"success\": false, \"message\": \"Failed to reset custom alarm sound\"}");
+  }
+}
+
 void HandleWebpage::handleUploadAlarmSound() {
   if (_uploadHasError) {
     _webServer->send(500, "application/json", "{\"success\": false, \"message\": \"Upload failed\"}");
@@ -494,6 +509,7 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/getTime", HTTP_GET, std::bind(&HandleWebpage::handleGetTime, this));
   _webServer->on("/playSound", HTTP_GET, std::bind(&HandleWebpage::handlePlaySound, this));
   _webServer->on("/stopSound", HTTP_GET, std::bind(&HandleWebpage::handleStopSound, this));
+  _webServer->on("/resetAlarmSound", HTTP_GET, std::bind(&HandleWebpage::handleResetAlarmSound, this));
   _webServer->on("/setDisplayMode", HTTP_POST, std::bind(&HandleWebpage::setDisplayMode, this));
   _webServer->on("/setSoundReplay", HTTP_POST, std::bind(&HandleWebpage::setSoundReplay, this));
   _webServer->on("/setLEDMoon", HTTP_POST, std::bind(&HandleWebpage::setLEDMoon, this));

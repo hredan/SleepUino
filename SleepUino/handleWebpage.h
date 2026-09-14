@@ -125,6 +125,7 @@ class HandleWebpage {
 
   void handlePlaySound();
   void handleStopSound();
+  void handleResetAlarmSound();
   void handleUploadAlarmSound();
   void handleUploadAlarmSoundData();
 

@@ -73,6 +73,7 @@
                         </div>
                     </div>
                     <button type="button" id="openUploadAlarmSoundPopupButton" class="ui-btn ui-corner-all" onclick="$('#popupUploadAlarmSound').popup('open', {positionTo: 'window', transition: 'pop'});">Upload Alarm Sound</button>
+                    <button type="button" id="resetAlarmSoundButton" class="ui-btn ui-corner-all" onclick="$('#popupResetAlarmSound').popup('open', {positionTo: 'window', transition: 'pop'});">Reset Alarm Sound</button>
                     <div data-role="popup" id="popupUploadAlarmSound" data-overlay-theme="a" data-dismissible="true" data-history="false" style="max-width:400px;">
                         <div data-role="header" data-theme="a">
                             <a id="popupUploadAlarmSoundClose" href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
@@ -86,6 +87,18 @@
                             <button id="uploadAlarmSoundButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.uploadAlarmSound()">Upload sound</button>
                             <progress id="alarmSoundUploadProgress" value="0" max="100" style="width:100%; height:10px;">0%</progress>
                             <p id="alarmSoundUploadStatus"></p>
+                        </div>
+                    </div>
+                    <div data-role="popup" id="popupResetAlarmSound" data-overlay-theme="a" data-dismissible="true" data-history="false" style="max-width:400px;">
+                        <div data-role="header" data-theme="a">
+                            <a id="popupResetAlarmSoundClose" href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <h1 id="popupResetAlarmSoundTitle">Reset Alarm Sound</h1>
+                        </div>
+                        <div class="ui-content">
+                            <h3 id="popupResetAlarmSoundHeadline">Reset Alarm Sound</h3>
+                            <p id="popupResetAlarmSoundDescription">Do you really want to delete the custom alarm sound and reset to the default sound?</p>
+                            <button id="confirmResetAlarmSoundButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.resetAlarmSound()">Reset Alarm Sound</button>
+                            <button id="cancelResetAlarmSoundButton" type="button" class="ui-btn ui-corner-all" onclick="$('#popupResetAlarmSound').popup('close');">Cancel</button>
                         </div>
                     </div>
                                            
