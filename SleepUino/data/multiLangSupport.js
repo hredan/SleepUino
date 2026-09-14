@@ -137,9 +137,9 @@ var LangSupport = {
         en['popupUploadAlarmSoundHeadline'] = "Upload alarm sound";
         ru['popupUploadAlarmSoundHeadline'] = "Загрузка звука будильника";
 
-        de['popupUploadAlarmSoundDescription'] = "Wählen Sie eine WAV-Datei aus und klicken Sie auf 'Sound hochladen', um den Alarm-Sound auf das SleepUino-Gerät hochzuladen.";
-        en['popupUploadAlarmSoundDescription'] = "Select a WAV file and click 'Upload sound' to upload the alarm sound to the SleepUino device.";
-        ru['popupUploadAlarmSoundDescription'] = "Выберите WAV-файл и нажмите 'Загрузить звук', чтобы загрузить звук будильника на устройство SleepUino.";
+        de['popupUploadAlarmSoundDescription'] = "Die WAV-Datei muss 16bit PCM, Mono und 44100 Hz haben. Das kann man zum Beispiel mit Audacity erstellen.";
+        en['popupUploadAlarmSoundDescription'] = "The WAV file must use 16-bit PCM, mono, and 44100 Hz. You can create this format for example with Audacity.";
+        ru['popupUploadAlarmSoundDescription'] = "WAV-файл должен быть в формате 16-bit PCM, mono и 44100 Гц. Такой файл можно, например, создать в Audacity.";
 
         de['labelSliderGain'] = "Sound Lautstärke:";
         en['labelSliderGain'] = "Sound Volume:";
