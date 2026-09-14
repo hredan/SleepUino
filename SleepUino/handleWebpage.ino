@@ -280,9 +280,8 @@ void HandleWebpage::handleResetAlarmSound() {
     _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"Custom alarm sound reset\"}");
   } else {
     _webServer->send(
-      500, "application/json", 
-      "{\"success\": false, \"message\": \"Failed to reset custom alarm sound\"}"
-    );
+      500, "application/json",
+      "{\"success\": false, \"message\": \"Failed to reset custom alarm sound\"}");
   }
 }
 
