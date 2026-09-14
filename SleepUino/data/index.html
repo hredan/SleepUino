@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="css/jquery.mobile.struc.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/sleepUino.css" type="text/css"/>
     <script src="./jquery-2.2.4.min.js"></script>
+    <script>
+        $(document).on("mobileinit", function() {
+            $.mobile.popup.prototype.options.history = false;
+        });
+    </script>
     <script src="./jquery.mobile-1.4.5.min.js"></script>
     <script src="./myFunctions.js"></script>
     <script src="./SleepUinoCom.js"></script>
@@ -60,10 +65,22 @@
                     <label id="labelSliderGain" for="sliderGain">Volume:</label>
                     <input type="range" name="sliderGain" id="sliderGain" data-highlight="true" min="2" max="100" value="25" onchange="SleepUinoCom.setAlarmVolume(this.value)">
                     <button id="playButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.playSound()">Play</button>
-                    <label id="labelAlarmSoundFile" for="alarmSoundFile">Alarm sound (.wav):</label>
-                    <input type="file" name="alarmSoundFile" id="alarmSoundFile" accept=".wav,audio/wav">
-                    <button id="uploadAlarmSoundButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.uploadAlarmSound()">Upload sound</button>
-                    <p id="alarmSoundUploadStatus"></p>
+                    <button type="button" id="openUploadAlarmSoundPopupButton" class="ui-btn ui-corner-all" onclick="$('#popupUploadAlarmSound').popup('open', {positionTo: 'window', transition: 'pop'});">Upload Alarm Sound</button>
+                    <div data-role="popup" id="popupUploadAlarmSound" data-overlay-theme="a" data-dismissible="true" data-history="false" style="max-width:400px;">
+                        <div data-role="header" data-theme="a">
+                            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <h1>Upload Alarm Sound</h1>
+                        </div>
+                        <div class="ui-content">
+                            <h3>Upload Alarm Sound</h3>
+                            <p>Select a .wav file and click the "Upload sound" button to upload the alarm sound to the SleepUino device.</p>
+                            <label id="labelAlarmSoundFile" for="alarmSoundFile">Alarm sound (.wav):</label>
+                            <input type="file" name="alarmSoundFile" id="alarmSoundFile" accept=".wav,audio/wav">
+                            <button id="uploadAlarmSoundButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.uploadAlarmSound()">Upload sound</button>
+                            <progress id="alarmSoundUploadProgress" value="0" max="100" style="width:100%; height:10px;">0%</progress>
+                            <p id="alarmSoundUploadStatus"></p>
+                        </div>
+                    </div>
                                            
                     <label id="labelFlipAlarm" for="flipAlarm">Flip toggle:</label>
                     <input type="checkbox" data-role="flipswitch" id="flipAlarm" data-on-text="On" data-off-text="Off" checked="true" onchange="UiFunc.handleFlipAlarm()">

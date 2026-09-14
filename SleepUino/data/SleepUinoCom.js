@@ -119,6 +119,9 @@ var SleepUinoCom = {
     uploadAlarmSound : function (){
         var fileInput = $("#alarmSoundFile")[0];
         var statusElement = $("#alarmSoundUploadStatus");
+        var progressElement = $("#alarmSoundUploadProgress");
+
+        progressElement.val(0);
 
         if (fileInput.files.length === 0)
         {
@@ -140,25 +143,45 @@ var SleepUinoCom = {
                 data: formData,
                 processData: false,
                 contentType: false,
-                dataType: "json"
+                dataType: "json",
+                xhr: function() {
+                    var xhr = $.ajaxSettings.xhr();
+                    if (xhr.upload)
+                    {
+                        xhr.upload.addEventListener("progress", function(event) {
+                            if (event.lengthComputable)
+                            {
+                                var percent = Math.round((event.loaded / event.total) * 100);
+                                progressElement.val(percent);
+                            }
+                        }, false);
+                    }
+                    return xhr;
+                }
             })
             .done(function(jsonResult){
                 if (jsonResult.success)
                 {
+                    progressElement.val(100);
                     statusElement.text(LangSupport.getLangString("alarmSoundUploadSuccess"));
                     $("#alarmSoundFile").val("");
+                    $("#popupUploadAlarmSound").popup("close");
+                    $("#alarmSoundUploadProgress").val(0);
                 }
                 else
                 {
+                    progressElement.val(0);
                     statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
                 }
             })
             .fail(function(){
+                progressElement.val(0);
                 statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
             });
         }
         else
         {
+            progressElement.val(100);
             statusElement.text(LangSupport.getLangString("alarmSoundUploadDummy"));
         }
     },
