@@ -279,7 +279,10 @@ void HandleWebpage::handleResetAlarmSound() {
   if (LittleFS.remove(customSoundFile)) {
     _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"Custom alarm sound reset\"}");
   } else {
-    _webServer->send(500, "application/json", "{\"success\": false, \"message\": \"Failed to reset custom alarm sound\"}");
+    _webServer->send(
+      500, "application/json", 
+      "{\"success\": false, \"message\": \"Failed to reset custom alarm sound\"}"
+    );
   }
 }
 
@@ -430,7 +433,7 @@ void HandleWebpage::handleGetMaxSoundSize() {
       soundFile.close();
     }
   }
-  //add little Buffer of 50 Bytes
+  // add little Buffer of 50 Bytes
   maxSoundSize -= 50;
   Serial.printf("Max Sound Size: %u Bytes\n", maxSoundSize);
 
