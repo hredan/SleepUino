@@ -29,7 +29,7 @@
 #include "RTClib.h"  // https://github.com/adafruit/RTClib
 
 const byte DNS_PORT = 53;
-IPAddress apIP(172, 217, 28, 1);
+IPAddress apIP(192, 168, 222, 222);
 DNSServer dnsServer;
 
 class HandleWebpage {
