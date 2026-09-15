@@ -102,7 +102,11 @@ After you have build-up the hardware according the circuit diagram you can flash
 11. Now you can try if it is working. At first you can start the configuration mode by pressing the SleepUino button for a longer time. When the WLAN Symbol is shown in the SleepUino Display, the SleepUino is in the Config Mode.
 12. If you have some trouble use the Serial Monitor
 
-## Upload a new alarm sound by HTTP
+## Upload a new alarm sound
+### Upload a new alarm sound by webinterface
+![webinterface Upload Sound](Assets/Webinterface/SoundUpload.png)
+
+### Upload a new alarm sound by HTTP
 After the web interface is uploaded and SleepUino is in configuration mode, you can replace or create the file `/AlarmSound_16bit.wav` directly in LittleFS.
 
 Use the web interface in the alarm settings area or send a multipart HTTP POST request to `/uploadAlarmSound`. The uploaded file is always stored as `/AlarmSound_16bit.wav`, independent from the original filename.
@@ -110,7 +114,7 @@ Use the web interface in the alarm settings area or send a multipart HTTP POST r
 Example with curl:
 
 ```bash
-curl -F "file=@/path/to/your/alarm.wav" http://172.217.28.1/uploadAlarmSound
+curl -F "file=@/path/to/your/alarm.wav" http://192.168.222.222/uploadAlarmSound
 ```
 
 ## Optional: Visual Studio Code with Arduino Extension as IDE
