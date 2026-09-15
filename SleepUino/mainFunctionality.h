@@ -53,6 +53,7 @@ class MainFunc {
   static uint8_t getSoundReplayes();
 
   static void playSound();
+  static void stopSound();
 
   static void setWakeTimeData(uint8_t size, uint16_t dataArr[]);
   static String getWakeTimeDataJsonStr();

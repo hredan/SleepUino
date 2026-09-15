@@ -105,6 +105,42 @@ var LangSupport = {
         en['playButton'] = "Play sound";
         ru['playButton'] = "Воспроизвести звук";
 
+        de['stopButton'] = "Sound stoppen";
+        en['stopButton'] = "Stop sound";
+        ru['stopButton'] = "Остановить звук";
+
+        de['resetAlarmSoundButton'] = "Alarm-Sound zurücksetzen";
+        en['resetAlarmSoundButton'] = "Reset alarm sound";
+        ru['resetAlarmSoundButton'] = "Сбросить звук будильника";
+
+        de['labelAlarmSoundFile'] = "Alarm-Sound (.wav):";
+        en['labelAlarmSoundFile'] = "Alarm sound (.wav):";
+        ru['labelAlarmSoundFile'] = "Звук будильника (.wav):";
+
+        de['uploadAlarmSoundButton'] = "Sound hochladen";
+        en['uploadAlarmSoundButton'] = "Upload sound";
+        ru['uploadAlarmSoundButton'] = "Загрузить звук";
+
+        de['openUploadAlarmSoundPopupButton'] = "Alarm-Sound hochladen";
+        en['openUploadAlarmSoundPopupButton'] = "Upload alarm sound";
+        ru['openUploadAlarmSoundPopupButton'] = "Загрузить звук будильника";
+
+        de['popupUploadAlarmSoundClose'] = "Schließen";
+        en['popupUploadAlarmSoundClose'] = "Close";
+        ru['popupUploadAlarmSoundClose'] = "Закрыть";
+
+        de['popupUploadAlarmSoundTitle'] = "Alarm-Sound hochladen";
+        en['popupUploadAlarmSoundTitle'] = "Upload alarm sound";
+        ru['popupUploadAlarmSoundTitle'] = "Загрузка звука будильника";
+
+        de['popupUploadAlarmSoundHeadline'] = "Alarm-Sound hochladen";
+        en['popupUploadAlarmSoundHeadline'] = "Upload alarm sound";
+        ru['popupUploadAlarmSoundHeadline'] = "Загрузка звука будильника";
+
+        de['popupUploadAlarmSoundDescription'] = "Die WAV-Datei muss 16bit PCM, Mono und 44100 Hz haben. Das kann man zum Beispiel mit Audacity erstellen.";
+        en['popupUploadAlarmSoundDescription'] = "The WAV file must use 16-bit PCM, mono, and 44100 Hz. You can create this format for example with Audacity.";
+        ru['popupUploadAlarmSoundDescription'] = "WAV-файл должен быть в формате 16-bit PCM, mono и 44100 Гц. Такой файл можно, например, создать в Audacity.";
+
         de['labelSliderGain'] = "Sound Lautstärke:";
         en['labelSliderGain'] = "Sound Volume:";
         ru['labelSliderGain'] = "громкости:";
@@ -124,6 +160,70 @@ var LangSupport = {
         de['labelAlarmReplays'] = "Anzahl der Wiederholungen des Sounds:";
         en['labelAlarmReplays'] = "Number of times to repeat the sound:";
         ru['labelAlarmReplays'] = "Количество раз, чтобы повторить звук:";
+
+        de['alarmSoundSelectFile'] = "Bitte zuerst eine WAV-Datei auswählen.";
+        en['alarmSoundSelectFile'] = "Please select a WAV file first.";
+        ru['alarmSoundSelectFile'] = "Сначала выберите WAV-файл.";
+
+        de['alarmSoundUploading'] = "Upload läuft...";
+        en['alarmSoundUploading'] = "Upload in progress...";
+        ru['alarmSoundUploading'] = "Идет загрузка...";
+
+        de['alarmSoundUploadSuccess'] = "AlarmSound_16bit.wav wurde hochgeladen.";
+        en['alarmSoundUploadSuccess'] = "AlarmSound_16bit.wav has been uploaded.";
+        ru['alarmSoundUploadSuccess'] = "AlarmSound_16bit.wav загружен.";
+
+        de['alarmSoundUploadFailed'] = "Upload fehlgeschlagen.";
+        en['alarmSoundUploadFailed'] = "Upload failed.";
+        ru['alarmSoundUploadFailed'] = "Ошибка загрузки.";
+
+        de['alarmSoundFileTooLarge'] = "Die gewählte Datei ist zu groß.";
+        en['alarmSoundFileTooLarge'] = "The selected file is too large.";
+        ru['alarmSoundFileTooLarge'] = "Выбранный файл слишком большой.";
+
+        de['alarmSoundUploadDummy'] = "Dummy-Modus: kein Upload zum ESP.";
+        en['alarmSoundUploadDummy'] = "Dummy mode: no upload to the ESP.";
+        ru['alarmSoundUploadDummy'] = "Режим заглушки: загрузка на ESP не выполняется.";
+
+        de['alarmSoundResetSuccess'] = "Benutzerdefinierter Alarm-Sound wurde zurückgesetzt.";
+        en['alarmSoundResetSuccess'] = "Custom alarm sound has been reset.";
+        ru['alarmSoundResetSuccess'] = "Пользовательский звук будильника сброшен.";
+
+        de['alarmSoundResetFailed'] = "Zurücksetzen des Alarm-Sounds fehlgeschlagen.";
+        en['alarmSoundResetFailed'] = "Failed to reset alarm sound.";
+        ru['alarmSoundResetFailed'] = "Не удалось сбросить звук будильника.";
+
+        de['alarmSoundResetDummy'] = "Dummy-Modus: kein Reset auf dem ESP durchgeführt.";
+        en['alarmSoundResetDummy'] = "Dummy mode: no reset performed on the ESP.";
+        ru['alarmSoundResetDummy'] = "Режим заглушки: сброс на ESP не выполнен.";
+
+        de['alarmSoundResetConfirm'] = "Soll der benutzerdefinierte Alarm-Sound wirklich gelöscht und auf den Standard-Sound zurückgesetzt werden?";
+        en['alarmSoundResetConfirm'] = "Do you really want to delete the custom alarm sound and reset to the default sound?";
+        ru['alarmSoundResetConfirm'] = "Вы действительно хотите удалить пользовательский звук будильника и вернуть звук по умолчанию?";
+
+        de['popupResetAlarmSoundClose'] = "Schließen";
+        en['popupResetAlarmSoundClose'] = "Close";
+        ru['popupResetAlarmSoundClose'] = "Закрыть";
+
+        de['popupResetAlarmSoundTitle'] = "Alarm-Sound zurücksetzen";
+        en['popupResetAlarmSoundTitle'] = "Reset alarm sound";
+        ru['popupResetAlarmSoundTitle'] = "Сброс звука будильника";
+
+        de['popupResetAlarmSoundHeadline'] = "Alarm-Sound zurücksetzen";
+        en['popupResetAlarmSoundHeadline'] = "Reset alarm sound";
+        ru['popupResetAlarmSoundHeadline'] = "Сброс звука будильника";
+
+        de['popupResetAlarmSoundDescription'] = "Soll der benutzerdefinierte Alarm-Sound wirklich gelöscht und auf den Standard-Sound zurückgesetzt werden?";
+        en['popupResetAlarmSoundDescription'] = "Do you really want to delete the custom alarm sound and reset to the default sound?";
+        ru['popupResetAlarmSoundDescription'] = "Вы действительно хотите удалить пользовательский звук будильника и вернуть звук по умолчанию?";
+
+        de['confirmResetAlarmSoundButton'] = "Alarm-Sound zurücksetzen";
+        en['confirmResetAlarmSoundButton'] = "Reset alarm sound";
+        ru['confirmResetAlarmSoundButton'] = "Сбросить звук будильника";
+
+        de['cancelResetAlarmSoundButton'] = "Abbrechen";
+        en['cancelResetAlarmSoundButton'] = "Cancel";
+        ru['cancelResetAlarmSoundButton'] = "Отмена";
 
         //WakeTimeList
         de['headerSetWakeTimes'] = "Eingabe der Weck- und Schlafenszeit:";
@@ -212,6 +312,21 @@ var LangSupport = {
         this.setLangOfElement("labelSliderSun");
         this.setLangOfElement("headerAlarm");
         this.setLangOfElement("playButton");
+        this.setLangOfElement("stopButton");
+        this.setLangOfElement("resetAlarmSoundButton");
+        this.setLangOfElement("openUploadAlarmSoundPopupButton");
+        this.setLangOfElement("popupUploadAlarmSoundClose");
+        this.setLangOfElement("popupUploadAlarmSoundTitle");
+        this.setLangOfElement("popupUploadAlarmSoundHeadline");
+        this.setLangOfElement("popupUploadAlarmSoundDescription");
+        this.setLangOfElement("popupResetAlarmSoundClose");
+        this.setLangOfElement("popupResetAlarmSoundTitle");
+        this.setLangOfElement("popupResetAlarmSoundHeadline");
+        this.setLangOfElement("popupResetAlarmSoundDescription");
+        this.setLangOfElement("confirmResetAlarmSoundButton");
+        this.setLangOfElement("cancelResetAlarmSoundButton");
+        this.setLangOfElement("labelAlarmSoundFile");
+        this.setLangOfElement("uploadAlarmSoundButton");
         this.setLangOfElement("labelSliderGain");
         this.setLangOfElement("labelFlipAlarm");
         this.setLangOfElement("headerDisplay");

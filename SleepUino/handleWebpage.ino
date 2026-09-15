@@ -84,6 +84,10 @@ void HandleWebpage::setCallBackPlaySound(CallBackPlaySound callBackPlaySound) {
   _callBackPlaySound = callBackPlaySound;
 }
 
+void HandleWebpage::setCallBackStopSound(CallBackStopSound callBackStopSound) {
+  _callBackStopSound = callBackStopSound;
+}
+
 void HandleWebpage::setCallBackWakeTimeData(CallBackWakeTimeData callBackWakeTimeData) {
   _callBackWakeTimeData = callBackWakeTimeData;
 }
@@ -253,6 +257,92 @@ void HandleWebpage::handlePlaySound() {
   }
 }
 
+void HandleWebpage::handleStopSound() {
+  Serial.println("handleStopSound" + _webServer->arg("plain"));
+  if (_callBackStopSound != nullptr) {
+    _callBackStopSound();
+    _webServer->send(200, "text/plane", "{\"success\": true}");
+  } else {
+    Serial.println("Error: _callBackStopSound ==nullptr");
+    _webServer->send(200, "text/plane", "{\"success\": false}");
+  }
+}
+
+void HandleWebpage::handleResetAlarmSound() {
+  const char *customSoundFile = "/AlarmSound_16bit.wav";
+
+  if (!LittleFS.exists(customSoundFile)) {
+    _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"No custom sound found\"}");
+    return;
+  }
+
+  if (LittleFS.remove(customSoundFile)) {
+    _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"Custom alarm sound reset\"}");
+  } else {
+    _webServer->send(
+      500, "application/json",
+      "{\"success\": false, \"message\": \"Failed to reset custom alarm sound\"}");
+  }
+}
+
+void HandleWebpage::handleUploadAlarmSound() {
+  if (_uploadHasError) {
+    _webServer->send(500, "application/json", "{\"success\": false, \"message\": \"Upload failed\"}");
+  } else {
+    _webServer->send(200, "application/json",
+                     "{\"success\": true, \"message\": \"AlarmSound_16bit.wav uploaded\"}");
+  }
+}
+
+void HandleWebpage::handleUploadAlarmSoundData() {
+  HTTPUpload &upload = _webServer->upload();
+  const char *targetFile = "/AlarmSound_16bit.wav";
+
+  if (upload.status == UPLOAD_FILE_START) {
+    Serial.println("Start upload of AlarmSound_16bit.wav");
+    _uploadHasError = false;
+
+    if (LittleFS.exists(targetFile)) {
+      LittleFS.remove(targetFile);
+    }
+
+    _uploadFile = LittleFS.open(targetFile, "w");
+    if (!_uploadFile) {
+      Serial.println("Error: could not open AlarmSound_16bit.wav for writing");
+      _uploadHasError = true;
+    }
+  } else if (upload.status == UPLOAD_FILE_WRITE) {
+    if (_uploadHasError || !_uploadFile) {
+      return;
+    }
+
+    size_t bytesWritten = _uploadFile.write(upload.buf, upload.currentSize);
+    if (bytesWritten != upload.currentSize) {
+      Serial.println("Error: could not write complete upload chunk");
+      _uploadHasError = true;
+      _uploadFile.close();
+      LittleFS.remove(targetFile);
+    }
+  } else if (upload.status == UPLOAD_FILE_END) {
+    if (_uploadFile) {
+      _uploadFile.close();
+    }
+
+    if (_uploadHasError) {
+      Serial.println("Alarm sound upload failed");
+    } else {
+      Serial.printf("Alarm sound upload successful, size: %u bytes\n", upload.totalSize);
+    }
+  } else if (upload.status == UPLOAD_FILE_ABORTED) {
+    if (_uploadFile) {
+      _uploadFile.close();
+    }
+    LittleFS.remove(targetFile);
+    _uploadHasError = true;
+    Serial.println("Alarm sound upload aborted");
+  }
+}
+
 void HandleWebpage::handleGetValues() {
   String strMoonValue = "0";
   if (_callBackGetMoonBrightness != nullptr) {
@@ -327,6 +417,29 @@ void HandleWebpage::handleGetWakeTimeData() {
   }
 }
 
+void HandleWebpage::handleGetMaxSoundSize() {
+  FSInfo fs_info;
+  LittleFS.info(fs_info);
+
+  uint32_t freeBytes = fs_info.totalBytes - fs_info.usedBytes;
+  uint32_t maxSoundSize = freeBytes;
+  const char *customSoundFile = "/AlarmSound_16bit.wav";
+
+  if (LittleFS.exists(customSoundFile)) {
+    File soundFile = LittleFS.open(customSoundFile, "r");
+    if (soundFile) {
+      maxSoundSize += soundFile.size();
+      soundFile.close();
+    }
+  }
+  // add little Buffer of 50 Bytes
+  maxSoundSize -= 50;
+  Serial.printf("Max Sound Size: %u Bytes\n", maxSoundSize);
+
+  String jsonAnswer = String("{\"maxSoundSize\": ") + String(maxSoundSize) + String("}");
+  _webServer->send(200, "application/json", jsonAnswer);
+}
+
 void HandleWebpage::handleWebRequests() {
   if (!loadFromLittleFS(_webServer->uri())) {
     Serial.println("Error: handleWebRequests");
@@ -377,6 +490,8 @@ bool HandleWebpage::loadFromLittleFS(String path) {
     dataType = "application/pdf";
   else if (path.endsWith(".zip"))
     dataType = "application/zip";
+  else if (path.endsWith(".wav"))
+    dataType = "audio/wav";
   if (LittleFS.exists(path)) {
     File dataFile = LittleFS.open(path.c_str(), "r");
     if (_webServer->hasArg("download")) dataType = "application/octet-stream";
@@ -405,6 +520,8 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/getValues", HTTP_GET, std::bind(&HandleWebpage::handleGetValues, this));
   _webServer->on("/getTime", HTTP_GET, std::bind(&HandleWebpage::handleGetTime, this));
   _webServer->on("/playSound", HTTP_GET, std::bind(&HandleWebpage::handlePlaySound, this));
+  _webServer->on("/stopSound", HTTP_GET, std::bind(&HandleWebpage::handleStopSound, this));
+  _webServer->on("/resetAlarmSound", HTTP_GET, std::bind(&HandleWebpage::handleResetAlarmSound, this));
   _webServer->on("/setDisplayMode", HTTP_POST, std::bind(&HandleWebpage::setDisplayMode, this));
   _webServer->on("/setSoundReplay", HTTP_POST, std::bind(&HandleWebpage::setSoundReplay, this));
   _webServer->on("/setLEDMoon", HTTP_POST, std::bind(&HandleWebpage::setLEDMoon, this));
@@ -413,6 +530,9 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/setGain", HTTP_POST, std::bind(&HandleWebpage::handleSetGain, this));
   _webServer->on("/setWakeData", HTTP_POST, std::bind(&HandleWebpage::handleSetWakeData, this));
   _webServer->on("/getWakeTimeData", HTTP_GET, std::bind(&HandleWebpage::handleGetWakeTimeData, this));
+  _webServer->on("/getMaxSoundSize", HTTP_GET, std::bind(&HandleWebpage::handleGetMaxSoundSize, this));
+  _webServer->on("/uploadAlarmSound", HTTP_POST, std::bind(&HandleWebpage::handleUploadAlarmSound, this),
+                 std::bind(&HandleWebpage::handleUploadAlarmSoundData, this));
 
   // webServer.on("/config/changed", HTTP_POST, configChanged);
   _webServer->begin();

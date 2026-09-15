@@ -12,6 +12,21 @@
 	display: inline-block;
 }
 
+.su-button-row {
+    display: flex;
+    gap: 0.5em;
+    align-items: stretch;
+}
+
+.su-button-cell {
+    flex: 1 1 0;
+}
+
+.su-button-cell .ui-btn,
+.su-button-cell button {
+    margin: 0;
+}
+
 @media (min-width: 60em) {
     .su-base .su-header h2 {
         padding: 1em 0 .7em;

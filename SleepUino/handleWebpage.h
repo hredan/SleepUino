@@ -29,7 +29,7 @@
 #include "RTClib.h"  // https://github.com/adafruit/RTClib
 
 const byte DNS_PORT = 53;
-IPAddress apIP(172, 217, 28, 1);
+IPAddress apIP(192, 168, 222, 222);
 DNSServer dnsServer;
 
 class HandleWebpage {
@@ -51,6 +51,7 @@ class HandleWebpage {
   using CallBackGetSoundReplays = uint8_t (*)();
 
   using CallBackPlaySound = void (*)();
+  using CallBackStopSound = void (*)();
 
   using CallBackWakeTimeData = void (*)(uint8_t size, uint16_t dataArr[]);
 
@@ -80,6 +81,7 @@ class HandleWebpage {
   void setCallBackGetSoundReplays(CallBackGetSoundReplays callBackGetSoundReplays);
 
   void setCallBackPlaySound(CallBackPlaySound callBackPlaySound);
+  void setCallBackStopSound(CallBackStopSound callBackStopSound);
 
   void setCallBackWakeTimeData(CallBackWakeTimeData callBackWakeTimeData);
 
@@ -101,6 +103,7 @@ class HandleWebpage {
   CallBackGetSoundReplays _callBackGetSoundReplays = nullptr;
 
   CallBackPlaySound _callBackPlaySound = nullptr;
+  CallBackStopSound _callBackStopSound = nullptr;
   CallBackWakeTimeData _callBackWakeTimeData = nullptr;
 
   CallBackGetWakeTimeJson _callBackGetWakeTimeJson = nullptr;
@@ -119,13 +122,20 @@ class HandleWebpage {
   void handleSetWakeData();
 
   void handleGetWakeTimeData();
+  void handleGetMaxSoundSize();
 
   void handlePlaySound();
+  void handleStopSound();
+  void handleResetAlarmSound();
+  void handleUploadAlarmSound();
+  void handleUploadAlarmSoundData();
 
   bool loadFromLittleFS(String path);
 
   void setLED(int pin);
   static ESP8266WebServer *_webServer;
   RTC_DS3231 *_rtc = nullptr;
+  File _uploadFile;
+  bool _uploadHasError = false;
 };
 #endif  // SLEEPUINO_HANDLEWEBPAGE_H_

@@ -78,6 +78,13 @@ bool HandleAudio::isSoundPlaying() {
 
 void HandleAudio::playSound() {
   const char *soundFile = "/AlarmSound_16bit.wav";
+  const char *defaultSoundFile = "/default_AlarmSound.wav";
+
+  if (!LittleFS.exists(soundFile) && LittleFS.exists(defaultSoundFile)) {
+    soundFile = defaultSoundFile;
+    Serial.println("Use default alarm sound file");
+  }
+
   if (LittleFS.exists(soundFile)) {
     Serial.println("initialize all instances, needed for sound");
 #ifdef USE_I2S_DAC

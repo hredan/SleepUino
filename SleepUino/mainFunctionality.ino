@@ -52,6 +52,7 @@ MainFunc::MainFunc() {
   _handleWebpage->setCallBackGetSoundReplays(this->getSoundReplayes);
 
   _handleWebpage->setCallBackPlaySound(this->playSound);
+  _handleWebpage->setCallBackStopSound(this->stopSound);
   _handleWebpage->setCallBackWakeTimeData(this->setWakeTimeData);
   _handleWebpage->setCallBackGetWakeTimeJson(this->getWakeTimeDataJsonStr);
 
@@ -244,6 +245,8 @@ uint8_t MainFunc::_sunBrightness = 0;
 uint8_t MainFunc::_moonBrightness = 0;
 
 void MainFunc::playSound() { _handleAudio->playSound(); }
+
+void MainFunc::stopSound() { _handleAudio->stopSound(); }
 
 void MainFunc::setupEeprom() {
   MainFunc::_sunBrightness = _handleEeprom->getSunBrightnessValue();

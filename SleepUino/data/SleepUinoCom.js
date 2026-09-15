@@ -85,7 +85,7 @@ var SleepUinoCom = {
         if (this.isNotPlayingSound)
         {
             this.isNotPlayingSound = false;
-            var audio = new Audio('AlarmSound_16bit.wav');
+            var audio = new Audio('default_AlarmSound.wav');
             audio.volume = this.gainValue/100.0;
             audio.play();
             await this.Sleep(3000); 
@@ -113,6 +113,156 @@ var SleepUinoCom = {
         else
         {
            this.playFakeSound();
+        }
+    },
+
+    stopSound : function (){
+        if (this.enableServerCom)
+        {
+            $.ajax({url: "/stopSound", type: "GET", dataType: "json", timeout: 10000})
+            .done(function(jsonResult){
+                if (!jsonResult.success)
+                {
+                    console.log("Error: stopSound");
+                }
+            });
+        }
+        else
+        {
+            this.isNotPlayingSound = true;
+            console.log("Stop Sound");
+        }
+    },
+
+    resetAlarmSound : function (){
+        var statusElement = $("#alarmSoundUploadStatus");
+
+        if (this.enableServerCom)
+        {
+            $.ajax({url: "/resetAlarmSound", type: "GET", dataType: "json", timeout: 10000})
+            .done(function(jsonResult){
+                if (jsonResult.success)
+                {
+                    statusElement.text(LangSupport.getLangString("alarmSoundResetSuccess"));
+                    $("#popupResetAlarmSound").popup("close");
+                }
+                else
+                {
+                    statusElement.text(LangSupport.getLangString("alarmSoundResetFailed"));
+                }
+            })
+            .fail(function(){
+                statusElement.text(LangSupport.getLangString("alarmSoundResetFailed"));
+            });
+        }
+        else
+        {
+            statusElement.text(LangSupport.getLangString("alarmSoundResetDummy"));
+        }
+    },
+
+    uploadAlarmSound : function (){
+        var fileInput = $("#alarmSoundFile")[0];
+        var statusElement = $("#alarmSoundUploadStatus");
+        var progressElement = $("#alarmSoundUploadProgress");
+
+        progressElement.val(0);
+
+        if (fileInput.files.length === 0)
+        {
+            statusElement.text(LangSupport.getLangString("alarmSoundSelectFile"));
+            return;
+        }
+
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("file", file, file.name);
+
+        var startUpload = function() {
+            statusElement.text(LangSupport.getLangString("alarmSoundUploading"));
+
+            $.ajax({
+                url: "/uploadAlarmSound",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                xhr: function() {
+                    var xhr = $.ajaxSettings.xhr();
+                    if (xhr.upload)
+                    {
+                        xhr.upload.addEventListener("progress", function(event) {
+                            if (event.lengthComputable)
+                            {
+                                var percent = Math.round((event.loaded / event.total) * 100);
+                                progressElement.val(percent);
+                            }
+                        }, false);
+                    }
+                    return xhr;
+                }
+            })
+            .done(function(jsonResult){
+                if (jsonResult.success)
+                {
+                    progressElement.val(100);
+                    statusElement.text(LangSupport.getLangString("alarmSoundUploadSuccess"));
+                    $("#alarmSoundFile").val("");
+                    $("#popupUploadAlarmSound").popup("close");
+                    $("#alarmSoundUploadProgress").val(0);
+                }
+                else
+                {
+                    progressElement.val(0);
+                    statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+                }
+            })
+            .fail(function(){
+                progressElement.val(0);
+                statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+            });
+        };
+
+        if (this.enableServerCom)
+        {
+            $.ajax({
+                url: "/getMaxSoundSize",
+                type: "GET",
+                dataType: "json",
+                timeout: 10000
+            })
+            .done(function(jsonResult){
+                var maxSoundSize = parseInt(jsonResult.maxSoundSize, 10);
+
+                if (isNaN(maxSoundSize) || maxSoundSize <= 0)
+                {
+                    progressElement.val(0);
+                    statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+                    return;
+                }
+
+                if (file.size > maxSoundSize)
+                {
+                    progressElement.val(0);
+                    statusElement.text(
+                        LangSupport.getLangString("alarmSoundFileTooLarge") +
+                        " (" + file.size + " > " + maxSoundSize + " Bytes)"
+                    );
+                    return;
+                }
+
+                startUpload();
+            })
+            .fail(function(){
+                progressElement.val(0);
+                statusElement.text(LangSupport.getLangString("alarmSoundUploadFailed"));
+            });
+        }
+        else
+        {
+            progressElement.val(100);
+            statusElement.text(LangSupport.getLangString("alarmSoundUploadDummy"));
         }
     },
 
