@@ -395,6 +395,15 @@ var SleepUinoCom = {
                 return false;
             }
 
+            if (password.length > 0 && password.length < 8)
+            {
+                saveButton.addClass("ui-state-disabled");
+                saveButton.prop("disabled", true);
+                statusElement.text(LangSupport.getLangString("wifiPasswordTooShort") || "Password too short (min 8 characters)");
+                statusElement.css("color", "#F44336");
+                return false;
+            }
+
             if (password.length === 0 && passwordConfirm.length === 0)
             {
                 saveButton.removeClass("ui-state-disabled");
@@ -447,6 +456,13 @@ var SleepUinoCom = {
         if (password.length > 63)
         {
             statusElement.text(LangSupport.getLangString("wifiPasswordTooLong") || "Password too long (max 63 characters)");
+            statusElement.css("color", "#F44336");
+            return;
+        }
+
+        if (password.length > 0 && password.length < 8)
+        {
+            statusElement.text(LangSupport.getLangString("wifiPasswordTooShort") || "Password too short (min 8 characters)");
             statusElement.css("color", "#F44336");
             return;
         }

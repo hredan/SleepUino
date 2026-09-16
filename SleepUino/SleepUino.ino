@@ -127,9 +127,18 @@ void loop() {
         STATE = WIFI;
         Serial.println("Change State: TO_WIFI -> WIFI");
         Serial.println("enable WiFi");
+        String wifiSsid;
+        String wifiPassword;
+        loadWifiConfig(wifiSsid, wifiPassword);
+        Serial.printf("SSID: %s PW: %s\n", wifiSsid, wifiPassword);
         WiFi.mode(WIFI_AP);
         WiFi.softAPConfig(apIP, apIP, IPAddress(255, 255, 255, 0));
-        WiFi.softAP("SleepUino");
+        if (wifiPassword.length() > 0) {
+          WiFi.softAP(wifiSsid.c_str(), wifiPassword.c_str());
+        } else {
+          Serial.println("Warning: WiFi password in wificonfig.json is empty, starting open network");
+          WiFi.softAP(wifiSsid.c_str());
+        }
         mainFunc->setInConfigMode(true);
         mainFunc->updateDisplay(true);
       } else {

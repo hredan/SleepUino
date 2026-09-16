@@ -24,6 +24,33 @@
 
 ESP8266WebServer* HandleWebpage::_webServer = nullptr;
 
+bool loadWifiConfig(String &ssid, String &password) {
+  ssid = WIFI_SSID;
+  password = "";
+
+  if (!LittleFS.exists("/wificonfig.json")) {
+    return false;
+  }
+
+  File configFile = LittleFS.open("/wificonfig.json", "r");
+  if (!configFile) {
+    return false;
+  }
+
+  DynamicJsonDocument configDoc(512);
+  DeserializationError error = deserializeJson(configDoc, configFile);
+  configFile.close();
+
+  if (error) {
+    Serial.println("Error: Could not parse wificonfig.json");
+    return false;
+  }
+
+  ssid = configDoc["ssid"] | WIFI_SSID;
+  password = configDoc["password"] | "";
+  return true;
+}
+
 HandleWebpage::HandleWebpage(RTC_DS3231* rtc) {
   _rtc = rtc;
   _webServer = new ESP8266WebServer(80);
@@ -456,9 +483,13 @@ void HandleWebpage::handleSetWifiPassword() {
       return;
     }
 
-    // Create JSON document with fixed SSID and provided password
+    String ssid;
+    String existingPassword;
+    loadWifiConfig(ssid, existingPassword);
+
+    // Create JSON document with preserved SSID and provided password
     DynamicJsonDocument configDoc(512);
-    configDoc["ssid"] = WIFI_SSID;
+    configDoc["ssid"] = ssid;
     configDoc["password"] = password;
 
     // Write to file
@@ -488,23 +519,13 @@ void HandleWebpage::handleSetWifiPassword() {
 void HandleWebpage::handleGetWifiPassword() {
   Serial.println("handleGetWifiPassword");
 
-  bool hasConfig = LittleFS.exists("/wificonfig.json");
-  bool hasPassword = false;
+  String ssid;
+  String password;
+  bool hasConfig = loadWifiConfig(ssid, password);
+  bool hasPassword = password.length() > 0;
 
-  if (hasConfig) {
-    File configFile = LittleFS.open("/wificonfig.json", "r");
-    if (configFile) {
-      DynamicJsonDocument configDoc(512);
-      if (deserializeJson(configDoc, configFile) == DeserializationError::Ok) {
-        String password = configDoc["password"] | "";
-        hasPassword = password.length() > 0;
-      }
-      configFile.close();
-    }
-  }
-
-  // Return fixed SSID and status without exposing password
-  String response = String("{\"success\": true, \"ssid\": \"") + String(WIFI_SSID) +
+  // Return configured SSID and status without exposing password
+  String response = String("{\"success\": true, \"ssid\": \"") + ssid +
                     String("\", \"hasConfig\": ") + (hasConfig ? "true" : "false") +
                     String(", \"hasPassword\": ") + (hasPassword ? "true" : "false") + String("}");
   _webServer->send(200, "application/json", response);

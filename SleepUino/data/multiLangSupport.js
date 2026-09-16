@@ -108,6 +108,10 @@ var LangSupport = {
         en['wifiPasswordTooLong'] = "Password too long (max 63 characters).";
         ru['wifiPasswordTooLong'] = "Пароль слишком длинный (макс. 63 символа).";
 
+        de['wifiPasswordTooShort'] = "Passwort zu kurz (mind. 8 Zeichen).";
+        en['wifiPasswordTooShort'] = "Password too short (min 8 characters).";
+        ru['wifiPasswordTooShort'] = "Пароль слишком короткий (мин. 8 символов).";
+
         de['wifiPasswordMismatch'] = "Passwörter stimmen nicht überein.";
         en['wifiPasswordMismatch'] = "Passwords do not match.";
         ru['wifiPasswordMismatch'] = "Пароли не совпадают.";

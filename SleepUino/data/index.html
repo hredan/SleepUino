@@ -59,9 +59,10 @@
                         <div class="ui-content">
                             <h3 id="popupWifiPasswordHeadline">Set WiFi Password</h3>
                             <label id="labelWifiPassword" for="wifiPasswordInput">WiFi Password:</label>
-                            <input type="password" name="wifiPasswordInput" id="wifiPasswordInput" value="" placeholder="Enter WiFi password">
+                            <input type="password" name="wifiPasswordInput" id="wifiPasswordInput" value="" placeholder="Enter WiFi password" minlength="8">
                             <label id="labelWifiPasswordConfirm" for="wifiPasswordConfirmInput">Repeat WiFi Password:</label>
-                            <input type="password" name="wifiPasswordConfirmInput" id="wifiPasswordConfirmInput" value="" placeholder="Repeat WiFi password">
+                            <input type="password" name="wifiPasswordConfirmInput" id="wifiPasswordConfirmInput" value="" placeholder="Repeat WiFi password" minlength="8">
+                            <p>Leave both fields empty for open WiFi, or use at least 8 characters.</p>
                             <button id="wifiPasswordButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.setWifiPassword()">Save WiFi Password</button>
                         </div>
                     </div>

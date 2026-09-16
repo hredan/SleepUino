@@ -32,6 +32,8 @@ const byte DNS_PORT = 53;
 IPAddress apIP(192, 168, 222, 222);
 DNSServer dnsServer;
 
+bool loadWifiConfig(String &ssid, String &password);
+
 class HandleWebpage {
   // type aliasing
   // C++ version of: typedef void (*InputEvent)(const char*)
