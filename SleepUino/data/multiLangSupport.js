@@ -64,6 +64,94 @@ var LangSupport = {
         en['syncButton'] = "Synchronize time";
         ru['syncButton'] = "Синхронизировать время";
 
+        de['headerWlan'] = "WLAN Einstellungen";
+        en['headerWlan'] = "WLAN settings";
+        ru['headerWlan'] = "Настройки WLAN";
+
+        de['openWifiPasswordPopupButton'] = "WLAN Passwort setzen";
+        en['openWifiPasswordPopupButton'] = "Set WiFi password";
+        ru['openWifiPasswordPopupButton'] = "Установить пароль WiFi";
+
+        de['popupWifiPasswordClose'] = "Schließen";
+        en['popupWifiPasswordClose'] = "Close";
+        ru['popupWifiPasswordClose'] = "Закрыть";
+
+        de['popupWifiPasswordTitle'] = "WLAN Passwort setzen";
+        en['popupWifiPasswordTitle'] = "Set WiFi password";
+        ru['popupWifiPasswordTitle'] = "Установить пароль WiFi";
+
+        de['popupWifiPasswordHeadline'] = "WLAN Passwort setzen";
+        en['popupWifiPasswordHeadline'] = "Set WiFi password";
+        ru['popupWifiPasswordHeadline'] = "Установить пароль WiFi";
+
+        de['labelWifiPassword'] = "WLAN Passwort:";
+        en['labelWifiPassword'] = "WiFi password:";
+        ru['labelWifiPassword'] = "Пароль WiFi:";
+
+        de['labelWifiPasswordConfirm'] = "WLAN Passwort wiederholen:";
+        en['labelWifiPasswordConfirm'] = "Repeat WiFi password:";
+        ru['labelWifiPasswordConfirm'] = "Повторите пароль WiFi:";
+
+        de['wifiPasswordButton'] = "WLAN Passwort speichern";
+        en['wifiPasswordButton'] = "Save WiFi password";
+        ru['wifiPasswordButton'] = "Сохранить пароль WiFi";
+
+        de['wifiPasswordEmpty'] = "Bitte WLAN Passwort eingeben.";
+        en['wifiPasswordEmpty'] = "Please enter a WiFi password.";
+        ru['wifiPasswordEmpty'] = "Пожалуйста, введите пароль WiFi.";
+
+        de['wifiPasswordOpenMode'] = "Offenes WLAN ausgewahlt (kein Passwort).";
+        en['wifiPasswordOpenMode'] = "Open WiFi selected (no password).";
+        ru['wifiPasswordOpenMode'] = "Выбрана открытая сеть WiFi (без пароля).";
+
+        de['wifiPasswordTooLong'] = "Passwort zu lang (max. 63 Zeichen).";
+        en['wifiPasswordTooLong'] = "Password too long (max 63 characters).";
+        ru['wifiPasswordTooLong'] = "Пароль слишком длинный (макс. 63 символа).";
+
+        de['wifiPasswordMismatch'] = "Passwörter stimmen nicht überein.";
+        en['wifiPasswordMismatch'] = "Passwords do not match.";
+        ru['wifiPasswordMismatch'] = "Пароли не совпадают.";
+
+        de['wifiPasswordRepeatPrompt'] = "Bitte Passwort zur Bestätigung wiederholen.";
+        en['wifiPasswordRepeatPrompt'] = "Please repeat the password for confirmation.";
+        ru['wifiPasswordRepeatPrompt'] = "Пожалуйста, повторите пароль для подтверждения.";
+
+        de['wifiPasswordMatch'] = "Passwörter stimmen überein.";
+        en['wifiPasswordMatch'] = "Passwords match.";
+        ru['wifiPasswordMatch'] = "Пароли совпадают.";
+
+        de['wifiPasswordSaved'] = "WLAN Passwort erfolgreich gespeichert.";
+        en['wifiPasswordSaved'] = "WiFi password saved successfully.";
+        ru['wifiPasswordSaved'] = "Пароль WiFi успешно сохранен.";
+
+        de['wifiPasswordOpenSaved'] = "Offenes WLAN erfolgreich gespeichert.";
+        en['wifiPasswordOpenSaved'] = "Open WiFi saved successfully.";
+        ru['wifiPasswordOpenSaved'] = "Открытая сеть WiFi успешно сохранена.";
+
+        de['wifiPasswordFailed'] = "WLAN Passwort konnte nicht gespeichert werden.";
+        en['wifiPasswordFailed'] = "Failed to save WiFi password.";
+        ru['wifiPasswordFailed'] = "Не удалось сохранить пароль WiFi.";
+
+        de['wifiPasswordDummy'] = "Dummy-Modus: WLAN Passwort gespeichert.";
+        en['wifiPasswordDummy'] = "Dummy mode: WiFi password saved.";
+        ru['wifiPasswordDummy'] = "Режим заглушки: пароль WiFi сохранен.";
+
+        de['wifiPasswordExists'] = "WLAN Passwort ist gesetzt.";
+        en['wifiPasswordExists'] = "WiFi password is set.";
+        ru['wifiPasswordExists'] = "Пароль WiFi установлен.";
+
+        de['wifiPasswordNotSet'] = "WLAN Passwort ist noch nicht gesetzt.";
+        en['wifiPasswordNotSet'] = "WiFi password is not set yet.";
+        ru['wifiPasswordNotSet'] = "Пароль WiFi еще не установлен.";
+
+        de['wifiPasswordOpenModeConfigured'] = "Offenes WLAN ist konfiguriert.";
+        en['wifiPasswordOpenModeConfigured'] = "Open WiFi is configured.";
+        ru['wifiPasswordOpenModeConfigured'] = "Открытая сеть WiFi настроена.";
+
+        de['wifiPasswordDummyMode'] = "Dummy-Modus aktiv.";
+        en['wifiPasswordDummyMode'] = "Dummy mode active.";
+        ru['wifiPasswordDummyMode'] = "Активен режим заглушки.";
+
         //Alarm times page
         de['headerLED'] = "LED Einstellungen";
         en['headerLED'] = "LED Settings";
@@ -304,6 +392,14 @@ var LangSupport = {
         this.setLangOfElement("labelTimeBrowser");
         this.setLangOfElement("labelTimeESP");
         this.setLangOfElement("syncButton");
+        this.setLangOfElement("headerWlan");
+        this.setLangOfElement("openWifiPasswordPopupButton");
+        this.setLangOfElement("popupWifiPasswordClose");
+        this.setLangOfElement("popupWifiPasswordTitle");
+        this.setLangOfElement("popupWifiPasswordHeadline");
+        this.setLangOfElement("labelWifiPassword");
+        this.setLangOfElement("labelWifiPasswordConfirm");
+        this.setLangOfElement("wifiPasswordButton");
 
 
         //LED Alarm page

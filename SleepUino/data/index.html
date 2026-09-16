@@ -46,8 +46,26 @@
                     <label id="labelTimeBrowser" for="timeBrowser">Browser Time:</label>
                     <input type="text" name="timeBrowser" id="timeBrowser" value="" style="text-align: center;" readonly>
                     <label id="labelTimeESP" for="timeESP">SleepUino Time:</label>
-                    <input type="text" name="timeESP" id="timeESP" value="" style="text-align: center;" readonly>                
-                    <button id="syncButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.syncTime()">Sync</button> 
+                    <input type="text" name="timeESP" id="timeESP" value="" style="text-align: center;" readonly>
+                    <button id="syncButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.syncTime()">Sync</button>
+                    <h3 id="headerWlan" class="ui-bar ui-bar-a ui-corner-all">WLAN Settings</h3>
+                    <button type="button" id="openWifiPasswordPopupButton" class="ui-btn ui-corner-all" onclick="$('#popupWifiPassword').popup('open', {positionTo: 'window', transition: 'pop'});">Set WiFi Password</button>
+                    <p id="wifiPasswordStatus" style="color: #4CAF50; font-weight: bold; margin-top: 10px;"></p>
+                    <div data-role="popup" id="popupWifiPassword" data-overlay-theme="a" data-dismissible="true" data-history="false" style="max-width:400px;">
+                        <div data-role="header" data-theme="a">
+                            <a id="popupWifiPasswordClose" href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                            <h1 id="popupWifiPasswordTitle">Set WiFi Password</h1>
+                        </div>
+                        <div class="ui-content">
+                            <h3 id="popupWifiPasswordHeadline">Set WiFi Password</h3>
+                            <label id="labelWifiPassword" for="wifiPasswordInput">WiFi Password:</label>
+                            <input type="password" name="wifiPasswordInput" id="wifiPasswordInput" value="" placeholder="Enter WiFi password">
+                            <label id="labelWifiPasswordConfirm" for="wifiPasswordConfirmInput">Repeat WiFi Password:</label>
+                            <input type="password" name="wifiPasswordConfirmInput" id="wifiPasswordConfirmInput" value="" placeholder="Repeat WiFi password">
+                            <button id="wifiPasswordButton" class="ui-btn ui-corner-all" onclick="SleepUinoCom.setWifiPassword()">Save WiFi Password</button>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             <div id="brightness">
@@ -196,7 +214,9 @@
         //read an set values
         SleepUinoCom.getTime();
         SleepUinoCom.getValues();
-        SleepUinoCom.getWakeUpArray();    
+        SleepUinoCom.getWakeUpArray();
+        SleepUinoCom.getWifiPassword();
+        SleepUinoCom.initWifiPasswordValidation();
     };
 </script>
 </html>

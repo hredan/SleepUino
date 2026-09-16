@@ -130,6 +130,9 @@ class HandleWebpage {
   void handleUploadAlarmSound();
   void handleUploadAlarmSoundData();
 
+  void handleSetWifiPassword();
+  void handleGetWifiPassword();
+
   bool loadFromLittleFS(String path);
 
   void setLED(int pin);

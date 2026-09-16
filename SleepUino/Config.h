@@ -44,6 +44,9 @@ const int SDA_PIN = 13;
 // Max number for wake up entries
 const int MAX_WAKE_TIMES = 10;
 
+// WiFi SSID (fixed, not configurable)
+const char WIFI_SSID[] = "SleepUino";
+
 // time types
 enum TimeTypes { TT_UNKNOWN, TT_MOON, TT_SUN, TT_SUN_ALARM };
 
