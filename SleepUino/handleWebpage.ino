@@ -479,7 +479,8 @@ void HandleWebpage::handleSetWifiPassword() {
     // Validate input
     if (password.length() > 63) {
       Serial.println("Error: Invalid password length");
-      _webServer->send(400, "application/json", "{\"success\": false, \"message\": \"Invalid password length (0-63 characters)\"}");
+      _webServer->send(400, "application/json",
+        "{\"success\": false, \"message\": \"Invalid password length (0-63 characters)\"}");
       return;
     }
 
