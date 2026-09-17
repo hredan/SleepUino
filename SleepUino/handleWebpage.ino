@@ -24,6 +24,33 @@
 
 ESP8266WebServer* HandleWebpage::_webServer = nullptr;
 
+bool loadWifiConfig(String &ssid, String &password) {
+  ssid = WIFI_SSID;
+  password = "";
+
+  if (!LittleFS.exists("/wificonfig.json")) {
+    return false;
+  }
+
+  File configFile = LittleFS.open("/wificonfig.json", "r");
+  if (!configFile) {
+    return false;
+  }
+
+  DynamicJsonDocument configDoc(512);
+  DeserializationError error = deserializeJson(configDoc, configFile);
+  configFile.close();
+
+  if (error) {
+    Serial.println("Error: Could not parse wificonfig.json");
+    return false;
+  }
+
+  ssid = configDoc["ssid"] | WIFI_SSID;
+  password = configDoc["password"] | "";
+  return true;
+}
+
 HandleWebpage::HandleWebpage(RTC_DS3231* rtc) {
   _rtc = rtc;
   _webServer = new ESP8266WebServer(80);
@@ -440,6 +467,71 @@ void HandleWebpage::handleGetMaxSoundSize() {
   _webServer->send(200, "application/json", jsonAnswer);
 }
 
+void HandleWebpage::handleSetWifiPassword() {
+  Serial.println("handleSetWifiPassword: " + _webServer->arg("plain"));
+
+  DynamicJsonDocument doc(512);
+  deserializeJson(doc, _webServer->arg("plain"));
+
+  if (doc.containsKey("password")) {
+    String password = doc["password"].as<String>();
+
+    // Validate input
+    if (password.length() > 63) {
+      Serial.println("Error: Invalid password length");
+      _webServer->send(400, "application/json",
+        "{\"success\": false, \"message\": \"Invalid password length (0-63 characters)\"}");
+      return;
+    }
+
+    String ssid;
+    String existingPassword;
+    loadWifiConfig(ssid, existingPassword);
+
+    // Create JSON document with preserved SSID and provided password
+    DynamicJsonDocument configDoc(512);
+    configDoc["ssid"] = ssid;
+    configDoc["password"] = password;
+
+    // Write to file
+    File configFile = LittleFS.open("/wificonfig.json", "w");
+    if (!configFile) {
+      Serial.println("Error: Could not open wificonfig.json for writing");
+      _webServer->send(500, "application/json", "{\"success\": false, \"message\": \"Could not open config file\"}");
+      return;
+    }
+
+    serializeJson(configDoc, configFile);
+    configFile.close();
+
+    if (password.length() == 0) {
+      Serial.printf("WiFi open network saved\n");
+      _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"Open WiFi saved\"}");
+    } else {
+      Serial.printf("WiFi password saved\n");
+      _webServer->send(200, "application/json", "{\"success\": true, \"message\": \"WiFi password saved\"}");
+    }
+  } else {
+    Serial.println("Error handleSetWifiPassword: missing password argument!");
+    _webServer->send(400, "application/json", "{\"success\": false, \"message\": \"Missing password parameter\"}");
+  }
+}
+
+void HandleWebpage::handleGetWifiPassword() {
+  Serial.println("handleGetWifiPassword");
+
+  String ssid;
+  String password;
+  bool hasConfig = loadWifiConfig(ssid, password);
+  bool hasPassword = password.length() > 0;
+
+  // Return configured SSID and status without exposing password
+  String response = String("{\"success\": true, \"ssid\": \"") + ssid +
+                    String("\", \"hasConfig\": ") + (hasConfig ? "true" : "false") +
+                    String(", \"hasPassword\": ") + (hasPassword ? "true" : "false") + String("}");
+  _webServer->send(200, "application/json", response);
+}
+
 void HandleWebpage::handleWebRequests() {
   if (!loadFromLittleFS(_webServer->uri())) {
     Serial.println("Error: handleWebRequests");
@@ -533,6 +625,8 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/getMaxSoundSize", HTTP_GET, std::bind(&HandleWebpage::handleGetMaxSoundSize, this));
   _webServer->on("/uploadAlarmSound", HTTP_POST, std::bind(&HandleWebpage::handleUploadAlarmSound, this),
                  std::bind(&HandleWebpage::handleUploadAlarmSoundData, this));
+  _webServer->on("/setWifiPassword", HTTP_POST, std::bind(&HandleWebpage::handleSetWifiPassword, this));
+  _webServer->on("/getWifiPassword", HTTP_GET, std::bind(&HandleWebpage::handleGetWifiPassword, this));
 
   // webServer.on("/config/changed", HTTP_POST, configChanged);
   _webServer->begin();
