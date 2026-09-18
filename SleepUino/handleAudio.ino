@@ -77,6 +77,10 @@ bool HandleAudio::isSoundPlaying() {
 }
 
 void HandleAudio::playSound() {
+  if (_soundIsPlaying) {
+    Serial.println("Sound is already playing");
+    return;
+  }
   const char *soundFile = "/AlarmSound_16bit.wav";
   const char *defaultSoundFile = "/default_AlarmSound.wav";
 
