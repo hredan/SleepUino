@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_eep_d1_mini]
     env:
-        TARGET: win64
+        TARGET: linux_x64
     steps:
-      - uses: hredan/eef-carefree-action@v1
+      - uses: hredan/eef-carefree-action@main
         with:
           target-os: ${{env.TARGET}}
