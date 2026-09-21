@@ -1,0 +1,7 @@
+{
+    "logo": true,
+    "devMode": false,
+    "serialMonitor" : true,
+    "serialMonitorSend" : false,
+    "espInfo" : true
+}
