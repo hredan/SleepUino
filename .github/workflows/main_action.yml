@@ -15,6 +15,6 @@ jobs:
     env:
         TARGET: linux_x64
     steps:
-      - uses: hredan/eef-carefree-action@main
+      - uses: hredan/eef-carefree-action@v1
         with:
           target-os: ${{env.TARGET}}
