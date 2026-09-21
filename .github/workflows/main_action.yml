@@ -18,8 +18,8 @@ jobs:
       - uses: actions/checkout@v6
       - uses: hredan/eep-build-action@v1
         with:
-          sketch-name: SleepUinoTestRtc
-          sketch-path: './SleepUinoHwTest/SleepUinoTestRtc'
+          sketch-name: TestRtc
+          sketch-path: './SleepUinoHwTest/TestRtc'
           cpu-frequency: 80
           core: esp8266
           board: d1_mini
