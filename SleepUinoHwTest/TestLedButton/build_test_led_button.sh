@@ -2,14 +2,14 @@
 # to use the script, https://github.com/hredan/eep-build-action must be cloned before.
 # set path in BUILD_ACTION_DIR to the path of the cloned repository.
 
-BUILD_ACTION_DIR="../../eep-build-action/"
-export INPUT_SKETCH_NAME="SleepUino"
+BUILD_ACTION_DIR="../../../eep-build-action/"
+export INPUT_SKETCH_NAME="TestLedButton"
 export INPUT_CORE="esp8266"
 export INPUT_BOARD="d1_mini"
 export INPUT_CORE_VERSION=""
-export INPUT_CPU_F="80"
+export INPUT_CPU_F="160"
 # export INPUT_FLASH="4M1M"
-export INPUT_LIBS="ArduinoJson,ESP8266Audio,JC_Button,RTClib,U8g2"
+export INPUT_LIBS="JC_Button"
 
 URL=$(git remote get-url origin)
 HASH=$(git rev-parse HEAD)

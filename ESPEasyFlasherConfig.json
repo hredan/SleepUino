@@ -2,6 +2,6 @@
     "logo": true,
     "devMode": false,
     "serialMonitor" : true,
-    "serialMonitorSend" : false,
+    "serialMonitorSend" : true,
     "espInfo" : true
 }

@@ -9,9 +9,54 @@ jobs:
     with:
       core: esp8266
       board: d1_mini
+  build_eep_hw_test_rtc:
+    needs: [test]
+    runs-on: ubuntu-latest
+    env:
+        SKETCH_NAME: SleepUino
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hredan/eep-build-action@v1
+        with:
+          sketch-name: TestRtc
+          sketch-path: './SleepUinoHwTest/TestRtc'
+          cpu-frequency: 80
+          core: esp8266
+          board: d1_mini
+          libs: "RTClib"
+  build_eep_hw_test_i2c_dac:
+    needs: [test]
+    runs-on: ubuntu-latest
+    env:
+        SKETCH_NAME: SleepUino
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hredan/eep-build-action@v1
+        with:
+          sketch-name: TestI2cDac
+          sketch-path: './SleepUinoHwTest/TestI2cDac'
+          cpu-frequency: 160
+          core: esp8266
+          board: d1_mini
+          libs: "ESP8266Audio"
+  build_eep_hw_test_led_button:
+    needs: [test]
+    runs-on: ubuntu-latest
+    env:
+        SKETCH_NAME: SleepUino
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hredan/eep-build-action@v1
+        with:
+          sketch-name: TestLedButton
+          sketch-path: './SleepUinoHwTest/TestLedButton'
+          cpu-frequency: 80
+          core: esp8266
+          board: d1_mini
+          libs: "JC_Button"
   build_EEF_packages:
     runs-on: ubuntu-latest
-    needs: [build_eep_d1_mini]
+    needs: [build_eep_d1_mini, build_eep_hw_test_rtc, build_eep_hw_test_led_button, build_eep_hw_test_i2c_dac]
     env:
         TARGET: win64
     steps:
