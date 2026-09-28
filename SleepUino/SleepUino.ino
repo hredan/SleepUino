@@ -3,9 +3,9 @@
 
   SleepUINO is a DIY-Projekt based on an ESP8266 and real time clock DS3231 I2C,
   to create a Alarm clock. Information and contribution at
-  https://www.sleepuino.sourcecode3d.de/.
+  https://github.com/hredan/SleepUino
 
-  Copyright (C) 2022  André Herrmann
+  Copyright (C) 2026  André Herrmann (hredan)
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
