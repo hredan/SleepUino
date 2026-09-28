@@ -32,7 +32,9 @@
 #include "AudioFileSourceLittleFS.h"
 #include "AudioGeneratorWAV.h"
 #ifdef USE_I2S_DAC
+#ifdef ESP8266
 #include <I2S.h>
+#endif
 
 #include "AudioOutputI2S.h"
 #else

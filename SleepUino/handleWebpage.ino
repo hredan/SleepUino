@@ -22,7 +22,11 @@
 #include "Config.h"
 #include <cstdio>
 
+#ifdef ESP8266
 ESP8266WebServer* HandleWebpage::_webServer = nullptr;
+#else
+WebServer* HandleWebpage::_webServer = nullptr;
+#endif
 
 bool loadWifiConfig(String &ssid, String &password) {
   ssid = WIFI_SSID;
@@ -53,7 +57,11 @@ bool loadWifiConfig(String &ssid, String &password) {
 
 HandleWebpage::HandleWebpage(RTC_DS3231* rtc) {
   _rtc = rtc;
+  #ifdef ESP8266
   _webServer = new ESP8266WebServer(80);
+  #else
+  _webServer = new WebServer(80);
+  #endif
 }
 
 void HandleWebpage::handleRoot() {  // When URI / is requested, send a web page with a button to toggle the LED
@@ -445,10 +453,14 @@ void HandleWebpage::handleGetWakeTimeData() {
 }
 
 void HandleWebpage::handleGetMaxSoundSize() {
+  #ifdef ESP8266
   FSInfo fs_info;
   LittleFS.info(fs_info);
 
   uint32_t freeBytes = fs_info.totalBytes - fs_info.usedBytes;
+  #else
+  uint32_t freeBytes = LittleFS.totalBytes() - LittleFS.usedBytes();
+  #endif
   uint32_t maxSoundSize = freeBytes;
   const char *customSoundFile = "/AlarmSound_16bit.wav";
 

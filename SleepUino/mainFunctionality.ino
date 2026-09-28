@@ -159,10 +159,15 @@ void MainFunc::startRealTimeClock() {
 void MainFunc::startLittleFileSystem() {
   if (LittleFS.begin()) {
     Serial.print("LittleFS started successfully\n");
+    #ifdef ESP8266
     FSInfo fs_info;
     LittleFS.info(fs_info);
     Serial.printf("FS total Bytes %d\n", fs_info.totalBytes);
     Serial.printf("FS used Bytes %d\n", fs_info.usedBytes);
+    #else
+    Serial.printf("FS total Bytes %d\n", LittleFS.totalBytes());
+    Serial.printf("FS used Bytes %d\n", LittleFS.usedBytes());
+    #endif
   } else {
     Serial.print("Error: Could not start LittleFS!\n");
   }

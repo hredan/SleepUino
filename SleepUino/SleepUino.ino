@@ -17,8 +17,12 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+#ifdef ESP8266
 #include <ESP8266WiFi.h>  // https://github.com/esp8266/Arduino
+#else
+#include <WiFi.h>  //
+#endif
+
 #include <JC_Button.h>    // https://github.com/JChristensen/JC_Button
 #include <Wire.h>         // DS3231 RTC is using I2C for communication
 

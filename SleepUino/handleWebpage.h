@@ -23,7 +23,11 @@
 
 #include <ArduinoJson.h>
 #include <DNSServer.h>
+#ifdef ESP8266
 #include <ESP8266WebServer.h>
+#else
+#include <WebServer.h>
+#endif
 
 #include "LittleFS.h"
 #include "RTClib.h"  // https://github.com/adafruit/RTClib
@@ -138,7 +142,11 @@ class HandleWebpage {
   bool loadFromLittleFS(String path);
 
   void setLED(int pin);
+  #ifdef ESP8266
   static ESP8266WebServer *_webServer;
+  #else
+  static WebServer *_webServer;
+  #endif
   RTC_DS3231 *_rtc = nullptr;
   File _uploadFile;
   bool _uploadHasError = false;
