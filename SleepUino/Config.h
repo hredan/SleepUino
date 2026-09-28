@@ -21,8 +21,6 @@
 #ifndef SLEEPUINO_CONFIG_H_
 #define SLEEPUINO_CONFIG_H_
 
-#include "LittleFS.h"
-
 // define constant values
 const int GAIN_MIN = 2;
 const int GAIN_MAX = 100;

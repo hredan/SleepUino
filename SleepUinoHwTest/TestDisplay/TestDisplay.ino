@@ -40,17 +40,9 @@
 #include <LittleFS.h>
 #include <U8g2lib.h>
 #include <Wire.h>
-//#include <string>
+#include "Config.h"
 
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
-
-// End of constructor list
-
-//#define MINI_LOGO
-
-// I2C SLC D6, SDA D7 Used for Real Time Clock and Display
-const int SLC_PIN = 12;
-const int SDA_PIN = 13;
 
 bool drawBmpFromLittleFS(const char *path, int x, int y) {
   if (!LittleFS.exists(path)) {

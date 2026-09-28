@@ -25,6 +25,7 @@
 #include "Config.h"
 #include "RTClib.h"  // https://github.com/adafruit/RTClib
 #include "mainFunctionality.h"
+#include "LittleFS.h"
 
 // declaration of needed instances
 MainFunc *mainFunc;
