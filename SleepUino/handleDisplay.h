@@ -4,7 +4,7 @@
   handleDisplay is used by SleepUino to handle the display.
   It is using the U8g2 library from olikraus https://github.com/olikraus/u8g2.
 
-  Information and contribution at https://www.sleepuino.sourcecode3d.de/.
+  Information and contribution at https://github.com/hredan/SleepUino.
   
   Copyright (C) 2021  André Herrmann
   This program is free software: you can redistribute it and/or modify

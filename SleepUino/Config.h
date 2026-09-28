@@ -3,7 +3,7 @@
 
   Config.h is used by SleepUino. It contains values for configuration.
 
-  Information and contribution at https://www.sleepuino.sourcecode3d.de/.
+  Information and contribution at https://github.com/hredan/SleepUino.
 
   Copyright (C) 2021  André Herrmann
   This program is free software: you can redistribute it and/or modify

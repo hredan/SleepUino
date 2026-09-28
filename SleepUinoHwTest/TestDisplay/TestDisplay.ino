@@ -1,7 +1,8 @@
 /*
 
-  U8g2Logo.ino
+  TestDisplay.ino
 
+  
   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
 
   Copyright (c) 2016, olikraus@gmail.com
@@ -37,6 +38,7 @@
 #include <LittleFS.h>
 #include <U8g2lib.h>
 #include <Wire.h>
+//#include <string>
 
 U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
@@ -183,6 +185,35 @@ void drawURL(void)
   u8g2.drawStr(1,54,"github.com/olikraus/u8g2");
 }
 
+void drawURL_SleepUino(const char* url)
+{
+  u8g2.setFont(u8g2_font_4x6_mr);
+  u8g2.drawStr(1,60, url);
+}
+
+void drawURL_char(const char* url_char, unsigned int pos)
+{
+  u8g2.setFont(u8g2_font_6x10_mr);
+  u8g2.drawStr(pos+1, 60, url_char);
+}
+
+void SleepUinoAnimation()
+{
+  String sleepuino_url = "github.com/hredan/SleepUino";
+  unsigned int sleepuino_url_length = sleepuino_url.length();  
+  for (unsigned int i=0; i < sleepuino_url_length; i++)
+  {
+    u8g2.clearBuffer();
+    drawBmpFromLittleFS("/Logo_SleepUino_128x64.bmp", 0, -7);
+    drawURL_char(sleepuino_url.substring(i, i + 1).c_str(), 4*i);
+    if(i<sleepuino_url_length)
+      drawURL_SleepUino(sleepuino_url.substring(0, i).c_str());
+    u8g2.sendBuffer();
+    delay(3000/sleepuino_url_length);
+  } 
+  delay(5000);
+}
+
 void setup(void) {
   //pinMode(9, OUTPUT);
   //digitalWrite(9, 0);	// default output in I2C mode for the SSD1306 test shield: set the i2c adr to 0
@@ -206,10 +237,8 @@ void setup(void) {
 }
 
 void loop(void) {
-  u8g2.clearBuffer();
-  drawBmpFromLittleFS("/Logo_SleepUino_128x64.bmp", 0, 0);
-  u8g2.sendBuffer();
-  delay(3000);
+  SleepUinoAnimation();
+
   u8g2.clearBuffer();
   drawLogo();
   drawURL();
