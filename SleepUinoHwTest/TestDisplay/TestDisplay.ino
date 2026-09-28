@@ -1,8 +1,10 @@
 /*
 
   TestDisplay.ino
+  u8g2 meets SleepUino Logo
+  https://github.com/hredan/SleepUino/main/SleepUinoHwTest/TestDisplay/TestDisplay.ino
+  Copyright (c) 2026, André Herrmann (hredan)
 
-  
   Universal 8bit Graphics Library (https://github.com/olikraus/u8g2/)
 
   Copyright (c) 2016, olikraus@gmail.com
