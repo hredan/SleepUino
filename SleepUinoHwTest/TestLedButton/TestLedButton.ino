@@ -1,12 +1,10 @@
 #include <Arduino.h>
 #include <JC_Button.h>
+#include "config.h"
 
-const byte LED_SUN_PIN = 5;
-const byte LED_MOON_PIN = 4;
-const byte BUTTON_PIN = 0;
 const int LONG_PRESS = 1000;
 
-Button button(BUTTON_PIN);
+Button button(BUTTON_GPIO);
 
 bool shortPatternSunOn = true;
 bool overrideAllOn = false;
@@ -25,8 +23,8 @@ void applyLedState() {
     moonOn = !shortPatternSunOn;
   }
 
-  digitalWrite(LED_SUN_PIN, sunOn ? HIGH : LOW);
-  digitalWrite(LED_MOON_PIN, moonOn ? HIGH : LOW);
+  digitalWrite(LED_SUN_GPIO, sunOn ? HIGH : LOW);
+  digitalWrite(LED_MOON_GPIO, moonOn ? HIGH : LOW);
 
   Serial.printf("LED Sun: %s, LED Moon: %s\n", sunOn ? "ON" : "OFF", moonOn ? "ON" : "OFF");
 }
@@ -56,8 +54,8 @@ void setup() {
   Serial.begin(115200);
   delay(500);
 
-  pinMode(LED_SUN_PIN, OUTPUT);
-  pinMode(LED_MOON_PIN, OUTPUT);
+  pinMode(LED_SUN_GPIO, OUTPUT);
+  pinMode(LED_MOON_GPIO, OUTPUT);
 
   button.begin();
 

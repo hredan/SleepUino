@@ -26,7 +26,7 @@
 #include <JC_Button.h>    // https://github.com/JChristensen/JC_Button
 #include <Wire.h>         // DS3231 RTC is using I2C for communication
 
-#include "Config.h"
+#include "config.h"
 #include "RTClib.h"  // https://github.com/adafruit/RTClib
 #include "mainFunctionality.h"
 #include "LittleFS.h"
@@ -34,7 +34,7 @@
 // declaration of needed instances
 MainFunc *mainFunc;
 
-Button myBtn(BUTTON_PIN);  // D3 -> GPIO0
+Button myBtn(BUTTON_GPIO);  // D3 -> GPIO0
 
 void setup() {
   Serial.begin(115200);
@@ -60,8 +60,8 @@ void setup() {
   mainFunc->startRealTimeClock();
 
   // set pin mode for LED PINs
-  pinMode(LED_SUN_PIN, OUTPUT);
-  pinMode(LED_MOON_PIN, OUTPUT);
+  pinMode(LED_SUN_GPIO, OUTPUT);
+  pinMode(LED_MOON_GPIO, OUTPUT);
 
   // init EEPROM
   mainFunc->setupEeprom();
@@ -105,8 +105,8 @@ void loop() {
         Serial.println("Change State: TO_OPS -> OPS");
         STATE = OPS;
       } else {
-        digitalWrite(LED_SUN_PIN, LOW);
-        digitalWrite(LED_MOON_PIN, LOW);
+        digitalWrite(LED_SUN_GPIO, LOW);
+        digitalWrite(LED_MOON_GPIO, LOW);
         mainFunc->setWlanStatusOnDisplay(false);
       }
       break;
@@ -147,8 +147,8 @@ void loop() {
         mainFunc->setInConfigMode(true);
         mainFunc->updateDisplay(true);
       } else {
-        digitalWrite(LED_SUN_PIN, HIGH);
-        digitalWrite(LED_MOON_PIN, HIGH);
+        digitalWrite(LED_SUN_GPIO, HIGH);
+        digitalWrite(LED_MOON_GPIO, HIGH);
         mainFunc->setWlanStatusOnDisplay(true);
       }
       break;

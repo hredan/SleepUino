@@ -14,9 +14,9 @@ This test verifies:
 
 ## Hardware Mapping
 
-- Button: `BUTTON_PIN` = GPIO0 (`D3`)
-- Sun LED: `LED_SUN_PIN` = GPIO5 (`D1`)
-- Moon LED: `LED_MOON_PIN` = GPIO4 (`D2`)
+- Button: `BUTTON_GPIO` = GPIO0 (`D3`)
+- Sun LED: `LED_SUN_GPIO` = GPIO5 (`D1`)
+- Moon LED: `LED_MOON_GPIO` = GPIO4 (`D2`)
 
 ## Button Behavior
 

@@ -19,7 +19,7 @@
 */
 
 #include "handleWebpage.h"
-#include "Config.h"
+#include "config.h"
 #include <cstdio>
 
 #ifdef ESP8266
@@ -236,7 +236,7 @@ void HandleWebpage::setLED(int pin) {
 
   int brightness = strBrightness.toInt();
 
-  if (pin == LED_MOON_PIN) {
+  if (pin == LED_MOON_GPIO) {
     if (_callBackSetMoonBrightness != nullptr) {
       Serial.printf("setLEDMoon: %d\n", brightness);
       _callBackSetMoonBrightness(brightness);
@@ -278,9 +278,9 @@ void HandleWebpage::setSoundReplay() {
   }
 }
 
-void HandleWebpage::setLEDMoon() { setLED(LED_MOON_PIN); }
+void HandleWebpage::setLEDMoon() { setLED(LED_MOON_GPIO); }
 
-void HandleWebpage::setLEDSun() { setLED(LED_SUN_PIN); }
+void HandleWebpage::setLEDSun() { setLED(LED_SUN_GPIO); }
 
 void HandleWebpage::handlePlaySound() {
   Serial.println("handlePlaySound" + _webServer->arg("plain"));

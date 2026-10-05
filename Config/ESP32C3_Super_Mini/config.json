@@ -1,0 +1,11 @@
+{
+  "gpio": {
+    "ledSunPin": 2,
+    "ledMoonPin": 1,
+    "buttonPin": 0,
+    "i2c": {
+      "sclPin": 12,
+      "sdaPin": 13
+    }
+  }
+}

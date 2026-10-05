@@ -138,7 +138,7 @@ The Arduino IDE brings all things you need to compile the code and upload it to 
 - if the display is disabled in operation mode, you can active the display for a short time with a short press if the button
 - all settings are stored persistent on the ESP8266, after a power cut the settings are still available.
 - Related to the RTC with a coin cell plugged in, you can keep the time also if the main power is lost.
-- for my kids the display is disabled in the night, but 30 minutes before wakeing up in the morning, the display goes on. At the moment this cannot be configured and it is hard coded in Config.h
+- for my kids the display is disabled in the night, but 30 minutes before wakeing up in the morning, the display goes on. At the moment this cannot be configured and it is hard coded in config.h
 
 ```c++
 const int DISPLAY_TIME_BEFORE = 30;

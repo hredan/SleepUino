@@ -1,0 +1,7 @@
+#ifndef TEST_LED_BUTTON_CONFIG_H_
+#define TEST_LED_BUTTON_CONFIG_H_
+
+#define LED_SUN_GPIO 2
+#define LED_MOON_GPIO 1
+#define BUTTON_GPIO 0
+#endif  // TEST_LED_BUTTON_CONFIG_H_

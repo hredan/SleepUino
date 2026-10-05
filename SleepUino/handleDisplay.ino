@@ -20,7 +20,7 @@
 */
 
 #include "handleDisplay.h"
-#include "Config.h"
+#include "config.h"
 #include <cstdio>
 
 HandleDisplay::HandleDisplay() {

@@ -19,7 +19,7 @@
 */
 
 #include "mainFunctionality.h"
-#include "Config.h"
+#include "config.h"
 #include <cstdio>
 
 MainFunc::MainFunc() {
@@ -306,12 +306,12 @@ void MainFunc::setupEeprom() {
 
 void MainFunc::setSunBrightness(uint8_t sunBrightness) {
   MainFunc::_sunBrightness = sunBrightness;
-  analogWrite(LED_SUN_PIN, procent2brightness(MainFunc::_sunBrightness));
+  analogWrite(LED_SUN_GPIO, procent2brightness(MainFunc::_sunBrightness));
   _handleEeprom->setSunBrightnessValue(MainFunc::_sunBrightness);
 }
 void MainFunc::setMoonBrightness(uint8_t moonBrightness) {
   MainFunc::_moonBrightness = moonBrightness;
-  analogWrite(LED_MOON_PIN, procent2brightness(MainFunc::_moonBrightness));
+  analogWrite(LED_MOON_GPIO, procent2brightness(MainFunc::_moonBrightness));
   _handleEeprom->setMoonBrightnessValue(MainFunc::_moonBrightness);
 }
 
@@ -580,15 +580,15 @@ void MainFunc::updateDisplay(bool force) {
       checkDisplayOnBeforeWakeTime(*_now);
 
       if (_currentTimeType == TT_SUN || _currentTimeType == TT_SUN_ALARM) {
-        analogWrite(LED_SUN_PIN, procent2brightness(MainFunc::_sunBrightness));
-        digitalWrite(LED_MOON_PIN, LOW);
+        analogWrite(LED_SUN_GPIO, procent2brightness(MainFunc::_sunBrightness));
+        digitalWrite(LED_MOON_GPIO, LOW);
       } else if (_currentTimeType == TT_MOON) {
-        analogWrite(LED_MOON_PIN, procent2brightness(MainFunc::_moonBrightness));
-        digitalWrite(LED_SUN_PIN, LOW);
+        analogWrite(LED_MOON_GPIO, procent2brightness(MainFunc::_moonBrightness));
+        digitalWrite(LED_SUN_GPIO, LOW);
       } else {
         // if state unknown
-        analogWrite(LED_MOON_PIN, procent2brightness(MainFunc::_moonBrightness));
-        analogWrite(LED_SUN_PIN, procent2brightness(MainFunc::_sunBrightness));
+        analogWrite(LED_MOON_GPIO, procent2brightness(MainFunc::_moonBrightness));
+        analogWrite(LED_SUN_GPIO, procent2brightness(MainFunc::_sunBrightness));
       }
 
       // Action if state is changing

@@ -1,7 +1,7 @@
 /*
-  Config.h
+  config.h
 
-  Config.h is used by SleepUino. It contains values for configuration.
+  config.h is used by SleepUino. It contains values for configuration.
 
   Information and contribution at https://github.com/hredan/SleepUino.
 
@@ -31,14 +31,14 @@ const int MAX_SOUND_REPLAYS = 10;
 const int MAX_CHARACTOR_TIME_STR = 6;
 const int MAX_GET_TIME_BUFFER_SIZE = 100;
 
-const byte LED_SUN_PIN(5),  // PIN to connect the SUN LED
-    LED_MOON_PIN(4),        // PIN to connect the MOON LED
-    BUTTON_PIN(0);          // PIN to connect button
 
+//GPIOs
+#define LED_SUN_GPIO 2
+#define LED_MOON_GPIO 1
+#define BUTTON_GPIO 0
 // I2C SLC D6, SDA D7 Used for Real Time Clock and Display
-const int SLC_PIN = 12;
-const int SDA_PIN = 13;
-
+#define SLC_PIN 12
+#define SDA_PIN 13
 // Max number for wake up entries
 const int MAX_WAKE_TIMES = 10;
 
