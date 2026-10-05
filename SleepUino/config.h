@@ -32,7 +32,7 @@ const int MAX_CHARACTOR_TIME_STR = 6;
 const int MAX_GET_TIME_BUFFER_SIZE = 100;
 
 
-//GPIOs
+// GPIOs
 #define LED_SUN_GPIO 2
 #define LED_MOON_GPIO 1
 #define BUTTON_GPIO 0

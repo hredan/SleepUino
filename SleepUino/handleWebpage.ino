@@ -18,9 +18,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "handleWebpage.h"
-#include "config.h"
 #include <cstdio>
+#include "./config.h"
+#include "handleWebpage.h"
 
 #ifdef ESP8266
 ESP8266WebServer* HandleWebpage::_webServer = nullptr;

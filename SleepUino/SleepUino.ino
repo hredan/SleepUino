@@ -26,7 +26,7 @@
 #include <JC_Button.h>    // https://github.com/JChristensen/JC_Button
 #include <Wire.h>         // DS3231 RTC is using I2C for communication
 
-#include "config.h"
+#include "./config.h"
 #include "RTClib.h"  // https://github.com/adafruit/RTClib
 #include "mainFunctionality.h"
 #include "LittleFS.h"

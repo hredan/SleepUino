@@ -18,9 +18,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "mainFunctionality.h"
-#include "config.h"
 #include <cstdio>
+#include "./config.h"
+#include "mainFunctionality.h"
+
+
 
 MainFunc::MainFunc() {
   _rtc = new RTC_DS3231();

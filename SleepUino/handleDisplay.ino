@@ -19,9 +19,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "handleDisplay.h"
-#include "config.h"
 #include <cstdio>
+#include "./config.h"
+#include "handleDisplay.h"
 
 HandleDisplay::HandleDisplay() {
   _u8g2 = new U8G2_SH1106_128X64_NONAME_F_HW_I2C(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
