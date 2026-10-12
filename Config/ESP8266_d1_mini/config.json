@@ -6,6 +6,11 @@
     "i2c": {
       "sclPin": 12,
       "sdaPin": 13
+    },
+    "i2s": {
+      "bclkPin": 0,
+      "lrcPin": 0,
+      "doutPin": 0
     }
   }
 }

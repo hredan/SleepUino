@@ -26,6 +26,9 @@ HandleAudio::HandleAudio() {
   audioLogger = &Serial;
 #ifdef USE_I2S_DAC
   _out = new AudioOutputI2S();
+  if (I2S_BCLK_PIN >= 0 && I2S_LRC_PIN >= 0 && I2S_DOUT_PIN >= 0) {
+    _out->SetPinout(I2S_BCLK_PIN, I2S_LRC_PIN, I2S_DOUT_PIN);
+  }
 
 #ifdef USE_I2S_WORKAROUND
   i2s_end();

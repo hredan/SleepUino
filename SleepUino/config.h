@@ -33,12 +33,16 @@ const int MAX_GET_TIME_BUFFER_SIZE = 100;
 
 
 // GPIOs
-#define LED_SUN_GPIO 2
-#define LED_MOON_GPIO 1
+#define LED_SUN_GPIO 5
+#define LED_MOON_GPIO 4
 #define BUTTON_GPIO 0
 // I2C SLC D6, SDA D7 Used for Real Time Clock and Display
 #define SLC_PIN 12
 #define SDA_PIN 13
+// I2S pins for external DAC (BCLK, LRC/WS, DOUT)
+#define I2S_BCLK_PIN 0
+#define I2S_LRC_PIN 0
+#define I2S_DOUT_PIN 0
 // Max number for wake up entries
 const int MAX_WAKE_TIMES = 10;
 

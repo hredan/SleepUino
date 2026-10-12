@@ -4,8 +4,13 @@
     "ledMoonPin": 1,
     "buttonPin": 0,
     "i2c": {
-      "sclPin": 12,
-      "sdaPin": 13
+      "sclPin": 6,
+      "sdaPin": 5
+    },
+    "i2s": {
+      "bclkPin": 9,
+      "lrcPin": 8,
+      "doutPin": 10
     }
   }
 }
