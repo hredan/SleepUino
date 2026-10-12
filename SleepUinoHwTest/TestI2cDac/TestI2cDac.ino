@@ -2,6 +2,7 @@
 #include <ESP8266WiFi.h>
 #include <LittleFS.h>
 
+#include "config.h"
 #include "AudioFileSourceLittleFS.h"
 #include "AudioGeneratorMOD.h"
 #include "AudioOutputI2S.h"
