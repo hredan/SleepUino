@@ -59,7 +59,8 @@ def update_header(header_path: Path, values: dict) -> None:
     for pattern, replacement in replacements:
         updated, count = pattern.subn(replacement, content, count=1)
         if count == 0:
-            raise ValueError(f"Could not find matching GPIO define for replacement: {pattern.pattern}")
+            raise ValueError(
+                f"Could not find matching GPIO define for replacement: {pattern.pattern}")
         content = updated
 
     if "#define SLC_PIN" in content or "#define SDA_PIN" in content:
@@ -77,7 +78,8 @@ def update_header(header_path: Path, values: dict) -> None:
         for pattern, replacement in i2c_replacements:
             updated, count = pattern.subn(replacement, content, count=1)
             if count == 0:
-                raise ValueError(f"Could not find matching I2C define for replacement: {pattern.pattern}")
+                raise ValueError(
+                    f"Could not find matching I2C define for replacement: {pattern.pattern}")
             content = updated
 
     if "#define I2S_BCLK_PIN" in content or "#define I2S_LRC_PIN" in content or "#define I2S_DOUT_PIN" in content:
@@ -99,7 +101,8 @@ def update_header(header_path: Path, values: dict) -> None:
         for pattern, replacement in i2s_replacements:
             updated, count = pattern.subn(replacement, content, count=1)
             if count == 0:
-                raise ValueError(f"Could not find matching I2S define for replacement: {pattern.pattern}")
+                raise ValueError(
+                    f"Could not find matching I2S define for replacement: {pattern.pattern}")
             content = updated
 
     with header_path.open("w", encoding="utf-8") as f:
@@ -122,7 +125,9 @@ def main() -> None:
     header_paths = [
         repo_root / "SleepUino" / "config.h",
         repo_root / "SleepUinoHwTest" / "TestLedButton" / "config.h",
-        repo_root / "SleepUinoHwTest" / "TestDisplay" / "Config.h",
+        repo_root / "SleepUinoHwTest" / "TestDisplay" / "config.h",
+        repo_root / "SleepUinoHwTest" / "TestRtc" / "config.h",
+        repo_root / "SleepUinoHwTest" / "TestI2cDac" / "config.h",
     ]
 
     for header_path in header_paths:

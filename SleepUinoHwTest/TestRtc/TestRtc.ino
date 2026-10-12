@@ -1,9 +1,6 @@
 // Date and time functions using a DS3231 RTC connected via I2C and Wire lib
+#include "./config.h"
 #include "RTClib.h"
-
-// I2C SLC D6, SDA D7 Used for Real Time Clock and Display
-const int SLC_PIN = 12;
-const int SDA_PIN = 13;
 
 RTC_DS3231 rtc;
 

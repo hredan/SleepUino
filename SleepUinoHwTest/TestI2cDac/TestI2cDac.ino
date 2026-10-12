@@ -124,6 +124,9 @@ void setup() {
   audioLogger = &Serial;
   file = nullptr;
   out = new AudioOutputI2S();
+  if (I2S_BCLK_PIN >= 0 && I2S_LRC_PIN >= 0 && I2S_DOUT_PIN >= 0) {
+    out->SetPinout(I2S_BCLK_PIN, I2S_LRC_PIN, I2S_DOUT_PIN);
+  }
   currentGain = 1.0f;
   out->SetGain(currentGain);
   // out->SetPinout(0, 1, 2); // Set the pinout if needed
