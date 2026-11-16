@@ -33,6 +33,7 @@
 
 // declaration of needed instances
 MainFunc *mainFunc;
+bool dnsServerStarted = false;
 
 Button myBtn(BUTTON_GPIO);  // D3 -> GPIO0
 
@@ -65,10 +66,6 @@ void setup() {
 
   // init EEPROM
   mainFunc->setupEeprom();
-
-  // if DNSServer is started with "*" for domain name, it will reply with
-  // provided IP to all DNS request
-  dnsServer.start(DNS_PORT, "*", apIP);
 }
 
 void loop() {
@@ -98,6 +95,11 @@ void loop() {
     case TO_OPS:
       if (myBtn.wasReleased()) {
         Serial.println("disable WiFi");
+        if (dnsServerStarted) {
+          dnsServer.stop();
+          dnsServerStarted = false;
+        }
+        mainFunc->stopConfigWebServer();
         WiFi.mode(WIFI_OFF);
         mainFunc->setInConfigMode(false);
         mainFunc->storeValuesInEeprom();
@@ -144,6 +146,16 @@ void loop() {
           Serial.println("Warning: WiFi password in wificonfig.json is empty, starting open network");
           WiFi.softAP(wifiSsid.c_str());
         }
+
+        mainFunc->startConfigWebServer();
+
+        // Start DNS server only while AP mode is active.
+        if (dnsServer.start(DNS_PORT, "*", apIP)) {
+          dnsServerStarted = true;
+        } else {
+          Serial.println("Error: Could not start DNS server");
+        }
+
         mainFunc->setInConfigMode(true);
         mainFunc->updateDisplay(true);
       } else {

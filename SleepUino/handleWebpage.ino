@@ -641,9 +641,37 @@ void HandleWebpage::setupHandleWebpage() {
   _webServer->on("/getWifiPassword", HTTP_GET, std::bind(&HandleWebpage::handleGetWifiPassword, this));
 
   // webServer.on("/config/changed", HTTP_POST, configChanged);
+}
+
+void HandleWebpage::startServer() {
+  if (_serverStarted) {
+    return;
+  }
+
+  if (_webServer == nullptr) {
+    Serial.println("Error: _webServer == nullptr");
+    return;
+  }
+
   _webServer->begin();
+  _serverStarted = true;
+  Serial.println("WebServer started");
+}
+
+void HandleWebpage::stopServer() {
+  if (!_serverStarted || _webServer == nullptr) {
+    return;
+  }
+
+  _webServer->stop();
+  _serverStarted = false;
+  Serial.println("WebServer stopped");
 }
 
 void HandleWebpage::sendSuccess() { _webServer->send(200, "text/plane", "{\"success\": true}"); }
 
-void HandleWebpage::handleClient() { _webServer->handleClient(); }
+void HandleWebpage::handleClient() {
+  if (_serverStarted && _webServer != nullptr) {
+    _webServer->handleClient();
+  }
+}

@@ -30,7 +30,7 @@ MainFunc::MainFunc() {
   MainFunc::_handleDisplay->begin();
 
   MainFunc::_handleEeprom = new HandleEeprom();
-  HandleWebpage* _handleWebpage = new HandleWebpage(_rtc);
+  _handleWebpage = new HandleWebpage(_rtc);
 
   MainFunc::_handleAudio = new HandleAudio();
 
@@ -245,6 +245,18 @@ void MainFunc::setWakeTimeData(uint8_t size, uint16_t dataArr[]) {
 void MainFunc::storeValuesInEeprom() { _handleEeprom->commitValues(); }
 
 void MainFunc::webpageCheckClient() { _handleWebpage->handleClient(); }
+
+void MainFunc::startConfigWebServer() {
+  if (_handleWebpage != nullptr) {
+    _handleWebpage->startServer();
+  }
+}
+
+void MainFunc::stopConfigWebServer() {
+  if (_handleWebpage != nullptr) {
+    _handleWebpage->stopServer();
+  }
+}
 
 bool MainFunc::isSoundRunning() { return _handleAudio->isSoundPlaying(); }
 

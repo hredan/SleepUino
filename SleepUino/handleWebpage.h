@@ -66,6 +66,8 @@ class HandleWebpage {
  public:
   explicit HandleWebpage(RTC_DS3231 *rtc);
   void setupHandleWebpage();
+  void startServer();
+  void stopServer();
 
   void handleClient();
   static void sendSuccess();
@@ -150,5 +152,6 @@ class HandleWebpage {
   RTC_DS3231 *_rtc = nullptr;
   File _uploadFile;
   bool _uploadHasError = false;
+  bool _serverStarted = false;
 };
 #endif  // SLEEPUINO_HANDLEWEBPAGE_H_

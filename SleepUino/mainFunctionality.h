@@ -61,6 +61,8 @@ class MainFunc {
   void setupEeprom();
   bool isSoundRunning();
   void webpageCheckClient();
+  void startConfigWebServer();
+  void stopConfigWebServer();
   void setWlanStatusOnDisplay(bool wlan);
   void startRealTimeClock();
 
