@@ -286,7 +286,7 @@ var SleepUinoCom = {
     {
        if (this.enableServerCom)
        {
-            $.ajax({url: "/setLEDSun", type: "POST", dataType: "text", data: brightness})
+            $.ajax({url: "/setLEDSun", type: "POST", dataType: "text", data: {brightness: brightness}})
             .success(function(result){
                 console.log(result);
             });
@@ -315,7 +315,7 @@ var SleepUinoCom = {
         
         if (this.enableServerCom)
         {
-            $.ajax({url: "/setLEDMoon", type: "POST", dataType: "text", data: brightness})
+            $.ajax({url: "/setLEDMoon", type: "POST", dataType: "text", data: {brightness: brightness}})
             .success(function(result){
                 console.log(result);
             });

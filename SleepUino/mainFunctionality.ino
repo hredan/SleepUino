@@ -348,7 +348,11 @@ uint8_t MainFunc::getDisplayMode() { return _handleEeprom->getDisplayMode(); }
 
 uint8_t MainFunc::getSoundReplayes() { return _handleEeprom->getSoundReplay(); }
 
-int MainFunc::procent2brightness(int procent) { return static_cast<int>(procent * 2.55); }
+int MainFunc::procent2brightness(int procent) {
+  procent = constrain(procent, 0, 100);
+  // ESP32 default analogWrite range is 0..255.
+  return (procent * 255 + 50) / 100;
+}
 
 bool MainFunc::checkEETimeFormat(uint16_t eeWakeUpTimeFormat) {
   bool resultValue = true;

@@ -231,10 +231,23 @@ void HandleWebpage::handleSyncTime() {
 }
 
 void HandleWebpage::setLED(int pin) {
-  String strBrightness = _webServer->arg("plain");
-  Serial.println(strBrightness);
+  String strBrightness = "";
+
+  if (_webServer->hasArg("brightness")) {
+    strBrightness = _webServer->arg("brightness");
+  } else {
+    Serial.println("Error: missing argument brightness!");
+    _webServer->send(400, "application/json", "{\"success\": false, \"message\": \"Missing brightness parameter\"}");
+    return;
+  }
+
 
   int brightness = strBrightness.toInt();
+  if (brightness < 0 || brightness > 100) {
+    Serial.printf("Error: invalid brightness value: %d\n", brightness);
+    _webServer->send(400, "application/json", "{\"success\": false, \"message\": \"Brightness must be 0-100\"}");
+    return;
+  }
 
   if (pin == LED_MOON_GPIO) {
     if (_callBackSetMoonBrightness != nullptr) {
@@ -245,7 +258,7 @@ void HandleWebpage::setLED(int pin) {
     }
   } else {
     if (_callBackSetSunBrightness != nullptr) {
-      Serial.printf("setLEDMoon: %d\n", brightness);
+      Serial.printf("setLEDSun: %d\n", brightness);
       _callBackSetSunBrightness(brightness);
     } else {
       Serial.println("Error: _callBackSetSunBrightness == nullptr");
